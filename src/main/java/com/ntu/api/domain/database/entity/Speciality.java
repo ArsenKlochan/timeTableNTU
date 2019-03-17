@@ -9,7 +9,7 @@ import java.util.List;
 public class Speciality {
 
     @Id
-    @Column(name = "spesiality_id")
+    @Column(name = "speciality_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long specialityId;
 
@@ -29,6 +29,9 @@ public class Speciality {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "speciality", targetEntity = Course.class)
     private List<Course> courses = new ArrayList<>();
+
+    @ManyToMany (mappedBy = "specialities", cascade = CascadeType.ALL, targetEntity = Subject.class)
+    private List<Subject> subjects = new ArrayList<>();
 
     public Speciality(){}
 

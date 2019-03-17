@@ -21,16 +21,6 @@ public class Subject {
     @Column(name="subject_description")
     private String subjectDescription;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Speciality.class)
-    @JoinTable(name = "subject_on_specialities",
-            joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "spesiality_id", referencedColumnName = "spesiality_id"))
-    private List<Speciality> specialities = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Course.class)
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
-
     @Column(name = "lection")
     private Integer lection;
 
@@ -46,6 +36,16 @@ public class Subject {
     @Column(name = "exam _type")
     @Enumerated(EnumType.ORDINAL)
     private ExamType examType;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Speciality.class)
+    @JoinTable(name = "subject_on_specialities",
+            joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id"))
+    private List<Speciality> specialities = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Course.class)
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "subject", targetEntity = Lesson.class)
     private List<Lesson> lessons = new ArrayList<>();
