@@ -92,12 +92,12 @@
                         <MenuItem mnemonicParsing="false" onAction="#addClassroom" text="Аудиторію" />
                         <MenuItem mnemonicParsing="false" onAction="#addTeacher" text="Викладача" />
                         <MenuItem mnemonicParsing="false" onAction="#addGroup" text="Групу" />
-                        <MenuItem mnemonicParsing="false" onAction="#addLesson" text="Дисципліну" />
+                        <MenuItem mnemonicParsing="false" onAction="#addSubject" text="Дисципліну" />
                         <MenuItem mnemonicParsing="false" onAction="#addDepartment" text="Кафедру" />
                         <MenuItem mnemonicParsing="false" onAction="#addBuilding" text="Корпус" />
                         <MenuItem mnemonicParsing="false" onAction="#addCourse" text="Курс" />
                         <MenuItem mnemonicParsing="false" onAction="#addCurriculum" text="Освітню програму" />
-                        <MenuItem mnemonicParsing="false" onAction="#addSubject" text="Предмет" />
+                        <MenuItem mnemonicParsing="false" onAction="#addLesson" text="Заняття" />
                         <MenuItem mnemonicParsing="false" onAction="#addSpesiality" text="Спеціальність" />
                         <MenuItem mnemonicParsing="false" onAction="#addFaculty" text="Факультет" />
                     </items>

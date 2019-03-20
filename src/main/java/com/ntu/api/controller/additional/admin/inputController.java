@@ -1,6 +1,7 @@
 package com.ntu.api.controller.additional.admin;
 
-import com.ntu.api.controller.additional.admin.add.addBuildingFacultyController;
+import com.ntu.api.controller.additional.admin.add.addBuildingController;
+import com.ntu.api.controller.additional.admin.add.addCourseFacultyController;
 import com.ntu.api.controller.additional.admin.add.addCurriculumDepartmentGroupController;
 import com.ntu.api.controller.additional.admin.add.addLessonSpecialityController;
 import com.ntu.api.model.Message;
@@ -21,43 +22,47 @@ public class inputController {
     }
 
     @FXML public void addBuilding(){
-        add("Додавання корпусу", "/com/ntu/api/javafx/model/additional/admin/add/addBuildingFaculty.fxml", "Помилка додавання корпусу");
-        addBuildingFacultyController.setBool(true);
+        add("Додавання корпусу", "/com/ntu/api/javafx/model/additional/admin/add/addBuilding.fxml", "Помилка додавання корпусу");
     }
     @FXML public void addClassroom(){
         add("Додавання аудиторії", "/com/ntu/api/javafx/model/additional/admin/add/addClassRoom.fxml", "Помилка додавання аудиторії");
     }
     @FXML public void addCourse(){
-        add("Додати курс", "com/ntu/api/javafx/model/additional/admin/add/addCourse.fxml", "Помилка додавання курсу");
+        addCourseFacultyController.setCounter(1);
+        add("Додавання курсу", "/com/ntu/api/javafx/model/additional/admin/add/addCourseFaculty.fxml", "Помилка додавання курсу");
     }
     @FXML public void addCurriculum(){
-        add("Додавання освітньої програми", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculumDepartmentGroup.fxml", "Помилка додавання освітньої програми");
         addCurriculumDepartmentGroupController.setCounter(1);
+        add("Додавання освітньої програми", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculumDepartmentGroup.fxml", "Помилка додавання освітньої програми");
     }
     @FXML public void addDepartment(){
-        add("Додавання кафедри", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculumDepartmentGroup.fxml", "Помилка додавання кафедри");
         addCurriculumDepartmentGroupController.setCounter(2);
+        add("Додавання кафедри", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculumDepartmentGroup.fxml", "Помилка додавання кафедри");
     }
     @FXML public void addGroup(){
-        add("Додавання групи", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculumDepartmentGroup.fxml", "Помилка додавання групи");
         addCurriculumDepartmentGroupController.setCounter(3);
+        add("Додавання групи", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculumDepartmentGroup.fxml", "Помилка додавання групи");
     }
     @FXML public void addLesson(){
+        addLessonSpecialityController.setCount(1);
         add("Додавання заняття", "/com/ntu/api/javafx/model/additional/admin/add/addLessonSpeciality.fxml", "Помилка додавання заняття");
-        addLessonSpecialityController.setBool(true);
     }
-    @FXML public void addTeacher(){}
+    @FXML public void addTeacher(){
+        add("Додати викладача","/com/ntu/api/javafx/model/additional/admin/add/addTeacher.fxml", "Помилка додавання викладача");
+    }
     @FXML public void addSpesiality(){
-        add("Додавання заняття", "/com/ntu/api/javafx/model/additional/admin/add/addLessonSpeciality.fxml", "Помилка додавання заняття");
-        addLessonSpecialityController.setBool(false);
+        addLessonSpecialityController.setCount(2);
+        add("Додавання спеціальності", "/com/ntu/api/javafx/model/additional/admin/add/addLessonSpeciality.fxml", "Помилка додавання спеціальності");
     }
-    @FXML public void addSubject(){}
+    @FXML public void addSubject(){
+        add("Ддодавання дисципліни", "/com/ntu/api/javafx/model/additional/admin/add/addSubject.fxml", "Помилка додавання дисципліни");
+    }
     @FXML public void addFaculty(){
-        add("Додати факультет", "/com/ntu/api/javafx/model/additional/admin/add/addBuildingFaculty.fxml", "Помилка додавання факультету");
-        addBuildingFacultyController.setBool(false);
+        addCourseFacultyController.setCounter(2);
+        add("Додавання факультету", "/com/ntu/api/javafx/model/additional/admin/add/addCourseFaculty.fxml", "Помилка додавання факультету");
     }
 
-    private void add(String title, String resource, String messsage){
+    private void add(String title, String resource, String message){
         Stage add = new Stage();
         add.setTitle(title);
         add.setResizable(false);
@@ -66,7 +71,7 @@ public class inputController {
         try {
             addPane = FXMLLoader.load(getClass().getResource(resource));
         } catch (IOException e) {
-            Message.errorCatch(adminDlgInput, "Error", messsage);
+            Message.errorCatch(adminDlgInput, "Error", message);
         }
         add.initOwner(adminDlgInput.getScene().getWindow());
         add.initModality(Modality.WINDOW_MODAL);

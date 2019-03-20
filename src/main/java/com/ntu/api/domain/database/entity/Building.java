@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "buildings")
+@Table(name = "buildings", schema = "ntu")
 public class Building {
 
     @Id
@@ -16,28 +16,29 @@ public class Building {
     @Column(name = "building_name")
     private String buildingName;
 
-    @Column(name = "building_description")
-    private String buildingDescription;
-
     @Column(name = "building_adress")
     private String buildingAdress;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building", targetEntity = ClassRoom.class)
     private List<ClassRoom> classRooms= new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building", targetEntity = Faculty.class)
+    private List<Faculty> faculties= new ArrayList<>();
+
+
+
     public Building(){}
 
-    public Building(String buildingName, String buildingDescription, String buildingAdress) {
+    public Building(String buildingName, String buildingAdress) {
         this.buildingName = buildingName;
-        this.buildingDescription = buildingDescription;
         this.buildingAdress = buildingAdress;
     }
 
-    public Building(String buildingName, String buildingDescription, String buildingAdress, List<ClassRoom> classRooms) {
+    public Building(String buildingName, String buildingAdress, List<ClassRoom> classRooms, List<Faculty> faculties) {
         this.buildingName = buildingName;
-        this.buildingDescription = buildingDescription;
         this.buildingAdress = buildingAdress;
         this.classRooms = classRooms;
+        this.faculties = faculties;
     }
 
     public Long getBuildingId() {
@@ -52,12 +53,6 @@ public class Building {
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
     }
-    public String getBuildingDescription() {
-        return buildingDescription;
-    }
-    public void setBuildingDescription(String buildingDescription) {
-        this.buildingDescription = buildingDescription;
-    }
     public String getBuildingAdress() {
         return buildingAdress;
     }
@@ -70,6 +65,12 @@ public class Building {
     public void setClassRooms(List<ClassRoom> classRooms) {
         this.classRooms = classRooms;
     }
+    public List<Faculty> getFaculties() {
+        return faculties;
+    }
+    public void setFaculties(List<Faculty> faculties) {
+        this.faculties = faculties;
+    }
 
     private String classRoomsToString(){
         StringBuilder sb = new StringBuilder();
@@ -79,14 +80,23 @@ public class Building {
         return sb.toString();
     }
 
+    private String facultyToString(){
+        StringBuilder sb = new StringBuilder();
+        for(Faculty faculty: faculties){
+            sb.append(faculty.getFacultyName() + "/n");
+        }
+        return sb.toString();
+    }
+
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Building{");
         sb.append("departmentId=").append(buildingId);
         sb.append(", buildingName='").append(buildingName).append('\'');
-        sb.append(", buildingDescription='").append(buildingDescription).append('\'');
         sb.append(", buildingAdress='").append(buildingAdress).append('\'');
-        sb.append(", classRooms=").append(classRoomsToString());
+        sb.append(", classRooms=").append(classRoomsToString()).append('\'');
+        sb.append(", buildingDescription='").append(facultyToString());
         sb.append('}');
         return sb.toString();
     }

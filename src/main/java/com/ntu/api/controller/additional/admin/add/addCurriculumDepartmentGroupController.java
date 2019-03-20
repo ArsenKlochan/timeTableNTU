@@ -23,11 +23,9 @@ public class addCurriculumDepartmentGroupController {
     @FXML AnchorPane addCurriculumDepartment;
     @FXML Label label1;
     @FXML Label label2;
-    @FXML Label label3;
     @FXML Label label4;
     @FXML TextField text1;
     @FXML TextField text2;
-    @FXML TextField text3;
     @FXML ComboBox box1;
     @FXML Button button1;
     @FXML Button button2;
@@ -44,7 +42,6 @@ public class addCurriculumDepartmentGroupController {
         if(counter==1){
             label1.setText("Код освітньої програми");
             label2.setText("Назва освітньої програми");
-            label3.setText("Опис освітньої програми");
             label4.setText("Факультет");
             button1.textProperty().set("Додати освітню програму");
             facultyList  = FXCollections.observableArrayList();
@@ -55,7 +52,6 @@ public class addCurriculumDepartmentGroupController {
         if(counter==2){
             label1.setText("Код кафедри");
             label2.setText("Назва кафедри");
-            label3.setText("Опис кафедри");
             label4.setText("Факультет");
             button1.textProperty().set("Додати кафедру");
             facultyList  = FXCollections.observableArrayList();
@@ -64,9 +60,8 @@ public class addCurriculumDepartmentGroupController {
             box1.getItems().setAll(facultyList);
         }
         if(counter==3){
-            label1.setText("Код групи");
-            label2.setText("Назва групи");
-            label3.setText("Опис групи");
+            label1.setText("Назва групи");
+            label2.setText("Кількість студентів");
             label4.setText("Курс");
             button1.textProperty().set("Додати групу");
             courseyList = FXCollections.observableArrayList();
@@ -81,17 +76,17 @@ public class addCurriculumDepartmentGroupController {
                 "com/ntu/api/spring/database/config.xml");
         if(counter==1){
             CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
-            curriculumService.addCurriculum(new Curriculum(text1.getText(), text2.getText(), text3.getText(),
+            curriculumService.addCurriculum(new Curriculum(text1.getText(), text2.getText(),
                     Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex())));
         }
         if(counter==2){
             DepartmentServiceInt departmentService = context.getBean(DepartmentServiceInt.class);
-            departmentService.addDepartment(new Department(text1.getText(), text2.getText(), text3.getText(),
+            departmentService.addDepartment(new Department(text1.getText(), text2.getText(),
                     Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex())));
         }
         if(counter==3){
             GroupServiceInt groupService = context.getBean(GroupServiceInt.class);
-            groupService.addGroupe(new Group(text1.getText(), text2.getText(), text3.getText(),
+            groupService.addGroupe(new Group(text1.getText(), Integer.parseInt(text2.getText()),
                     Lists.getCourseService().getCourses().get(box1.getSelectionModel().getSelectedIndex())));
         }
         cancelOnClick();

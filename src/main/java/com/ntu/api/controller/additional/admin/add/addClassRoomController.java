@@ -38,7 +38,7 @@ public class addClassRoomController {
     @FXML public void initialize(){
         button1.textProperty().set("Додати аудиторію");
         label1.setText("Назва аудиторії");
-        label2.setText("Опис аудиторії");
+        label2.setText("Кількість робочих місць");
         label3.setText("Тип аудиторії");
         label4.setText("Корпус");
         label5.setText("Кафедра");
@@ -64,7 +64,7 @@ public class addClassRoomController {
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "com/ntu/api/spring/database/config.xml");
         ClassRoomServiceInt classRoomService = context.getBean(ClassRoomServiceInt.class);
-        classRoomService.addClassRoom(new ClassRoom(text1.getText(), text2.getText(),
+        classRoomService.addClassRoom(new ClassRoom(text1.getText(), Integer.parseInt(text2.getText()),
                 ClassRoomTypes.valueOf(box1.getSelectionModel().getSelectedItem()),
                 Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex()),
                 Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex())));

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "curriculum")
+@Table(name = "curriculum", schema = "ntu")
 public class Curriculum {
 
     @Id
@@ -19,9 +19,6 @@ public class Curriculum {
     @Column(name = "curriculum_name")
     private String curriculumName;
 
-    @Column(name="curriculum_description")
-    private String curriculumDescription;
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Faculty.class)
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;
@@ -31,18 +28,16 @@ public class Curriculum {
 
     public Curriculum(){}
 
-    public Curriculum(String curriculumCode, String curriculumName, String curriculumDescription, Faculty faculty) {
+    public Curriculum(String curriculumCode, String curriculumName, Faculty faculty) {
         this.curriculumCode = curriculumCode;
         this.curriculumName = curriculumName;
-        this.curriculumDescription = curriculumDescription;
         this.faculty = faculty;
     }
 
-    public Curriculum(String curriculumCode, String curriculumName, String curriculumDescription, Faculty faculty,
+    public Curriculum(String curriculumCode, String curriculumName, Faculty faculty,
                       List<Speciality> specialities) {
         this.curriculumCode = curriculumCode;
         this.curriculumName = curriculumName;
-        this.curriculumDescription = curriculumDescription;
         this.faculty = faculty;
         this.specialities = specialities;
     }
@@ -64,12 +59,6 @@ public class Curriculum {
     }
     public void setCurriculumName(String curriculumName) {
         this.curriculumName = curriculumName;
-    }
-    public String getCurriculumDescription() {
-        return curriculumDescription;
-    }
-    public void setCurriculumDescription(String curriculumDescription) {
-        this.curriculumDescription = curriculumDescription;
     }
     public Faculty getFaculty() {
         return faculty;
@@ -98,7 +87,6 @@ public class Curriculum {
         sb.append("curriculumId=").append(curriculumId);
         sb.append(", curriculumCode='").append(curriculumCode).append('\'');
         sb.append(", curriculumName='").append(curriculumName).append('\'');
-        sb.append(", curriculumDescription='").append(curriculumDescription).append('\'');
         sb.append(", faculty=").append(faculty.getFacultyName());
         sb.append(", spesialities: ").append(specialitiesToString());
         sb.append('}');

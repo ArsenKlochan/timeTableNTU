@@ -5,7 +5,7 @@ import com.ntu.api.domain.database.entity.enums.LessonType;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "lessons")
+@Table(name = "lessons", schema = "ntu")
 public class Lesson {
 
     @Id
@@ -15,9 +15,6 @@ public class Lesson {
 
     @Column (name="lesson_name")
     private String lessonName;
-
-    @Column(name="lesson_description")
-    private String lessonDescription;
 
     @Column(name = "lesson_type")
     @Enumerated(EnumType.ORDINAL)
@@ -29,9 +26,8 @@ public class Lesson {
 
     public Lesson(){}
 
-    public Lesson(String lessonName, String lessonDescription, LessonType lessonType, Subject subject) {
+    public Lesson(String lessonName, LessonType lessonType, Subject subject) {
         this.lessonName = lessonName;
-        this.lessonDescription = lessonDescription;
         this.lessonType = lessonType;
         this.subject = subject;
     }
@@ -47,12 +43,6 @@ public class Lesson {
     }
     public void setLessonName(String lessonName) {
         this.lessonName = lessonName;
-    }
-    public String getLessonDescription() {
-        return lessonDescription;
-    }
-    public void setLessonDescription(String lessonDescription) {
-        this.lessonDescription = lessonDescription;
     }
     public LessonType getLessonType() {
         return lessonType;
@@ -72,7 +62,6 @@ public class Lesson {
         final StringBuilder sb = new StringBuilder("Lesson{");
         sb.append("lessonId=").append(lessonId);
         sb.append(", lessonName='").append(lessonName).append('\'');
-        sb.append(", lessonDescription='").append(lessonDescription).append('\'');
         sb.append(", lessonType=").append(lessonType);
         sb.append(", subject=").append(subject);
         sb.append('}');

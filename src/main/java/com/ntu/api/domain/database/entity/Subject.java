@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "subjects")
+@Table(name = "subjects", schema = "ntu")
 public class Subject {
 
     @Id
@@ -17,9 +17,6 @@ public class Subject {
 
     @Column (name="subject_name")
     private String subjectName;
-
-    @Column(name="subject_description")
-    private String subjectDescription;
 
     @Column(name = "lection")
     private Integer lection;
@@ -52,10 +49,9 @@ public class Subject {
 
     private Subject(){}
 
-    public Subject(String subjectName, String subjectDescription, Course course, Integer lection, Integer practic,
+    public Subject(String subjectName, Course course, Integer lection, Integer practic,
                    Integer labaaratory, Integer allHours, ExamType examType) {
         this.subjectName = subjectName;
-        this.subjectDescription = subjectDescription;
         this.course = course;
         this.lection = lection;
         this.practic = practic;
@@ -64,23 +60,9 @@ public class Subject {
         this.examType = examType;
     }
 
-    public Subject(String subjectName, String subjectDescription, List<Speciality> specialities, Course course,
-                   Integer lection, Integer practic, Integer labaaratory, Integer allHours, ExamType examType) {
-        this.subjectName = subjectName;
-        this.subjectDescription = subjectDescription;
-        this.specialities = specialities;
-        this.course = course;
-        this.lection = lection;
-        this.practic = practic;
-        this.labaaratory = labaaratory;
-        this.allHours = allHours;
-        this.examType = examType;
-    }
-
-    public Subject(String subjectName, String subjectDescription, List<Speciality> specialities, Course course,
+    public Subject(String subjectName, List<Speciality> specialities, Course course,
                    Integer lection, Integer practic, Integer labaaratory, Integer allHours, ExamType examType, List<Lesson> lessons) {
         this.subjectName = subjectName;
-        this.subjectDescription = subjectDescription;
         this.specialities = specialities;
         this.course = course;
         this.lection = lection;
@@ -102,12 +84,6 @@ public class Subject {
     }
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
-    }
-    public String getSubjectDescription() {
-        return subjectDescription;
-    }
-    public void setSubjectDescription(String subjectDescription) {
-        this.subjectDescription = subjectDescription;
     }
     public List<Speciality> getSpecialities() {
         return specialities;
@@ -179,7 +155,6 @@ public class Subject {
         final StringBuilder sb = new StringBuilder("Subject{");
         sb.append("subjectId=").append(subjectId);
         sb.append(", subjectName='").append(subjectName).append('\'');
-        sb.append(", subjectDescription='").append(subjectDescription).append('\'');
         sb.append(", specialities=").append(specialityToString());
         sb.append(", course=").append(course);
         sb.append(", lection=").append(lection);

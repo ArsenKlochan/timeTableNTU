@@ -4,6 +4,7 @@ import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 import com.ntu.api.domain.database.entity.enums.LessonType;
+import com.ntu.api.domain.database.entity.enums.Position;
 import com.ntu.api.domain.database.service.serviceInterface.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,20 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.ArrayList;
 
 public class Lists {
-    private static ArrayList<String> buildingList;
-    private static ArrayList<String> classRoomList;
-    private static ArrayList<String> courseList;
-    private static ArrayList<String> curriculumList;
-    private static ArrayList<String> departmentList;
-    private static ArrayList<String> facultyList;
-    private static ArrayList<String> groupeList;
-    private static ArrayList<String> lessonList;
-    private static ArrayList<String> specialityList;
-    private static ArrayList<String> subjectList;
-    private static ArrayList<String> teacherList;
-    private static ArrayList<String> classRoomTypeList;
-    private static ArrayList<String> examList;
-    private static ArrayList<String> lessonTypeList;
 
     private static ApplicationContext context = new ClassPathXmlApplicationContext("com/ntu/api/spring/database/config.xml");
     private static BuildingServiceInt buildingService = context.getBean(BuildingServiceInt.class);
@@ -171,6 +158,14 @@ public class Lists {
         ArrayList<String> tempList = new ArrayList<>();
         for(LessonType lessonType:LessonType.values()){
             tempList.add(lessonType.toString());
+        }
+        return tempList;
+    }
+
+    public static ArrayList<String> getPositionList(){
+        ArrayList<String> tempList = new ArrayList<>();
+        for(Position position: Position.values()){
+            tempList.add(position.toString());
         }
         return tempList;
     }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "speciality")
+@Table(name = "speciality", schema = "ntu")
 public class Speciality {
 
     @Id
@@ -15,9 +15,6 @@ public class Speciality {
 
     @Column(name = "spesiality_name")
     private String specialityName;
-
-    @Column(name = "speciality_description")
-    private String specialityDescription;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Curriculum.class)
     @JoinColumn(name = "curriculum_id", nullable = false)
@@ -35,21 +32,18 @@ public class Speciality {
 
     public Speciality(){}
 
-    public Speciality(String specialityName, String specialityDescription, Curriculum curriculum,
-                      Department department) {
+    public Speciality(String specialityName, Curriculum curriculum, Department department) {
         this.specialityName = specialityName;
-        this.specialityDescription = specialityDescription;
         this.curriculum = curriculum;
         this.department = department;
     }
 
-    public Speciality(String specialityName, String specialityDescription, Curriculum curriculum,
-                      Department department, List<Course> courses) {
+    public Speciality(String specialityName, Curriculum curriculum, Department department, List<Course> courses, List<Subject> subjects) {
         this.specialityName = specialityName;
-        this.specialityDescription = specialityDescription;
         this.curriculum = curriculum;
         this.department = department;
         this.courses = courses;
+        this.subjects = subjects;
     }
 
     public Long getSpecialityId() {
@@ -63,12 +57,6 @@ public class Speciality {
     }
     public void setSpecialityName(String specialityName) {
         this.specialityName = specialityName;
-    }
-    public String getSpecialityDescription() {
-        return specialityDescription;
-    }
-    public void setSpecialityDescription(String specialityDescription) {
-        this.specialityDescription = specialityDescription;
     }
     public Curriculum getCurriculum() {
         return curriculum;
@@ -88,6 +76,12 @@ public class Speciality {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
     private String courseToString(){
         StringBuilder sb = new StringBuilder();
@@ -97,15 +91,23 @@ public class Speciality {
         return sb.toString();
     }
 
+    private String subjectToString(){
+        StringBuilder sb = new StringBuilder();
+        for(Subject subject: subjects){
+            sb.append(subject.getSubjectName() + "/n");
+        }
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Speciality{");
         sb.append("specialityId=").append(specialityId);
         sb.append(", specialityName='").append(specialityName).append('\'');
-        sb.append(", specialityDescription='").append(specialityDescription).append('\'');
-        sb.append(", curriculum=").append(curriculum.getCurriculumName());
-        sb.append(", department=").append(department.getDepartmentName());
+        sb.append(", curriculum=").append(curriculum);
+        sb.append(", department=").append(department);
         sb.append(", courses=").append(courseToString());
+        sb.append(", subjects=").append(subjectToString());
         sb.append('}');
         return sb.toString();
     }

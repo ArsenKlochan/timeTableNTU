@@ -24,29 +24,26 @@ public class addLessonSpecialityController {
     @FXML Label label1;
     @FXML Label label2;
     @FXML Label label3;
-    @FXML Label label4;
     @FXML TextField text1;
-    @FXML TextField text2;
     @FXML ComboBox<String> box1;
     @FXML ComboBox<String> box2;
     @FXML Button button1;
     @FXML Button button2;
-    private static boolean bool;
+    private static int count;
     private static ObservableList<String> lessonTypeList;
     private static ObservableList<String> subjectList;
     private static ObservableList<String> curriculumList;
     private static ObservableList<String> departmentList;
 
-    public static void setBool(boolean bool) {
-        addLessonSpecialityController.bool = bool;
+    public static void setCount(int count) {
+        addLessonSpecialityController.count = count;
     }
 
     @FXML public void initialize(){
-        if(bool){
+        if(count==1){
             label1.setText("Назва заняття");
-            label1.setText("Опис заняття");
-            label1.setText("Тип заняття");
-            label1.setText("Дисципліна");
+            label2.setText("Тип заняття");
+            label3.setText("Дисципліна");
             button1.textProperty().set("Додати заняття");
 
             lessonTypeList = FXCollections.observableArrayList();
@@ -61,11 +58,10 @@ public class addLessonSpecialityController {
             box1.getItems().setAll(lessonTypeList);
             box2.getItems().setAll(subjectList);
         }
-        else{
+        if(count==2){
             label1.setText("Назва спеціальності");
-            label1.setText("Опис спеціальності");
-            label1.setText("Освітня програма");
-            label1.setText("Кафедра");
+            label2.setText("Освітня програма");
+            label3.setText("Кафедра");
             button1.textProperty().set("Додати спеціальність");
 
             curriculumList = FXCollections.observableArrayList();
@@ -80,21 +76,20 @@ public class addLessonSpecialityController {
             box1.getItems().setAll(lessonTypeList);
             box2.getItems().setAll(subjectList);
         }
-
     }
 
     @FXML public void okOnClick(){
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "com/ntu/api/spring/database/config.xml");
-        if(bool == true) {
+        if(count == 1) {
             LessonServiceInt lessonService = context.getBean(LessonServiceInt.class);
-            lessonService.addLesson(new Lesson(text1.getText(), text2.getText(),
+            lessonService.addLesson(new Lesson(text1.getText(),
                     LessonType.valueOf(box1.getSelectionModel().getSelectedItem()),
                     Lists.getSubjectService().getSubjectList().get(box2.getSelectionModel().getSelectedIndex())));
         }
-        else{
+        if(count==2){
             SpecialityServiceInt specialityService = context.getBean(SpecialityServiceInt.class);
-            specialityService.addSpeciality(new Speciality(text1.getText(), text2.getText(),
+            specialityService.addSpeciality(new Speciality(text1.getText(),
                     Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex()),
                     Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex())));
         }

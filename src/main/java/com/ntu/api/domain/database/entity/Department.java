@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "departments")
+@Table(name = "departments", schema = "ntu")
 public class Department {
 
     @Id
@@ -18,9 +18,6 @@ public class Department {
 
     @Column (name="department_name")
     private String departmentName;
-
-    @Column(name="department_description")
-    private String departmentDescription;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Faculty.class)
     @JoinColumn(name = "faculty_id", nullable = false)
@@ -37,18 +34,16 @@ public class Department {
 
     public Department(){}
 
-    public Department(String departmentCode, String departmentName, String departmentDescription, Faculty faculty) {
+    public Department(String departmentCode, String departmentName, Faculty faculty) {
         this.departmentCode = departmentCode;
         this.departmentName = departmentName;
-        this.departmentDescription = departmentDescription;
         this.faculty = faculty;
     }
 
-    public Department(String departmentCode, String departmentName, String departmentDescription, Faculty faculty,
+    public Department(String departmentCode, String departmentName, Faculty faculty,
                       List<Speciality> specialities, List<Teacher> teachers, List<ClassRoom> classRooms) {
         this.departmentCode = departmentCode;
         this.departmentName = departmentName;
-        this.departmentDescription = departmentDescription;
         this.faculty = faculty;
         this.specialities = specialities;
         this.teachers = teachers;
@@ -72,12 +67,6 @@ public class Department {
     }
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
-    }
-    public String getDepartmentDescription() {
-        return departmentDescription;
-    }
-    public void setDepartmentDescription(String departmentDescription) {
-        this.departmentDescription = departmentDescription;
     }
     public Faculty getFaculty() {
         return faculty;
@@ -137,10 +126,10 @@ public class Department {
         sb.append("departmentId=").append(departmentId);
         sb.append(", departmentCode='").append(departmentCode).append('\'');
         sb.append(", departmentName='").append(departmentName).append('\'');
-        sb.append(", departmentDescription='").append(departmentDescription).append('\'');
-        sb.append(", faculty=").append(faculty.getFacultyName());
-        sb.append(", specialities: ").append(specialitiesToString());
-        sb.append(", teachers:").append(teacherToString());
+        sb.append(", faculty=").append(faculty);
+        sb.append(", specialities=").append(specialitiesToString());
+        sb.append(", teachers=").append(teacherToString());
+        sb.append(", classRooms=").append(classRoomsToString());
         sb.append('}');
         return sb.toString();
     }

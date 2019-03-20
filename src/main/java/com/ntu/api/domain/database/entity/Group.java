@@ -3,7 +3,7 @@ package com.ntu.api.domain.database.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "group")
+@Table(name = "group", schema = "ntu")
 public class Group {
 
     @Id
@@ -11,14 +11,11 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long groupId;
 
-    @Column(name = "groupCode")
-    private String groupCode;
-
     @Column(name = "group_name")
     private String groupName;
 
     @Column(name = "group_description")
-    private String groupDescription;
+    private Integer studentsNumber;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Course.class)
     @JoinColumn(name = "course_id", nullable = false)
@@ -26,10 +23,9 @@ public class Group {
 
     public Group(){}
 
-    public Group(String groupCode, String groupName, String groupDescription, Course course) {
-        this.groupCode = groupCode;
+    public Group(String groupName, Integer studentsNumber, Course course) {
         this.groupName = groupName;
-        this.groupDescription = groupDescription;
+        this.studentsNumber = studentsNumber;
         this.course = course;
     }
 
@@ -39,23 +35,17 @@ public class Group {
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
-    public String getGroupCode() {
-        return groupCode;
-    }
-    public void setGroupCode(String groupCode) {
-        this.groupCode = groupCode;
-    }
     public String getGroupName() {
         return groupName;
     }
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-    public String getGroupDescription() {
-        return groupDescription;
+    public Integer getStudentsNumber() {
+        return studentsNumber;
     }
-    public void setGroupDescription(String groupDescription) {
-        this.groupDescription = groupDescription;
+    public void setStudentsNumber(Integer studentsNumber) {
+        this.studentsNumber = studentsNumber;
     }
     public Course getCourse() {
         return course;
@@ -68,10 +58,9 @@ public class Group {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Group{");
         sb.append("groupId=").append(groupId);
-        sb.append(", groupCode='").append(groupCode).append('\'');
         sb.append(", groupName='").append(groupName).append('\'');
-        sb.append(", groupDescription='").append(groupDescription).append('\'');
-        sb.append(", course=").append(course.getCourseName());
+        sb.append(", studentsNumber=").append(studentsNumber);
+        sb.append(", course=").append(course);
         sb.append('}');
         return sb.toString();
     }

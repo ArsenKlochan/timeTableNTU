@@ -3,7 +3,7 @@ package com.ntu.api.domain.database.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "ntu")
 public class User {
 
     @Id

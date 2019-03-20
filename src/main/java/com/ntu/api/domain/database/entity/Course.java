@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "course")
+@Table(name = "course", schema = "ntu")
 public class Course {
 
     @Id
@@ -15,9 +15,6 @@ public class Course {
 
     @Column(name = "course_name")
     private String courseName;
-
-    @Column(name = "course_description")
-    private String courseDescription;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Speciality.class)
     @JoinColumn(name = "speciality_id", nullable = false)
@@ -31,15 +28,13 @@ public class Course {
 
     public Course(){}
 
-    public Course(String courseName, String courseDescription, Speciality speciality) {
+    public Course(String courseName, Speciality speciality) {
         this.courseName = courseName;
-        this.courseDescription = courseDescription;
         this.speciality = speciality;
     }
 
-    public Course(String courseName, String courseDescription, Speciality speciality, List<Group> groups, List<Subject> subjects) {
+    public Course(String courseName, Speciality speciality, List<Group> groups, List<Subject> subjects) {
         this.courseName = courseName;
-        this.courseDescription = courseDescription;
         this.speciality = speciality;
         this.groups = groups;
         this.subjects = subjects;
@@ -56,12 +51,6 @@ public class Course {
     }
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-    }
-    public String getCourseDescription() {
-        return courseDescription;
-    }
-    public void setCourseDescription(String courseDescription) {
-        this.courseDescription = courseDescription;
     }
     public Speciality getSpeciality() {
         return speciality;
@@ -85,7 +74,7 @@ public class Course {
     private String groupsToString(){
         StringBuilder sb = new StringBuilder();
         for(Group group: groups){
-            sb.append(group.getGroupCode() + " " + group.getGroupName() + "/n");
+            sb.append(group.getGroupName() + "/n");
         }
         return sb.toString();
     }
@@ -103,10 +92,9 @@ public class Course {
         final StringBuilder sb = new StringBuilder("Course{");
         sb.append("courseId=").append(courseId);
         sb.append(", courseName='").append(courseName).append('\'');
-        sb.append(", courseDescription='").append(courseDescription).append('\'');
         sb.append(", speciality=").append(speciality);
-        sb.append(", groups=").append(groups);
-        sb.append(", subjects=").append(subjects);
+        sb.append(", groups=").append(groupsToString());
+        sb.append(", subjects=").append(subjectsToString());
         sb.append('}');
         return sb.toString();
     }

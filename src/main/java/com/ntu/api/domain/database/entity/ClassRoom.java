@@ -5,7 +5,7 @@ import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "classRooms")
+@Table(name = "classRooms", schema = "ntu")
 public class ClassRoom {
 
     @Id
@@ -16,8 +16,8 @@ public class ClassRoom {
     @Column(name = "classrooms_name")
     private String classRoomName;
 
-    @Column(name = "classroom_description")
-    private String classRoomDescription;
+    @Column(name = "classroom_size")
+    private Integer classRoomSize;
 
     @Column(name = "Type")
     @Enumerated(EnumType.ORDINAL)
@@ -33,9 +33,9 @@ public class ClassRoom {
 
     public ClassRoom(){}
 
-    public ClassRoom(String classRoomName, String classRoomDescription, ClassRoomTypes type, Building building, Department department) {
+    public ClassRoom(String classRoomName, Integer classRoomSize, ClassRoomTypes type, Building building, Department department) {
         this.classRoomName = classRoomName;
-        this.classRoomDescription = classRoomDescription;
+        this.classRoomSize = classRoomSize;
         this.type = type;
         this.building = building;
         this.department = department;
@@ -53,11 +53,11 @@ public class ClassRoom {
     public void setClassRoomName(String classRoomsName) {
         this.classRoomName = classRoomsName;
     }
-    public String getClassRoomDescription() {
-        return classRoomDescription;
+    public Integer getClassRoomSize() {
+        return classRoomSize;
     }
-    public void setClassRoomDescription(String classRoomDescription) {
-        this.classRoomDescription = classRoomDescription;
+    public void setClassRoomSize(Integer classRoomSize) {
+        this.classRoomSize = classRoomSize;
     }
     public ClassRoomTypes getType() {
         return type;
@@ -83,7 +83,7 @@ public class ClassRoom {
         final StringBuilder sb = new StringBuilder("ClassRoom{");
         sb.append("classRoomsId=").append(classRoomsId);
         sb.append(", classRoomsName='").append(classRoomName).append('\'');
-        sb.append(", classRoomDescription='").append(classRoomDescription).append('\'');
+        sb.append(", classRoomDescription='").append(classRoomSize).append('\'');
         sb.append(", type=").append(type);
         sb.append(", building=").append(building);
         sb.append('}');

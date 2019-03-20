@@ -10,7 +10,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/ntu"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/postgres?currentSchema=ntu"/>
         <property name="username" value="ntu"/>
         <property name="password" value="ntu1257"/>
         <property name="connectionProperties">
@@ -28,7 +28,9 @@
             <props>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
+                <prop key="hibernate.c3p0.min_size">5</prop>
+                <prop key="hibernate.default_schema">ntu</prop>
             </props>
         </property>
         <!--Додаємо всі Entity, які використовуються-->
