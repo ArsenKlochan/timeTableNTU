@@ -20,13 +20,13 @@ public class Lesson {
     @Enumerated(EnumType.ORDINAL)
     private LessonType lessonType;
 
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Subject.class)
-    @JoinColumn(name = "subject", nullable = false)
-    private Subject subject;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Subjects.class)
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subjects subject;
 
     public Lesson(){}
 
-    public Lesson(String lessonName, LessonType lessonType, Subject subject) {
+    public Lesson(String lessonName, LessonType lessonType, Subjects subject) {
         this.lessonName = lessonName;
         this.lessonType = lessonType;
         this.subject = subject;
@@ -50,10 +50,10 @@ public class Lesson {
     public void setLessonType(LessonType lessonType) {
         this.lessonType = lessonType;
     }
-    public Subject getSubject() {
+    public Subjects getSubject() {
         return subject;
     }
-    public void setSubject(Subject subject) {
+    public void setSubject(Subjects subject) {
         this.subject = subject;
     }
 

@@ -1,29 +1,31 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
 import com.ntu.api.domain.database.dao.DAOinterface.SubjectDAOInt;
-import com.ntu.api.domain.database.entity.Subject;
+import com.ntu.api.domain.database.entity.Subjects;
 import com.ntu.api.domain.database.service.serviceInterface.SubjectServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
+@Transactional
 public class SubjectService implements SubjectServiceInt {
     @Autowired
     private SubjectDAOInt subjectDAO;
 
     @Override
-    public Long addSubject(Subject subject) {
+    public Long addSubject(Subjects subject) {
         return subjectDAO.create(subject);
     }
 
     @Override
-    public Subject getSubject(Long id) {
+    public Subjects getSubject(Long id) {
         return subjectDAO.get(id);
     }
 
     @Override
-    public void updateSubject(Subject subject) {
+    public void updateSubject(Subjects subject) {
         subjectDAO.update(subject);
     }
 
@@ -33,7 +35,7 @@ public class SubjectService implements SubjectServiceInt {
     }
 
     @Override
-    public List<Subject> getSubjectList() {
+    public List<Subjects> getSubjectList() {
         return subjectDAO.findAll();
     }
 }

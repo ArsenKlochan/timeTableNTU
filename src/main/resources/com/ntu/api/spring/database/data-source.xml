@@ -45,7 +45,7 @@
                 <value>com.ntu.api.domain.database.entity.Group</value>
                 <value>com.ntu.api.domain.database.entity.Lesson</value>
                 <value>com.ntu.api.domain.database.entity.Speciality</value>
-                <value>com.ntu.api.domain.database.entity.Subject</value>
+                <value>com.ntu.api.domain.database.entity.Subjects</value>
                 <value>com.ntu.api.domain.database.entity.Teacher</value>
                 <value>com.ntu.api.domain.database.entity.User</value>
             </list>

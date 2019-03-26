@@ -33,22 +33,20 @@ public class addCourseFacultyController {
     }
 
     @FXML public void initialize(){
+        tempList = FXCollections.observableArrayList();
+        box1.setEditable(false);
         if(counter==1){
             label1.setText("Назва курсу");
             label2.setText("Спеціальність");
             button1.textProperty().set("Додати курс");
-            tempList = FXCollections.observableArrayList();
             tempList.addAll(Lists.getSpecialityList());
-            box1.setEditable(false);
             box1.getItems().setAll(tempList);
         }
         if(counter==2){
             label1.setText("Назва факультету");
             label2.setText("Корпус");
             button1.textProperty().set("Додати факультет");
-            tempList = FXCollections.observableArrayList();
             tempList.addAll(Lists.getBuildingList());
-            box1.setEditable(false);
             box1.getItems().setAll(tempList);
         }
     }

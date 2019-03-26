@@ -19,7 +19,7 @@ public class ClassRoom {
     @Column(name = "classroom_size")
     private Integer classRoomSize;
 
-    @Column(name = "Type")
+    @Column(name = "type")
     @Enumerated(EnumType.ORDINAL)
     private ClassRoomTypes type;
 

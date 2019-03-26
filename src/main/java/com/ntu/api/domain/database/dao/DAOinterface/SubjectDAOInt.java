@@ -1,17 +1,17 @@
 package com.ntu.api.domain.database.dao.DAOinterface;
 
-import com.ntu.api.domain.database.entity.Subject;
+import com.ntu.api.domain.database.entity.Subjects;
 
 import java.util.List;
 
 public interface SubjectDAOInt {
-    Long create(Subject subject);
+    Long create(Subjects subject);
 
-    Subject get (Long id);
+    Subjects get (Long id);
 
-    void update(Subject subject);
+    void update(Subjects subject);
 
     void delete(Long id);
 
-    List<Subject> findAll();
+    List<Subjects> findAll();
 }

@@ -7,10 +7,12 @@ import com.ntu.api.domain.database.entity.Teacher;
 import com.ntu.api.domain.database.service.serviceInterface.TeacherServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TeacherService implements TeacherServiceInt {
     @Autowired
     private TeacherDAOInt teacherDAO;

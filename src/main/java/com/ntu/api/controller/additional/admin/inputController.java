@@ -55,7 +55,8 @@ public class inputController {
         add("Додавання спеціальності", "/com/ntu/api/javafx/model/additional/admin/add/addLessonSpeciality.fxml", "Помилка додавання спеціальності");
     }
     @FXML public void addSubject(){
-        add("Ддодавання дисципліни", "/com/ntu/api/javafx/model/additional/admin/add/addSubject.fxml", "Помилка додавання дисципліни");
+        add("Додавання дисципліни", "/com/ntu/api/javafx/model/additional/admin/add/addSubject.fxml", "Помилка додавання дисципліни");
+//        add("Додавання дисципліни", "/com/ntu/api/javafx/model/additional/admin/add/addCourseFaculty.fxml", "Помилка додавання дисципліни");
     }
     @FXML public void addFaculty(){
         addCourseFacultyController.setCounter(2);
@@ -70,13 +71,13 @@ public class inputController {
         AnchorPane addPane = null;
         try {
             addPane = FXMLLoader.load(getClass().getResource(resource));
+            add.initOwner(adminDlgInput.getScene().getWindow());
+            add.initModality(Modality.WINDOW_MODAL);
+            add.setScene(new Scene(addPane));
+            add.show();
         } catch (IOException e) {
             Message.errorCatch(adminDlgInput, "Error", message);
         }
-        add.initOwner(adminDlgInput.getScene().getWindow());
-        add.initModality(Modality.WINDOW_MODAL);
-        add.setScene(new Scene(addPane));
-        add.show();
     }
 
     @FXML public void editBuilding(){}

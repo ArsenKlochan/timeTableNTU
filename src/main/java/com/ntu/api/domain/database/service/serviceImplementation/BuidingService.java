@@ -5,9 +5,11 @@ import com.ntu.api.domain.database.entity.Building;
 import com.ntu.api.domain.database.service.serviceInterface.BuildingServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
+@Transactional
 public class BuidingService implements BuildingServiceInt {
     @Autowired
     private BuildingDAOInt buildingDAO;

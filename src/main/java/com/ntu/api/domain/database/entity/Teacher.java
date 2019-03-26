@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "teacher", schema = "ntu")
+@Table(name = "teachers", schema = "ntu")
 public class Teacher {
     @Id
     @Column(name = "teacher_id")

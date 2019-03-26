@@ -1,7 +1,7 @@
 package com.ntu.api.controller.additional.admin.add;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.entity.Subject;
+import com.ntu.api.domain.database.entity.Subjects;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 import com.ntu.api.domain.database.service.serviceInterface.SubjectServiceInt;
 import javafx.collections.FXCollections;
@@ -64,21 +64,17 @@ public class addSubjectController {
         box2.setEditable(false);
         box3.setEditable(false);
 
-        box1.getItems().setAll(examtypeList);
-        box2.getItems().setAll(specialitiesList);
-        box3.getItems().setAll(courceList);
+        box1.getItems().setAll(specialitiesList);
+        box2.getItems().setAll(courceList);
+        box3.getItems().setAll(examtypeList);
     }
-    @FXML public void boxOneOnClick(){}
-    @FXML public void boxTwoOnClick(){}
-    @FXML public void boxThreeOnClick(){}
 
     @FXML public void okOnClick(){
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "com/ntu/api/spring/database/config.xml");
         SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
-        subjectService.addSubject(new Subject(text1.getText(),
-                Lists.getCourseService().getCourses().get(box2.getSelectionModel().getSelectedIndex()),
-                Integer.parseInt(text2.getText()), Integer.parseInt(text3.getText()), Integer.parseInt(text4.getText()),
+        subjectService.addSubject(new Subjects(text1.getText(), Integer.parseInt(text2.getText()),
+                Integer.parseInt(text3.getText()), Integer.parseInt(text4.getText()),
                 Integer.parseInt(text5.getText()), ExamType.values()[box3.getSelectionModel().getSelectedIndex()]));
     }
 

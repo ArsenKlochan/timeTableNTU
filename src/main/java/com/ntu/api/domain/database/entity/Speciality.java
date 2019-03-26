@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "speciality", schema = "ntu")
+@Table(name = "specialities", schema = "ntu")
 public class Speciality {
 
     @Id
@@ -13,7 +13,7 @@ public class Speciality {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long specialityId;
 
-    @Column(name = "spesiality_name")
+    @Column(name = "speciality_name")
     private String specialityName;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Curriculum.class)
@@ -27,8 +27,11 @@ public class Speciality {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "speciality", targetEntity = Course.class)
     private List<Course> courses = new ArrayList<>();
 
-    @ManyToMany (mappedBy = "specialities", cascade = CascadeType.ALL, targetEntity = Subject.class)
-    private List<Subject> subjects = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Subjects.class)
+    @JoinTable(name = "subject_on_specialities",
+            inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "subject_id"),
+            joinColumns = @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id"))
+    private List<Subjects> subjects = new ArrayList<>();
 
     public Speciality(){}
 
@@ -38,7 +41,7 @@ public class Speciality {
         this.department = department;
     }
 
-    public Speciality(String specialityName, Curriculum curriculum, Department department, List<Course> courses, List<Subject> subjects) {
+    public Speciality(String specialityName, Curriculum curriculum, Department department, List<Course> courses, List<Subjects> subjects) {
         this.specialityName = specialityName;
         this.curriculum = curriculum;
         this.department = department;
@@ -76,10 +79,10 @@ public class Speciality {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
-    public List<Subject> getSubjects() {
+    public List<Subjects> getSubjects() {
         return subjects;
     }
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(List<Subjects> subjects) {
         this.subjects = subjects;
     }
 
@@ -93,7 +96,7 @@ public class Speciality {
 
     private String subjectToString(){
         StringBuilder sb = new StringBuilder();
-        for(Subject subject: subjects){
+        for(Subjects subject: subjects){
             sb.append(subject.getSubjectName() + "/n");
         }
         return sb.toString();

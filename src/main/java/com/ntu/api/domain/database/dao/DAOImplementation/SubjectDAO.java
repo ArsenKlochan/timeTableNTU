@@ -1,7 +1,7 @@
 package com.ntu.api.domain.database.dao.DAOImplementation;
 
 import com.ntu.api.domain.database.dao.DAOinterface.SubjectDAOInt;
-import com.ntu.api.domain.database.entity.Subject;
+import com.ntu.api.domain.database.entity.Subjects;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,17 +15,17 @@ public class SubjectDAO implements SubjectDAOInt {
     @Autowired
     private SessionFactory factory;
     @Override
-    public Long create(Subject subject) {
+    public Long create(Subjects subject) {
         return (Long)factory.getCurrentSession().save(subject);
     }
 
     @Override
-    public Subject get(Long id) {
-        return factory.getCurrentSession().get(Subject.class, id);
+    public Subjects get(Long id) {
+        return factory.getCurrentSession().get(Subjects.class, id);
     }
 
     @Override
-    public void update(Subject subject) {
+    public void update(Subjects subject) {
         factory.getCurrentSession().saveOrUpdate(subject);
     }
 
@@ -35,7 +35,7 @@ public class SubjectDAO implements SubjectDAOInt {
     }
 
     @Override
-    public List<Subject> findAll() {
+    public List<Subjects> findAll() {
         return factory.getCurrentSession().createQuery("from Subject").list();
     }
 }

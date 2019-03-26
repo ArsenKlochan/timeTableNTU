@@ -84,7 +84,7 @@ public class Lists {
     public static ArrayList<String> getCurriculumList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Curriculum curriculum:curriculumService.getCurriculums()){
-            tempList.add(curriculum.getCurriculumName());
+            tempList.add(curriculum.getCurriculumCode() + " " + curriculum.getCurriculumName());
         }
         return tempList;
     }
@@ -119,21 +119,24 @@ public class Lists {
     public static ArrayList<String> getSpecialityList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Speciality speciality:specialityService.getSpecialities()){
+            System.out.println(speciality.getSpecialityName());
             tempList.add(speciality.getSpecialityName());
         }
         return tempList;
     }
-    public static ArrayList<String> getSubjectList() {
+
+    public static ArrayList<String> getSubjectsList(){
         ArrayList<String> tempList = new ArrayList<>();
-        for(Subject subject:subjectService.getSubjectList()){
-            tempList.add(subject.getSubjectName());
+        for(Subjects subjects:subjectService.getSubjectList()){
+            tempList.add(subjects.getSubjectName());
         }
         return tempList;
     }
+
     public static ArrayList<String> getTeacherList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Teacher teacher:teacherService.getTeachers()){
-            tempList.add(teacher.getTeacherSurname()+teacher.getTeacherName());
+            tempList.add(teacher.getTeacherSurname()+ " " +teacher.getTeacherName());
         }
         return tempList;
     }

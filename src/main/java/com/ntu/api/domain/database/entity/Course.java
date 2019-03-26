@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "course", schema = "ntu")
+@Table(name = "courses", schema = "ntu")
 public class Course {
 
     @Id
@@ -16,15 +16,15 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Speciality.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Speciality.class)
     @JoinColumn(name = "speciality_id", nullable = false)
     private Speciality speciality;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", targetEntity = Group.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Group.class)
     private List<Group> groups = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Subject.class)
-    private List<Subject> subjects = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Subjects.class)
+    private List<Subjects> subjects = new ArrayList<>();
 
     public Course(){}
 
@@ -33,7 +33,7 @@ public class Course {
         this.speciality = speciality;
     }
 
-    public Course(String courseName, Speciality speciality, List<Group> groups, List<Subject> subjects) {
+    public Course(String courseName, Speciality speciality, List<Group> groups, List<Subjects> subjects) {
         this.courseName = courseName;
         this.speciality = speciality;
         this.groups = groups;
@@ -64,10 +64,10 @@ public class Course {
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
-    public List<Subject> getSubjects() {
+    public List<Subjects> getSubjects() {
         return subjects;
     }
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(List<Subjects> subjects) {
         this.subjects = subjects;
     }
 
@@ -81,7 +81,7 @@ public class Course {
 
     private String subjectsToString(){
         StringBuilder sb = new StringBuilder();
-        for(Subject subject: subjects){
+        for(Subjects subject: subjects){
             sb.append(subject.getSubjectName() + " " + subject.getAllHours() + "/n");
         }
         return sb.toString();

@@ -3,7 +3,7 @@ package com.ntu.api.domain.database.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "group", schema = "ntu")
+@Table(name = "groups", schema = "ntu")
 public class Group {
 
     @Id

@@ -37,6 +37,6 @@ public class SpeciallityDAO implements SpecialityDAOInt {
 
     @Override
     public List<Speciality> findAll() {
-        return factory.getCurrentSession().createQuery("from Speciallity").list();
+        return factory.getCurrentSession().createQuery("from Speciality").list();
     }
 }

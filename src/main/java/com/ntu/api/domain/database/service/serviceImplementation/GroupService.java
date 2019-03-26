@@ -5,10 +5,12 @@ import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class GroupService implements GroupServiceInt {
     @Autowired
     private GroupDAOInt groupDAO;

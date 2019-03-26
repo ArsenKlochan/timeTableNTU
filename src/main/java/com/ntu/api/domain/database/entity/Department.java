@@ -98,7 +98,7 @@ public class Department {
 
     private String specialitiesToString(){
         StringBuilder sb = new StringBuilder();
-        for(Speciality speciality: specialities){
+        for(Speciality speciality : specialities){
             sb.append(speciality.getSpecialityId() + " " + speciality.getSpecialityName() + "/n");
         }
         return sb.toString();

@@ -5,9 +5,11 @@ import com.ntu.api.domain.database.entity.Lesson;
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
+@Transactional
 public class LessonService implements LessonServiceInt {
     @Autowired
     private LessonDAOInt lessonDAO;

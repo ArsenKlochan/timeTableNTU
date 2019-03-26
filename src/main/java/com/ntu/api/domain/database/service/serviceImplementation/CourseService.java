@@ -6,10 +6,12 @@ import com.ntu.api.domain.database.entity.Group;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CourseService implements CourseServiceInt {
     @Autowired
     private CourseDAOInt courseDAO;

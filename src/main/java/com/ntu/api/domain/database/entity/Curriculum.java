@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "curriculum", schema = "ntu")
+@Table(name = "curriculums", schema = "ntu")
 public class Curriculum {
 
     @Id
@@ -75,7 +75,7 @@ public class Curriculum {
 
     private String specialitiesToString(){
         StringBuilder sb = new StringBuilder();
-        for(Speciality speciality: specialities){
+        for(Speciality speciality : specialities){
             sb.append(speciality.getSpecialityId() + " " + speciality.getSpecialityName() + "/n");
         }
         return sb.toString();

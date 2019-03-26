@@ -28,17 +28,22 @@ public class addTeacherController {
     @FXML Button button1;
     @FXML Button button2;
     private static ObservableList<String> departmentList;
+    private static ObservableList<String> positionList;
 
     @FXML public void initialize(){
         label1.setText("Приізвище");
         label2.setText("Ім'я Побатькові");
-        label3.setText("Посада");
-        label4.setText("Кафедра");
+        label3.setText("Кафедра");
+        label4.setText("Посада");
         button1.textProperty().set("Додати викладача");
         departmentList = FXCollections.observableArrayList();
+        positionList = FXCollections.observableArrayList();
         departmentList.addAll(Lists.getDepartmentList());
+        positionList.addAll(Lists.getPositionList());
         box1.setEditable(false);
+        box2.setEditable(false);
         box1.getItems().setAll(departmentList);
+        box2.getItems().setAll(positionList);
     }
 
     @FXML public void okOnClick(){
@@ -46,8 +51,8 @@ public class addTeacherController {
                 "/com/ntu/api/spring/database/config.xml");
         TeacherServiceInt teacherService = context.getBean(TeacherServiceInt.class);
         teacherService.addTeacher(new Teacher(text1.getText(),text2.getText(),
-                Lists.getPositionList().get(box1.getSelectionModel().getSelectedIndex()),
-                Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex())));
+                Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex()),
+                Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex())));
         cancelOnClick();
     }
 

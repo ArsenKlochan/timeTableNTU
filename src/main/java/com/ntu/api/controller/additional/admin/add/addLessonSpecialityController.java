@@ -1,7 +1,6 @@
 package com.ntu.api.controller.additional.admin.add;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.entity.Lesson;
 import com.ntu.api.domain.database.entity.Speciality;
 import com.ntu.api.domain.database.entity.enums.LessonType;
@@ -50,7 +49,7 @@ public class addLessonSpecialityController {
             subjectList = FXCollections.observableArrayList();
 
             lessonTypeList.addAll(Lists.getLessonTypeList());
-            subjectList.addAll(Lists.getSubjectList());
+            subjectList.addAll(Lists.getSubjectsList());
 
             box1.setEditable(false);
             box2.setEditable(false);
@@ -73,8 +72,8 @@ public class addLessonSpecialityController {
             box1.setEditable(false);
             box2.setEditable(false);
 
-            box1.getItems().setAll(lessonTypeList);
-            box2.getItems().setAll(subjectList);
+            box1.getItems().setAll(curriculumList);
+            box2.getItems().setAll(departmentList);
         }
     }
 
@@ -92,6 +91,7 @@ public class addLessonSpecialityController {
             specialityService.addSpeciality(new Speciality(text1.getText(),
                     Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex()),
                     Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex())));
+            System.out.println(Lists.getSpecialityList());
         }
         cancelOnClick();
     }
