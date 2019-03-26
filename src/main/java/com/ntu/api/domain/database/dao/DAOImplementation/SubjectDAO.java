@@ -36,6 +36,6 @@ public class SubjectDAO implements SubjectDAOInt {
 
     @Override
     public List<Subjects> findAll() {
-        return factory.getCurrentSession().createQuery("from Subject").list();
+        return factory.getCurrentSession().createQuery("from Subjects").list();
     }
 }

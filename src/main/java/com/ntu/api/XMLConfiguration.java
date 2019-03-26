@@ -1,5 +1,7 @@
 package com.ntu.api;
 
+import com.ntu.api.domain.database.service.serviceInterface.SubjectServiceInt;
+import com.ntu.api.domain.database.service.serviceInterface.TeacherServiceInt;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
