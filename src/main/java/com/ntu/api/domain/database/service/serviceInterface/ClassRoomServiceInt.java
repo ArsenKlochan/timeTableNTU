@@ -8,6 +8,6 @@ public interface ClassRoomServiceInt {
     Long addClassRoom(ClassRoom classRoom);
     ClassRoom getClassRoom(Long id);
     void updateClassRoom(ClassRoom classRoom);
-    void deleteClassRoom(Long id);
+    void deleteClassRoom(ClassRoom classRoom);
     List<ClassRoom> getClassRoomList();
 }

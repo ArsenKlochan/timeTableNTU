@@ -8,6 +8,6 @@ public interface FacultyServiceInt {
     Long addFaculty(Faculty faculty);
     Faculty getFaculty(Long id);
     void updateFaculty(Faculty faculty);
-    void deleteFacultu(Long id);
+    void deleteFacultu(Faculty faculty);
     List<Faculty> getFaculties();
 }

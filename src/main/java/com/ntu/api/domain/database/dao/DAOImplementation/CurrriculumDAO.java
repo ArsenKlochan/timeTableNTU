@@ -31,8 +31,8 @@ public class CurrriculumDAO implements CurriculumDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Curriculum curriculum) {
+        factory.getCurrentSession().delete(curriculum);
     }
 
     @Override

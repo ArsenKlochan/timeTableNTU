@@ -31,8 +31,8 @@ public class DepartmentDAO implements DepartmentDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Department department) {
+        factory.getCurrentSession().delete(department);
     }
 
     @Override

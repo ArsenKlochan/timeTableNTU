@@ -28,8 +28,8 @@ public class CurriculumService implements CurriculumServiceInt {
         curriculumDAO.update(curriculum);
     }
     @Override
-    public void deleteCurriculum(Long id) {
-        curriculumDAO.delete(id);
+    public void deleteCurriculum(Curriculum curriculum) {
+        curriculumDAO.delete(curriculum);
     }
     @Override
     public List<Curriculum> getCurriculums() {

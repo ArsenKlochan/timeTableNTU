@@ -11,7 +11,7 @@ public interface BuildingDAOInt {
 
     void update(Building building);
 
-    void delete(Long id);
+    void delete(Building building);
 
     List<Building> findAll();
 }

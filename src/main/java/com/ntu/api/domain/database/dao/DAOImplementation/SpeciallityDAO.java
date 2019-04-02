@@ -31,8 +31,8 @@ public class SpeciallityDAO implements SpecialityDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Speciality speciality) {
+        factory.getCurrentSession().delete(speciality);
     }
 
     @Override

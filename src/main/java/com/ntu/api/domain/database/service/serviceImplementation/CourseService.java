@@ -29,8 +29,8 @@ public class CourseService implements CourseServiceInt {
         courseDAO.update(course);
     }
     @Override
-    public void deleteCourse(Long id) {
-        courseDAO.delete(id);
+    public void deleteCourse(Course course) {
+        courseDAO.delete(course);
     }
     @Override
     public List<Course> getCourses() {

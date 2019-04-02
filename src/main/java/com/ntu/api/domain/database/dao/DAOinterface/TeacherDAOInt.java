@@ -11,7 +11,7 @@ public interface TeacherDAOInt {
 
     void update(Teacher teacher);
 
-    void delete(Long id);
+    void delete(Teacher teacher);
 
     List<Teacher> findAll();
 }

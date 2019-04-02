@@ -10,6 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Lists {
 
@@ -91,7 +93,7 @@ public class Lists {
     public static ArrayList<String> getDepartmentList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Department department:departmentService.getDepartments()){
-            tempList.add(department.getDepartmentName());
+            tempList.add(department.getDepartmentCode() + " " + department.getDepartmentName());
         }
         return tempList;
     }

@@ -29,8 +29,8 @@ public class UserService implements UserServiceInt {
         userDAO.update(user);
     }
     @Override
-    public void deleteUser(Long id) {
-        userDAO.delete(id);
+    public void deleteUser(User user) {
+        userDAO.delete(user);
     }
 
     @Override

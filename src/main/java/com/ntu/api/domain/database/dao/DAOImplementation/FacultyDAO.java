@@ -31,8 +31,8 @@ public class FacultyDAO implements FacultyDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(get(id));
+    public void delete(Faculty faculty) {
+        factory.getCurrentSession().delete(faculty);
     }
 
     @Override

@@ -31,8 +31,8 @@ public class BuildingDAO implements BuildingDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Building building) {
+        factory.getCurrentSession().delete(building);
     }
 
     @Override

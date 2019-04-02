@@ -28,8 +28,8 @@ public class GroupService implements GroupServiceInt {
         groupDAO.update(groupe);
     }
     @Override
-    public void deleteGroupe(Long id) {
-        groupDAO.delete(id);
+    public void deleteGroupe(Group groupe) {
+        groupDAO.delete(groupe);
     }
     @Override
     public List<Group> getGroups() {

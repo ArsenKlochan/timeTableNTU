@@ -30,8 +30,8 @@ public class TeacherService implements TeacherServiceInt {
         teacherDAO.update(teacher);
     }
     @Override
-    public void deleteTeacher(Long id) {
-        teacherDAO.delete(id);
+    public void deleteTeacher(Teacher teacher) {
+        teacherDAO.delete(teacher);
     }
     @Override
     public List<Teacher> getTeachers() {

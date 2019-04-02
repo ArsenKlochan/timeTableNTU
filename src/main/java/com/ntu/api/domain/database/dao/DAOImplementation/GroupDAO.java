@@ -31,8 +31,8 @@ public class GroupDAO implements GroupDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Group group) {
+        factory.getCurrentSession().delete(group);
     }
 
     @Override

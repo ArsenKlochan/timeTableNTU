@@ -28,8 +28,8 @@ public class FacultyService implements FacultyServiceInt {
         facultyDAO.update(faculty);
     }
     @Override
-    public void deleteFacultu(Long id) {
-        facultyDAO.delete(id);
+    public void deleteFacultu(Faculty faculty) {
+        facultyDAO.delete(faculty);
     }
     @Override
     public List<Faculty> getFaculties() {

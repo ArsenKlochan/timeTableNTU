@@ -11,7 +11,7 @@ public interface FacultyDAOInt {
 
     void update(Faculty faculty);
 
-    void delete(Long id);
+    void delete(Faculty faculty);
 
     List<Faculty> findAll();
 }

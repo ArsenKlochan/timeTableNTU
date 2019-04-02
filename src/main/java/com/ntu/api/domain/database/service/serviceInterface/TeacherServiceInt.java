@@ -10,6 +10,6 @@ public interface TeacherServiceInt {
     Long addTeacher(Teacher teacher);
     Teacher getTeacher(Long id);
     void updateTeacher (Teacher teacher);
-    void deleteTeacher (Long id);
+    void deleteTeacher (Teacher teacher);
     List<Teacher> getTeachers();
 }

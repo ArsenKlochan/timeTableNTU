@@ -30,8 +30,8 @@ public class ClassRoomService implements ClassRoomServiceInt {
     }
 
     @Override
-    public void deleteClassRoom(Long id) {
-        classRoomDAO.delete(id);
+    public void deleteClassRoom(ClassRoom classRoom) {
+        classRoomDAO.delete(classRoom);
     }
 
     @Override

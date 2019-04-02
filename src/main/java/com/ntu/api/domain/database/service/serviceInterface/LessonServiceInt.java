@@ -8,6 +8,6 @@ public interface LessonServiceInt {
     Long addLesson(Lesson lesson);
     Lesson getLesson(Long id);
     void updateLesson (Lesson lesson);
-    void deleteLesson(Long id);
+    void deleteLesson(Lesson lesson);
     List<Lesson> getLessons();
 }

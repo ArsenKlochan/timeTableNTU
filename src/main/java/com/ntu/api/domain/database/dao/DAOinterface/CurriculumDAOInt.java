@@ -11,7 +11,7 @@ public interface CurriculumDAOInt {
 
     void update(Curriculum curriculum);
 
-    void delete(Long id);
+    void delete(Curriculum curriculum);
 
     List<Curriculum> findAll();
 }

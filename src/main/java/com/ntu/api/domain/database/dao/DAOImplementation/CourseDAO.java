@@ -31,8 +31,8 @@ public class CourseDAO implements CourseDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Course course) {
+        factory.getCurrentSession().delete(course);
     }
 
     @Override

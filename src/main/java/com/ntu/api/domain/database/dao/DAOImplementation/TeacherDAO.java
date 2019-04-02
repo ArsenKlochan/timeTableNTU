@@ -30,8 +30,8 @@ public class TeacherDAO implements TeacherDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Teacher teacher) {
+        factory.getCurrentSession().delete(teacher);
     }
 
     @Override

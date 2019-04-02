@@ -31,8 +31,8 @@ public class SpecialityService implements SpecialityServiceInt {
     }
 
     @Override
-    public void deleteSpeciality(Long id) {
-        specialityDAO.delete(id);
+    public void deleteSpeciality(Speciality speciality) {
+        specialityDAO.delete(speciality);
     }
 
     @Override

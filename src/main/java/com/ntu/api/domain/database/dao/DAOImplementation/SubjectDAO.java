@@ -30,8 +30,8 @@ public class SubjectDAO implements SubjectDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Subjects subject) {
+        factory.getCurrentSession().delete(subject);
     }
 
     @Override

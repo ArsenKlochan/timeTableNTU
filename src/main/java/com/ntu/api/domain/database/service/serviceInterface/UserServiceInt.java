@@ -8,7 +8,7 @@ public interface UserServiceInt {
     Long addUser(User user);
     User getUser(Long id);
     void updateUser (User user);
-    void deleteUser (Long id);
+    void deleteUser (User user);
     List<User> getUsers();
     boolean addUserComplite(User user);
     boolean authentUser(User user);

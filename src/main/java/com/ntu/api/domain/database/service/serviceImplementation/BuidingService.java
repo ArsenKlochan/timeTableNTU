@@ -30,8 +30,8 @@ public class BuidingService implements BuildingServiceInt {
     }
 
     @Override
-    public void deleteBuilding(Long id) {
-        buildingDAO.delete(id);
+    public void deleteBuilding(Building building) {
+        buildingDAO.delete(building);
     }
 
     @Override

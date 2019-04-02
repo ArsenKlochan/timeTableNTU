@@ -11,7 +11,7 @@ public interface GroupDAOInt {
 
     void update(Group group);
 
-    void delete(Long id);
+    void delete(Group group);
 
     List<Group> findAll();
 }

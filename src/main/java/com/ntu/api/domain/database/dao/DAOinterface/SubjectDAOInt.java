@@ -11,7 +11,7 @@ public interface SubjectDAOInt {
 
     void update(Subjects subject);
 
-    void delete(Long id);
+    void delete(Subjects subject);
 
     List<Subjects> findAll();
 }

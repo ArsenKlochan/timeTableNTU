@@ -30,8 +30,8 @@ public class LessonService implements LessonServiceInt {
     }
 
     @Override
-    public void deleteLesson(Long id) {
-        lessonDAO.delete(id);
+    public void deleteLesson(Lesson lesson) {
+        lessonDAO.delete(lesson);
     }
 
     @Override

@@ -8,6 +8,6 @@ public interface CurriculumServiceInt {
     Long addCurriculum(Curriculum curriculum);
     Curriculum getCurriculum(Long id);
     void updateCurriculum (Curriculum curriculum);
-    void deleteCurriculum(Long id);
+    void deleteCurriculum(Curriculum curriculum);
     List<Curriculum> getCurriculums();
 }

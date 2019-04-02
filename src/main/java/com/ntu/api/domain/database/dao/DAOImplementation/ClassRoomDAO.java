@@ -31,8 +31,8 @@ public class ClassRoomDAO implements ClassRoomDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(ClassRoom classRoom) {
+        factory.getCurrentSession().delete(classRoom);
     }
 
     @Override

@@ -31,8 +31,8 @@ public class UserDAO implements UserDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(get(id));
+    public void delete(User user) {
+        factory.getCurrentSession().delete(user);
     }
 
     @Override

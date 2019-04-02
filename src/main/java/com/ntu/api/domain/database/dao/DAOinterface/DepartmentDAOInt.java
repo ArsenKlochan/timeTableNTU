@@ -11,7 +11,7 @@ public interface DepartmentDAOInt {
 
     void update(Department department);
 
-    void delete(Long id);
+    void delete(Department department);
 
     List<Department> findAll();
 }

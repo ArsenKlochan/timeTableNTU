@@ -11,7 +11,7 @@ public interface CourseDAOInt {
 
     void update(Course course);
 
-    void delete(Long id);
+    void delete(Course course);
 
     List<Course> findAll();
 }

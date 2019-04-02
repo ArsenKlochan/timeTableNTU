@@ -28,8 +28,8 @@ public class DepartmentService implements DepartmentServiceInt {
         departmentDAO.update(department);
     }
     @Override
-    public void deleteDepartment(Long id) {
-        departmentDAO.delete(id);
+    public void deleteDepartment(Department department) {
+        departmentDAO.delete(department);
     }
     @Override
     public List<Department> getDepartments() {

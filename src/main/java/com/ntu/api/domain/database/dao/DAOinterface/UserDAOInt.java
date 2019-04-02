@@ -11,7 +11,7 @@ public interface UserDAOInt {
 
     void update(User user);
 
-    void delete(Long id);
+    void delete(User user);
 
     List<User> findAll();
 }

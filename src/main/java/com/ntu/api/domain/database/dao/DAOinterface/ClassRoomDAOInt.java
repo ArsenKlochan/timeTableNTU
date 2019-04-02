@@ -11,7 +11,7 @@ public interface ClassRoomDAOInt {
 
     void update(ClassRoom classRoom);
 
-    void delete(Long id);
+    void delete(ClassRoom classRoom);
 
     List<ClassRoom> findAll();
 }

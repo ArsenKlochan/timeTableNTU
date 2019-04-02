@@ -11,7 +11,7 @@ public interface LessonDAOInt {
 
     void update(Lesson lesson);
 
-    void delete(Long id);
+    void delete(Lesson lesson);
 
     List<Lesson> findAll();
 }

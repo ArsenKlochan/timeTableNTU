@@ -11,7 +11,7 @@ public interface SpecialityDAOInt {
 
     void update(Speciality speciality);
 
-    void delete(Long id);
+    void delete(Speciality speciality);
 
     List<Speciality> findAll();
 }

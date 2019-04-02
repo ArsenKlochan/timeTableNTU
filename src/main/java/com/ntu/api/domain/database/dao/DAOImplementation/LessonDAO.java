@@ -30,8 +30,8 @@ public class LessonDAO implements LessonDAOInt {
     }
 
     @Override
-    public void delete(Long id) {
-        factory.getCurrentSession().delete(id);
+    public void delete(Lesson lesson) {
+        factory.getCurrentSession().delete(lesson);
     }
 
     @Override

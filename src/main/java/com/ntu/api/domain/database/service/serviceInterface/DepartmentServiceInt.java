@@ -8,6 +8,6 @@ public interface DepartmentServiceInt {
     Long addDepartment(Department department);
     Department getDepartment(Long id);
     void updateDepartment(Department department);
-    void deleteDepartment(Long id);
+    void deleteDepartment(Department department);
     List<Department> getDepartments();
 }
