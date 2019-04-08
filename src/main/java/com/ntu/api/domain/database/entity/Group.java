@@ -17,7 +17,7 @@ public class Group {
     @Column(name = "group_description")
     private Integer studentsNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Course.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 

@@ -33,6 +33,7 @@
                 <prop key="hibernate.default_schema">ntu</prop>
             </props>
         </property>
+
         <!--Додаємо всі Entity, які використовуються-->
         <property name="annotatedClasses">
             <list>

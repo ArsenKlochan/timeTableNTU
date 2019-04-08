@@ -21,7 +21,7 @@ public class Teacher {
     @Column(name = "teacher_position")
     private String teacherPosition;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Department.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Department.class)
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 

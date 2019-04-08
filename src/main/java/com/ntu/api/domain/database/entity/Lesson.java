@@ -20,7 +20,7 @@ public class Lesson {
     @Enumerated(EnumType.ORDINAL)
     private LessonType lessonType;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Subjects.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Subjects.class)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subjects subject;
 

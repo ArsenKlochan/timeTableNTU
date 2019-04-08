@@ -10,4 +10,5 @@ public interface ClassRoomServiceInt {
     void updateClassRoom(ClassRoom classRoom);
     void deleteClassRoom(ClassRoom classRoom);
     List<ClassRoom> getClassRoomList();
+    List<String> getParametersInString(ClassRoom classRoom);
 }

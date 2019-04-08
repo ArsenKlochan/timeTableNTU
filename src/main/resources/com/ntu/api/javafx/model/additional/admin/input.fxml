@@ -145,9 +145,9 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteBuilding" text="Корпус" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteCourse" text="Курс" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteCurriculum" text="Освітню програму" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteSubject" text="Предмет" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteSpesiality" text="Спеціальність" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteFaculty" text="Факультет" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteSubject" text="Subject" />
                     </items>
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

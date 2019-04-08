@@ -42,7 +42,7 @@ public class Subjects {
     @JoinColumn(name = "course_id",nullable = false)
     private Course course;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subjects", cascade = CascadeType.ALL, targetEntity = Speciality.class)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects", cascade = CascadeType.ALL, targetEntity = Speciality.class)
     private List<Speciality> specialities = new ArrayList<>();
 
     public Subjects(){}

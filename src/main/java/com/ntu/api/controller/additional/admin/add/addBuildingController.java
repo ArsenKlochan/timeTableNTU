@@ -15,13 +15,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class addBuildingController {
-    @FXML AnchorPane addBuildingFaculty;
-    @FXML Label label1;
-    @FXML Label label2;
-    @FXML TextField text1;
-    @FXML TextField text2;
-    @FXML Button button1;
-    @FXML Button button2;
+    @FXML private AnchorPane addBuildingFaculty;
+    @FXML private Label label1;
+    @FXML private Label label2;
+    @FXML private TextField text1;
+    @FXML private TextField text2;
+    @FXML private Button button1;
+    @FXML private Button button2;
 
     @FXML public void initialize(){
         label1.setText("Назва");

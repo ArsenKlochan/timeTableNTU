@@ -10,4 +10,6 @@ public interface FacultyServiceInt {
     void updateFaculty(Faculty faculty);
     void deleteFacultu(Faculty faculty);
     List<Faculty> getFaculties();
+    List<String> getParametersInString(Faculty faculty);
+
 }

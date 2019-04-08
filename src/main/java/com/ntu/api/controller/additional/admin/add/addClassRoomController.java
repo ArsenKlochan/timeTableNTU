@@ -17,19 +17,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class addClassRoomController {
-    @FXML AnchorPane addClassRoom;
-    @FXML Label label1;
-    @FXML Label label2;
-    @FXML Label label3;
-    @FXML Label label4;
-    @FXML Label label5;
-    @FXML TextField text1;
-    @FXML TextField text2;
-    @FXML ComboBox<String> box1;
-    @FXML ComboBox<String> box2;
-    @FXML ComboBox<String> box3;
-    @FXML Button button1;
-    @FXML Button button2;
+    @FXML private AnchorPane addClassRoom;
+    @FXML private Label label1;
+    @FXML private Label label2;
+    @FXML private Label label3;
+    @FXML private Label label4;
+    @FXML private Label label5;
+    @FXML private TextField text1;
+    @FXML private TextField text2;
+    @FXML private ComboBox<String> box1;
+    @FXML private ComboBox<String> box2;
+    @FXML private ComboBox<String> box3;
+    @FXML private Button button1;
+    @FXML private Button button2;
 
     private static ObservableList<String> typeList;
     private static ObservableList<String> buildingList;

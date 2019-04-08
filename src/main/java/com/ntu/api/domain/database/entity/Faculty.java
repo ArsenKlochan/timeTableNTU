@@ -20,7 +20,7 @@ public class Faculty {
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty", targetEntity = Curriculum.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", targetEntity = Curriculum.class)
     private List<Curriculum> curriculums = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", targetEntity = Department.class)

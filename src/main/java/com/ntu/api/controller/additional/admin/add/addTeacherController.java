@@ -16,17 +16,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class addTeacherController {
-    @FXML AnchorPane addTeacher;
-    @FXML Label label1;
-    @FXML Label label2;
-    @FXML Label label3;
-    @FXML Label label4;
-    @FXML TextField text1;
-    @FXML TextField text2;
-    @FXML ComboBox box1;
-    @FXML ComboBox box2;
-    @FXML Button button1;
-    @FXML Button button2;
+    @FXML private AnchorPane addTeacher;
+    @FXML private Label label1;
+    @FXML private Label label2;
+    @FXML private Label label3;
+    @FXML private Label label4;
+    @FXML private TextField text1;
+    @FXML private TextField text2;
+    @FXML private ComboBox box1;
+    @FXML private ComboBox box2;
+    @FXML private Button button1;
+    @FXML private Button button2;
     private static ObservableList<String> departmentList;
     private static ObservableList<String> positionList;
 

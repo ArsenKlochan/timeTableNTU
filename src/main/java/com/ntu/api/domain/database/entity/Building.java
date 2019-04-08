@@ -19,7 +19,7 @@ public class Building {
     @Column(name = "building_adress")
     private String buildingAdress;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "building", targetEntity = ClassRoom.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building", targetEntity = ClassRoom.class)
     private List<ClassRoom> classRooms= new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building", targetEntity = Faculty.class)

@@ -19,7 +19,7 @@ public class Curriculum {
     @Column(name = "curriculum_name")
     private String curriculumName;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Faculty.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Faculty.class)
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;
 

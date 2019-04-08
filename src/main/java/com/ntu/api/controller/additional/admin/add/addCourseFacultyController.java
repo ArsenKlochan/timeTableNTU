@@ -18,13 +18,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class addCourseFacultyController {
-    @FXML AnchorPane addCourse;
-    @FXML Label label1;
-    @FXML Label label2;
-    @FXML TextField text1;
-    @FXML ComboBox box1;
-    @FXML Button button1;
-    @FXML Button button2;
+    @FXML private AnchorPane addCourse;
+    @FXML private Label label1;
+    @FXML private Label label2;
+    @FXML private TextField text1;
+    @FXML private ComboBox box1;
+    @FXML private Button button1;
+    @FXML private Button button2;
     private static ObservableList<String> tempList;
     private static int counter;
 

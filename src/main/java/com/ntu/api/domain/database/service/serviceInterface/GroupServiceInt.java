@@ -10,4 +10,5 @@ public interface GroupServiceInt {
     void updateGroupe (Group groupe);
     void deleteGroupe(Group groupe);
     List<Group> getGroups();
+    List<String> getParametersInString(Group group);
 }

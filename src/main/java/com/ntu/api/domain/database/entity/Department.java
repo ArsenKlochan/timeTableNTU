@@ -26,7 +26,7 @@ public class Department {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = Speciality.class)
     private List<Speciality> specialities = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "department", targetEntity = Teacher.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = Teacher.class)
     private List<Teacher> teachers = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = ClassRoom.class)

@@ -10,4 +10,5 @@ public interface CourseServiceInt {
     void updateCourse (Course course);
     void deleteCourse(Course course);
     List<Course> getCourses();
+    List<String> getParametersInString(Course course);
 }

@@ -27,7 +27,7 @@ public class Speciality {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "speciality", targetEntity = Course.class)
     private List<Course> courses = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Subjects.class)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Subjects.class)
     @JoinTable(name = "subject_on_specialities",
             inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "subject_id"),
             joinColumns = @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id"))

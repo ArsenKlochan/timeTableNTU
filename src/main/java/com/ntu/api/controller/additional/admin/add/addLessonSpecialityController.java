@@ -19,15 +19,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class addLessonSpecialityController {
-    @FXML AnchorPane addLessonSpeciality;
-    @FXML Label label1;
-    @FXML Label label2;
-    @FXML Label label3;
-    @FXML TextField text1;
-    @FXML ComboBox<String> box1;
-    @FXML ComboBox<String> box2;
-    @FXML Button button1;
-    @FXML Button button2;
+    @FXML private AnchorPane addLessonSpeciality;
+    @FXML private Label label1;
+    @FXML private Label label2;
+    @FXML private Label label3;
+    @FXML private TextField text1;
+    @FXML private ComboBox<String> box1;
+    @FXML private ComboBox<String> box2;
+    @FXML private Button button1;
+    @FXML private Button button2;
     private static int count;
     private static ObservableList<String> lessonTypeList;
     private static ObservableList<String> subjectList;

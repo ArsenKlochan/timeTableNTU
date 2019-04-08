@@ -12,4 +12,5 @@ public interface TeacherServiceInt {
     void updateTeacher (Teacher teacher);
     void deleteTeacher (Teacher teacher);
     List<Teacher> getTeachers();
+    List<String> getParametersInString(Teacher teacher);
 }

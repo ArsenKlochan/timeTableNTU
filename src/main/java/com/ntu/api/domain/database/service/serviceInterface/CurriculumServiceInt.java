@@ -10,4 +10,5 @@ public interface CurriculumServiceInt {
     void updateCurriculum (Curriculum curriculum);
     void deleteCurriculum(Curriculum curriculum);
     List<Curriculum> getCurriculums();
+    List<String> getParametersInString(Curriculum curriculum);
 }

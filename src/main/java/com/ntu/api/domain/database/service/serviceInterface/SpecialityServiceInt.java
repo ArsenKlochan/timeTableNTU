@@ -1,6 +1,6 @@
 package com.ntu.api.domain.database.service.serviceInterface;
 
-import com.ntu.api.domain.database.entity.*;
+import com.ntu.api.domain.database.entity.Speciality;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ public interface SpecialityServiceInt {
     void updateSpeciality (Speciality speciality);
     void deleteSpeciality(Speciality speciality);
     List<Speciality> getSpecialities();
+    List<String> getParametersInString(Speciality speciality);
 }

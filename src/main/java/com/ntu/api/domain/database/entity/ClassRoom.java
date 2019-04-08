@@ -23,7 +23,7 @@ public class ClassRoom {
     @Enumerated(EnumType.ORDINAL)
     private ClassRoomTypes type;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Building.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Building.class)
     @JoinColumn(name = "building", nullable = false)
     private Building building;
 
@@ -84,8 +84,9 @@ public class ClassRoom {
         sb.append("classRoomsId=").append(classRoomsId);
         sb.append(", classRoomsName='").append(classRoomName).append('\'');
         sb.append(", classRoomDescription='").append(classRoomSize).append('\'');
-        sb.append(", type=").append(type);
-        sb.append(", building=").append(building);
+        sb.append(", type ").append(type);
+        sb.append(", building ").append(building);
+        sb.append(", department ").append(department);
         sb.append('}');
         return sb.toString();
     }

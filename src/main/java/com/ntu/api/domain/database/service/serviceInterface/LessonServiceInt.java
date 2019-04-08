@@ -10,4 +10,5 @@ public interface LessonServiceInt {
     void updateLesson (Lesson lesson);
     void deleteLesson(Lesson lesson);
     List<Lesson> getLessons();
+    List<String> getParametersInString(Lesson lesson);
 }

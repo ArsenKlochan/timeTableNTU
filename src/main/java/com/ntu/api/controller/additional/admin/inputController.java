@@ -4,7 +4,7 @@ import com.ntu.api.controller.additional.admin.add.addBuildingController;
 import com.ntu.api.controller.additional.admin.add.addCourseFacultyController;
 import com.ntu.api.controller.additional.admin.add.addCurriculumDepartmentGroupController;
 import com.ntu.api.controller.additional.admin.add.addLessonSpecialityController;
-import com.ntu.api.controller.additional.admin.editRemove.editRemoveBuildingController;
+import com.ntu.api.controller.additional.admin.editRemove.*;
 import com.ntu.api.model.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,31 +86,93 @@ public class inputController {
         open("Редагування корпусу","/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuilding.fxml","Помилка редагування корпусу");
     }
 
-    @FXML public void editClassroom(){}
-    @FXML public void editCourse(){}
-    @FXML public void editCurriculum(){}
-    @FXML public void editDepartment(){}
-    @FXML public void editGroup(){}
-    @FXML public void editLesson(){}
+    @FXML public void editClassroom(){
+        editRemoveClassRoomController.setBool(true);
+        open("Редагування аудиторії", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveClassRoom.fxml","Помилка редагування аудиторії");
+    }
+    @FXML public void editCourse(){
+        editRemoveCourseFacultyController.setBool(true);
+        editRemoveCourseFacultyController.setFlag(1);
+        open("Редагування курсу", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCourseFaculty.fxml","Помилка редагування курсу");
+    }
+    @FXML public void editCurriculum(){
+        editRemoveCurriculumDepartmentGroupController.setBool(true);
+        editRemoveCurriculumDepartmentGroupController.setFlag(1);
+        open("Редагування освітньої програми", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCurriculumDepartmentGroup.fxml", "Помилка редагування освітньої програми");
+    }
+    @FXML public void editDepartment(){
+        editRemoveCurriculumDepartmentGroupController.setBool(true);
+        editRemoveCurriculumDepartmentGroupController.setFlag(2);
+        open("Редагування кафедри", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCurriculumDepartmentGroup.fxml", "Помилка редагування кафедри");
+    }
+    @FXML public void editGroup(){
+        editRemoveCurriculumDepartmentGroupController.setBool(true);
+        editRemoveCurriculumDepartmentGroupController.setFlag(3);
+        open("Редагування групи", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCurriculumDepartmentGroup.fxml", "Помилка редагування групи");
+    }
+    @FXML public void editLesson(){
+        editRemoveLessonSpecialityController.setBool(true);
+        editRemoveCourseFacultyController.setFlag(1);
+        open("Редагування заняття", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveLessonSpeciiality.fxml","Помилка редагування заняття");
+    }
     @FXML public void editTeacher(){}
-    @FXML public void editSpesiality(){}
+    @FXML public void editSpesiality(){
+        editRemoveLessonSpecialityController.setBool(true);
+        editRemoveCourseFacultyController.setFlag(2);
+        open("Редагування спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveLessonSpeciiality.fxml","Помилка редагування спеціальності");
+    }
     @FXML public void editSubject(){}
-    @FXML public void editFaculty(){}
+    @FXML public void editFaculty(){
+        editRemoveCourseFacultyController.setBool(true);
+        editRemoveCourseFacultyController.setFlag(2);
+        open("Редагування факультет", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCourseFaculty.fxml","Помилка редагування факультету");
+    }
 
     @FXML public void deleteBuilding(){
         editRemoveBuildingController.setBool(false);
-        open("Редагування корпусу","/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuilding.fxml","Помилка редагування корпусу");
+        open("Видалення корпусу","/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuilding.fxml","Помилка видалення корпусу");
     }
-    @FXML public void deleteClassroom(){}
-    @FXML public void deleteCourse(){}
-    @FXML public void deleteCurriculum(){}
-    @FXML public void deleteDepartment(){}
-    @FXML public void deleteGroup(){}
-    @FXML public void deleteLesson(){}
+    @FXML public void deleteClassroom(){
+        editRemoveClassRoomController.setBool(false);
+        open("Видалення аудиторії", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveClassRoom.fxml","Помилка видалення аудиторії");
+    }
+    @FXML public void deleteCourse(){
+        editRemoveCourseFacultyController.setBool(false);
+        editRemoveCourseFacultyController.setFlag(1);
+        open("Видалення курсу", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCourseFaculty.fxml","Помилка видалення курсу");
+    }
+    @FXML public void deleteCurriculum(){
+        editRemoveCurriculumDepartmentGroupController.setBool(false);
+        editRemoveCurriculumDepartmentGroupController.setFlag(1);
+        open("Видалення освітньої програми", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCurriculumDepartmentGroup.fxml", "Помилка видалення освітньої програми");
+    }
+    @FXML public void deleteDepartment(){
+        editRemoveCurriculumDepartmentGroupController.setBool(false);
+        editRemoveCurriculumDepartmentGroupController.setFlag(2);
+        open("Видалення кафедри", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCurriculumDepartmentGroup.fxml", "Помилка видалення кафедри");
+    }
+    @FXML public void deleteGroup(){
+        editRemoveCurriculumDepartmentGroupController.setBool(false);
+        editRemoveCurriculumDepartmentGroupController.setFlag(3);
+        open("Видалення групи", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCurriculumDepartmentGroup.fxml", "Помилка видалення групи");
+    }
+    @FXML public void deleteLesson(){
+        editRemoveLessonSpecialityController.setBool(false);
+        editRemoveCourseFacultyController.setFlag(1);
+        open("Редагування заняття", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveLessonSpeciiality.fxml","Помилка видалення заняття");
+    }
     @FXML public void deleteTeacher(){}
-    @FXML public void deleteSpesiality(){}
+    @FXML public void deleteSpesiality(){
+        editRemoveLessonSpecialityController.setBool(false);
+        editRemoveCourseFacultyController.setFlag(2);
+        open("Редагування спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveLessonSpeciiality.fxml","Помилка видалення спеціальності");
+    }
     @FXML public void deleteSubject(){}
-    @FXML public void deleteFaculty(){}
+    @FXML public void deleteFaculty(){
+        editRemoveCourseFacultyController.setBool(false);
+        editRemoveCourseFacultyController.setFlag(2);
+        open("Видалення факультет", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveCourseFaculty.fxml","Помилка видалення факультету");
+    }
 
 
 }

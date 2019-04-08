@@ -16,7 +16,7 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Speciality.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Speciality.class)
     @JoinColumn(name = "speciality_id", nullable = false)
     private Speciality speciality;
 

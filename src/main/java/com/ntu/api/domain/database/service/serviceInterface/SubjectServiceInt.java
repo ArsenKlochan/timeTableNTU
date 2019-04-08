@@ -10,5 +10,6 @@ public interface SubjectServiceInt {
     void updateSubject(Subjects subject);
     void deleteSubject(Subjects subject);
     List<Subjects> getSubjectList();
+    List<String> getParametersInString(Subjects subjects);
 
 }
