@@ -2,6 +2,7 @@ package com.ntu.api.domain.database.service.serviceImplementation;
 
 import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
+import com.ntu.api.domain.database.dao.DAOinterface.FacultyDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
 import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
@@ -16,8 +17,7 @@ import java.util.List;
 @Transactional
 public class SpecialityService implements SpecialityServiceInt {
     @Autowired private SpecialityDAOInt specialityDAO;
-    @Autowired private DepartmentDAOInt departmentDAO;
-    @Autowired private CurriculumDAOInt curriculumDAO;
+    @Autowired private FacultyDAOInt facultyDAO;
 
     @Override
     public Long addSpeciality(Speciality speciality) {
@@ -47,11 +47,10 @@ public class SpecialityService implements SpecialityServiceInt {
     @Override
     public List<String> getParametersInString(Speciality speciality) {
         List<String> parameters = new ArrayList<>();
-        Department department = departmentDAO.get(speciality.getDepartment().getDepartmentId());
-        Curriculum curriculum = curriculumDAO.get(speciality.getCurriculum().getCurriculumId());
+        Faculty faculty = facultyDAO.get(speciality.getFaculty().getFacultyId());
+        parameters.add(speciality.getSpecialityCode());
         parameters.add(speciality.getSpecialityName());
-        parameters.add(department.getDepartmentName());
-        parameters.add(curriculum.getCurriculumName());
+        parameters.add(faculty.getFacultyName());
         return parameters;
     }
 }

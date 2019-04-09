@@ -1,12 +1,13 @@
 package com.ntu.api.controller.additional.admin.add;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.entity.Curriculum;
+import com.ntu.api.domain.database.entity.Speciality;
 import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Group;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.DepartmentServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
+import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class addCurriculumDepartmentGroupController {
+public class addSpecialityDepartmentGroupController {
     @FXML private AnchorPane addCurriculumDepartment;
     @FXML private Label label1;
     @FXML private Label label2;
@@ -35,15 +36,15 @@ public class addCurriculumDepartmentGroupController {
     private static ObservableList<String> courseyList;
 
     public static void setCounter(int counter) {
-        addCurriculumDepartmentGroupController.counter = counter;
+        addSpecialityDepartmentGroupController.counter = counter;
     }
 
     @FXML public void initialize(){
         if(counter==1){
-            label1.setText("Код освітньої програми");
-            label2.setText("Назва освітньої програми");
+            label1.setText("Код спеціальності");
+            label2.setText("Назва спеціальності");
             label4.setText("Факультет");
-            button1.textProperty().set("Додати освітню програму");
+            button1.textProperty().set("Додати спеціальність");
             facultyList  = FXCollections.observableArrayList();
             facultyList.addAll(Lists.getFacultyList());
             box1.setEditable(false);
@@ -75,8 +76,8 @@ public class addCurriculumDepartmentGroupController {
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "com/ntu/api/spring/database/config.xml");
         if(counter==1){
-            CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
-            curriculumService.addCurriculum(new Curriculum(text1.getText(), text2.getText(),
+            SpecialityServiceInt specialityService = context.getBean(SpecialityServiceInt.class);
+            specialityService.addSpeciality(new Speciality(text1.getText(), text2.getText(),
                     Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex())));
         }
         if(counter==2){

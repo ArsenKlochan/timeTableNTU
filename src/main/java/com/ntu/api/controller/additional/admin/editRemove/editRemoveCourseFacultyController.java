@@ -122,7 +122,7 @@ public class editRemoveCourseFacultyController {
     }
     @FXML public void box1OnClick(){
         if(flag==1){
-            course.setSpeciality(Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex()));
+            course.setCurriculum(Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex()));
         }
         else{
             faculty.setBuilding(Lists.getBuildingService().getBuildingList().get(box1.getSelectionModel().getSelectedIndex()));

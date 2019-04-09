@@ -116,12 +116,12 @@
                         <MenuItem mnemonicParsing="false" onAction="#editClassroom" text="Аудиторію" />
                         <MenuItem mnemonicParsing="false" onAction="#editTeacher" text="Викладача" />
                         <MenuItem mnemonicParsing="false" onAction="#editGroup" text="Групу" />
-                        <MenuItem mnemonicParsing="false" onAction="#editLesson" text="Дисципліну" />
+                        <MenuItem mnemonicParsing="false" onAction="#editSubject" text="Дисципліну" />
                         <MenuItem mnemonicParsing="false" onAction="#editDepartment" text="Кафедру" />
                         <MenuItem mnemonicParsing="false" onAction="#editBuilding" text="Корпус" />
                         <MenuItem mnemonicParsing="false" onAction="#editCourse" text="Курс" />
                         <MenuItem mnemonicParsing="false" onAction="#editCurriculum" text="Освітню програму" />
-                        <MenuItem mnemonicParsing="false" onAction="#editSubject" text="Предмет" />
+                        <MenuItem mnemonicParsing="false" onAction="#editLesson" text="Заняття" />
                         <MenuItem mnemonicParsing="false" onAction="#editSpesiality" text="Спеціальність" />
                         <MenuItem mnemonicParsing="false" onAction="#editFaculty" text="Факультет" />
                     </items>
@@ -140,12 +140,12 @@
                         <MenuItem mnemonicParsing="false" onAction="#deleteClassroom" text="Аудиторію" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteTeacher" text="Викладача" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteGroup" text="Групу" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteLesson" text="Дисципліну" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteSubject" text="Дисципліну" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteDepartment" text="Кафедру" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteBuilding" text="Корпус" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteCourse" text="Курс" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteCurriculum" text="Освітню програму" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteSubject" text="Предмет" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteLesson" text="Заняття" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteSpesiality" text="Спеціальність" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteFaculty" text="Факультет" />
                     </items>

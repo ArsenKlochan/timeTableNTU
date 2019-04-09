@@ -40,12 +40,12 @@
                 <value>com.ntu.api.domain.database.entity.Building</value>
                 <value>com.ntu.api.domain.database.entity.ClassRoom</value>
                 <value>com.ntu.api.domain.database.entity.Course</value>
-                <value>com.ntu.api.domain.database.entity.Curriculum</value>
+                <value>com.ntu.api.domain.database.entity.Speciality</value>
                 <value>com.ntu.api.domain.database.entity.Department</value>
                 <value>com.ntu.api.domain.database.entity.Faculty</value>
                 <value>com.ntu.api.domain.database.entity.Group</value>
                 <value>com.ntu.api.domain.database.entity.Lesson</value>
-                <value>com.ntu.api.domain.database.entity.Speciality</value>
+                <value>com.ntu.api.domain.database.entity.Curriculum</value>
                 <value>com.ntu.api.domain.database.entity.Subjects</value>
                 <value>com.ntu.api.domain.database.entity.Teacher</value>
                 <value>com.ntu.api.domain.database.entity.User</value>

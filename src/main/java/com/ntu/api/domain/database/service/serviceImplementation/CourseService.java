@@ -1,10 +1,10 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
 import com.ntu.api.domain.database.dao.DAOinterface.CourseDAOInt;
+import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
 import com.ntu.api.domain.database.entity.Course;
-import com.ntu.api.domain.database.entity.Group;
-import com.ntu.api.domain.database.entity.Speciality;
+import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 public class CourseService implements CourseServiceInt {
     @Autowired private CourseDAOInt courseDAO;
-    @Autowired private SpecialityDAOInt specialityDAO;
+    @Autowired private CurriculumDAOInt curriculumDAO;
 
     @Override
     public Long addCourse(Course course) {
@@ -42,9 +42,9 @@ public class CourseService implements CourseServiceInt {
     @Override
     public List<String> getParametersInString(Course course){
         List<String> parameters = new ArrayList<>();
-        Speciality speciality = specialityDAO.get(course.getSpeciality().getSpecialityId());
+        Curriculum curriculum = curriculumDAO.get(course.getCurriculum().getCurriculumId());
         parameters.add(course.getCourseName());
-        parameters.add(speciality.getSpecialityName());
+        parameters.add(curriculum.getCurriculumName());
         return parameters;
     }
 }

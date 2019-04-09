@@ -20,8 +20,8 @@ public class Faculty {
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", targetEntity = Curriculum.class)
-    private List<Curriculum> curriculums = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", targetEntity = Speciality.class)
+    private List<Speciality> specialities = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "faculty", targetEntity = Department.class)
     private List<Department> departments = new ArrayList<>();
@@ -33,10 +33,10 @@ public class Faculty {
         this.building = building;
     }
 
-    public Faculty(String facultyName, Building building, List<Curriculum> curriculums, List<Department> departments) {
+    public Faculty(String facultyName, Building building, List<Speciality> specialities, List<Department> departments) {
         this.facultyName = facultyName;
         this.building = building;
-        this.curriculums = curriculums;
+        this.specialities = specialities;
         this.departments = departments;
     }
 
@@ -58,11 +58,11 @@ public class Faculty {
     public void setBuilding(Building building) {
         this.building = building;
     }
-    public List<Curriculum> getCurriculums() {
-        return curriculums;
+    public List<Speciality> getSpecialities() {
+        return specialities;
     }
-    public void setCurriculums(List<Curriculum> curriculums) {
-        this.curriculums = curriculums;
+    public void setSpecialities(List<Speciality> specialities) {
+        this.specialities = specialities;
     }
     public List<Department> getDepartments() {
         return departments;
@@ -71,10 +71,10 @@ public class Faculty {
         this.departments = departments;
     }
 
-    private String curriculumToString(){
+    private String specialitiesToString(){
         StringBuilder sb = new StringBuilder();
-        for (Curriculum curriculum: curriculums) {
-            sb.append(curriculum.getCurriculumCode()+ " " + curriculum.getCurriculumName() + "/n");
+        for (Speciality speciality : specialities) {
+            sb.append(speciality.getSpecialityCode()+ " " + speciality.getSpecialityName() + "/n");
         }
         return sb.toString();
     }
@@ -93,7 +93,7 @@ public class Faculty {
         sb.append("facultyId=").append(facultyId);
         sb.append(", facultyName='").append(facultyName).append('\'');
         sb.append(", building=").append(building);
-        sb.append(", curriculums=").append(curriculumToString());
+        sb.append(", specialities=").append(specialitiesToString());
         sb.append(", departments=").append(departmentsToString());
         sb.append('}');
         return sb.toString();

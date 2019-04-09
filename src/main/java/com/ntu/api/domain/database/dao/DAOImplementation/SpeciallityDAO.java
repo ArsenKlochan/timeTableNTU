@@ -1,6 +1,7 @@
 package com.ntu.api.domain.database.dao.DAOImplementation;
 
 import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
+import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.Speciality;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

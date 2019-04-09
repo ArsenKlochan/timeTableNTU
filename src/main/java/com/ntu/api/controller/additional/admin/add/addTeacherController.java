@@ -31,7 +31,7 @@ public class addTeacherController {
     private static ObservableList<String> positionList;
 
     @FXML public void initialize(){
-        label1.setText("Приізвище");
+        label1.setText("Прізвище");
         label2.setText("Ім'я Побатькові");
         label3.setText("Кафедра");
         label4.setText("Посада");

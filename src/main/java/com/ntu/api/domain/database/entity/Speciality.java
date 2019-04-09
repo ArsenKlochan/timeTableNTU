@@ -9,44 +9,36 @@ import java.util.List;
 public class Speciality {
 
     @Id
-    @Column(name = "speciality_id")
+    @Column (name = "speciality_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long specialityId;
+
+    @Column(name = "speciality_code")
+    private String specialityCode;
 
     @Column(name = "speciality_name")
     private String specialityName;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Curriculum.class)
-    @JoinColumn(name = "curriculum_id", nullable = false)
-    private Curriculum curriculum;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Faculty.class)
+    @JoinColumn(name = "faculty_id", nullable = false)
+    private Faculty faculty;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Department.class)
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "speciality", targetEntity = Course.class)
-    private List<Course> courses = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Subjects.class)
-    @JoinTable(name = "subject_on_specialities",
-            inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "subject_id"),
-            joinColumns = @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id"))
-    private List<Subjects> subjects = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "speciality", targetEntity = Curriculum.class)
+    private List<Curriculum> curriculums = new ArrayList<>();
 
     public Speciality(){}
 
-    public Speciality(String specialityName, Curriculum curriculum, Department department) {
+    public Speciality(String specialityCode, String specialityName, Faculty faculty) {
+        this.specialityCode = specialityCode;
         this.specialityName = specialityName;
-        this.curriculum = curriculum;
-        this.department = department;
+        this.faculty = faculty;
     }
 
-    public Speciality(String specialityName, Curriculum curriculum, Department department, List<Course> courses, List<Subjects> subjects) {
+    public Speciality(String specialityCode, String specialityName, Faculty faculty, List<Curriculum> curriculums) {
+        this.specialityCode = specialityCode;
         this.specialityName = specialityName;
-        this.curriculum = curriculum;
-        this.department = department;
-        this.courses = courses;
-        this.subjects = subjects;
+        this.faculty = faculty;
+        this.curriculums = curriculums;
     }
 
     public Long getSpecialityId() {
@@ -55,62 +47,46 @@ public class Speciality {
     public void setSpecialityId(Long specialityId) {
         this.specialityId = specialityId;
     }
+    public String getSpecialityCode() {
+        return specialityCode;
+    }
+    public void setSpecialityCode(String specialityCode) {
+        this.specialityCode = specialityCode;
+    }
     public String getSpecialityName() {
         return specialityName;
     }
     public void setSpecialityName(String specialityName) {
         this.specialityName = specialityName;
     }
-    public Curriculum getCurriculum() {
-        return curriculum;
+    public Faculty getFaculty() {
+        return faculty;
     }
-    public void setCurriculum(Curriculum curriculum) {
-        this.curriculum = curriculum;
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
-    public Department getDepartment() {
-        return department;
+    public List<Curriculum> getCurriculums() {
+        return curriculums;
     }
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-    public List<Course> getCourses() {
-        return courses;
-    }
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-    public List<Subjects> getSubjects() {
-        return subjects;
-    }
-    public void setSubjects(List<Subjects> subjects) {
-        this.subjects = subjects;
+    public void setCurriculums(List<Curriculum> curriculums) {
+        this.curriculums = curriculums;
     }
 
-    private String courseToString(){
+    private String specialitiesToString(){
         StringBuilder sb = new StringBuilder();
-        for(Course course: courses){
-            sb.append(course.getCourseName() + "/n");
+        for(Curriculum curriculum : curriculums){
+            sb.append(curriculum.getCurriculumName() + "/n");
         }
         return sb.toString();
     }
 
-    private String subjectToString(){
-        StringBuilder sb = new StringBuilder();
-        for(Subjects subject: subjects){
-            sb.append(subject.getSubjectName() + "/n");
-        }
-        return sb.toString();
-    }
-
-    @Override
+   @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Speciality{");
         sb.append("specialityId=").append(specialityId);
         sb.append(", specialityName='").append(specialityName).append('\'');
-        sb.append(", curriculum=").append(curriculum);
-        sb.append(", department=").append(department);
-        sb.append(", courses=").append(courseToString());
-        sb.append(", subjects=").append(subjectToString());
+        sb.append(", faculty=").append(faculty.getFacultyName());
+        sb.append(", spesialities: ").append(specialitiesToString());
         sb.append('}');
         return sb.toString();
     }

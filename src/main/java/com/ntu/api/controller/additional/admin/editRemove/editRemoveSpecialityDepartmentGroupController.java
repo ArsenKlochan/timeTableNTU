@@ -4,9 +4,11 @@ import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Group;
+import com.ntu.api.domain.database.entity.Speciality;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.DepartmentServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
+import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import com.ntu.api.model.BoxCleaner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-public class editRemoveCurriculumDepartmentGroupController {
+public class editRemoveSpecialityDepartmentGroupController {
     @FXML private AnchorPane editRemoveCurriculumDepartmentGroup;
     @FXML private Label label0;
     @FXML private Label label1;
@@ -43,11 +45,11 @@ public class editRemoveCurriculumDepartmentGroupController {
     private static ObservableList<String> objectList;
     private static ObservableList<String> parametersList;
 
-    Curriculum curriculum;
+    Speciality speciality;
     Department department;
     Group group;
     ApplicationContext context = new ClassPathXmlApplicationContext("com/ntu/api/spring/database/config.xml");
-    CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
+    SpecialityServiceInt specialityService = context.getBean(SpecialityServiceInt.class);
     DepartmentServiceInt departmentService = context.getBean(DepartmentServiceInt.class);
     GroupServiceInt groupService = context.getBean(GroupServiceInt.class);
 
@@ -55,28 +57,28 @@ public class editRemoveCurriculumDepartmentGroupController {
         return bool;
     }
     public static void setBool(Boolean bool) {
-        editRemoveCurriculumDepartmentGroupController.bool = bool;
+        editRemoveSpecialityDepartmentGroupController.bool = bool;
     }
     public static int getFlag() {
         return flag;
     }
     public static void setFlag(int flag) {
-        editRemoveCurriculumDepartmentGroupController.flag = flag;
+        editRemoveSpecialityDepartmentGroupController.flag = flag;
     }
 
     @FXML public void initialize(){
         objectList = FXCollections.observableArrayList();
         parametersList = FXCollections.observableArrayList();
         if(flag==1){
-            label0.setText("Освітня програма");
-            label1.setText("Код освітньої програми");
-            label2.setText("Назва освітньої програми");
+            label0.setText("Спеціальність");
+            label1.setText("Код спеціальності");
+            label2.setText("Назва спеціальності");
             label3.setText("Факультет");
             if (bool){
-                button1.textProperty().set("Зберегти освітню програму");
+                button1.textProperty().set("Зберегти спеціальність");
             }
             else{
-                button1.textProperty().set("Видалити освітню програму");
+                button1.textProperty().set("Видалити спеціальність");
                 box1.setDisable(true);
             }
             objectList.addAll(Lists.getCurriculumList());
@@ -111,7 +113,6 @@ public class editRemoveCurriculumDepartmentGroupController {
             }
             objectList.addAll(Lists.getGroupeList());
             parametersList.addAll(Lists.getCourseList());
-
         }
         box.setEditable(false);
         box1.setEditable(false);
@@ -121,12 +122,12 @@ public class editRemoveCurriculumDepartmentGroupController {
     @FXML public void okOnClick(){
         if(flag==1){
             if(bool){
-                curriculum.setCurriculumCode(text1.getText());
-                curriculum.setCurriculumName(text2.getText());
-                curriculumService.updateCurriculum(curriculum);
+                speciality.setSpecialityCode(text1.getText());
+                speciality.setSpecialityName(text2.getText());
+                specialityService.updateSpeciality(speciality);
             }
             else{
-                curriculumService.deleteCurriculum(curriculum);
+                specialityService.deleteSpeciality(speciality);
             }
         }
         else if(flag==2){
@@ -157,7 +158,7 @@ public class editRemoveCurriculumDepartmentGroupController {
     }
     @FXML public void box1OnClick(){
         if (flag==1){
-            curriculum.setFaculty(Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex()));
+            speciality.setFaculty(Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex()));
         }
         else if(flag==2){
             department.setFaculty(Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex()));
@@ -170,8 +171,8 @@ public class editRemoveCurriculumDepartmentGroupController {
         BoxCleaner.boxClear(box1);
         List<String> parameters = new ArrayList<>();
         if(flag==1){
-            curriculum = curriculumService.getCurriculums().get(box.getSelectionModel().getSelectedIndex());
-            parameters = curriculumService.getParametersInString(curriculum);
+            speciality = specialityService.getSpecialities().get(box.getSelectionModel().getSelectedIndex());
+            parameters = specialityService.getParametersInString(speciality);
         }
         else if(flag==2){
             department = departmentService.getDepartments().get(box.getSelectionModel().getSelectedIndex());

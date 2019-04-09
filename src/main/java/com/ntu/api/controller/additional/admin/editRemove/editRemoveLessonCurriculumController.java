@@ -2,8 +2,9 @@ package com.ntu.api.controller.additional.admin.editRemove;
 
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Lesson;
-import com.ntu.api.domain.database.entity.Speciality;
+import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.enums.LessonType;
+import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import com.ntu.api.model.BoxCleaner;
@@ -22,7 +23,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class editRemoveLessonSpecialityController {
+public class editRemoveLessonCurriculumController {
     @FXML private AnchorPane editRemoveLessonSpeciality;
     @FXML private Label label0;
     @FXML private Label label1;
@@ -42,22 +43,22 @@ public class editRemoveLessonSpecialityController {
     private ObservableList<String> parameterTwoList;
 
     Lesson lesson;
-    Speciality speciality;
+    Curriculum curriculum;
     ApplicationContext context = new ClassPathXmlApplicationContext("com/ntu/api/spring/database/config.xml");
     LessonServiceInt lessonService = context.getBean(LessonServiceInt.class);
-    SpecialityServiceInt specialityService = context.getBean(SpecialityServiceInt.class);
+    CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
 
     public static Boolean getBool() {
         return bool;
     }
     public static void setBool(Boolean bool) {
-        editRemoveLessonSpecialityController.bool = bool;
+        editRemoveLessonCurriculumController.bool = bool;
     }
     public static int getFlag() {
         return flag;
     }
     public static void setFlag(int flag) {
-        editRemoveLessonSpecialityController.flag = flag;
+        editRemoveLessonCurriculumController.flag = flag;
     }
 
     @FXML public void initialize(){
@@ -82,15 +83,15 @@ public class editRemoveLessonSpecialityController {
             parameterTwoList.addAll(Lists.getSubjectsList());
         }
         else{
-            label0.setText("Спеціальність");
-            label1.setText("Назва спеціальності");
-            label2.setText("Освітня програма");
+            label0.setText("Освітня програма");
+            label1.setText("Назва освітньої програми");
+            label2.setText("Спеціальність");
             label3.setText("Кафедра");
             if(bool){
-                button1.textProperty().set("Зберегти спеціальність");
+                button1.textProperty().set("Зберегти освітню програму");
             }
             else{
-                button1.textProperty().set("Видалити спеціальність");
+                button1.textProperty().set("Видалити освітню програму");
                 box1.setDisable(true);
                 box2.setDisable(true);
             }
@@ -111,11 +112,11 @@ public class editRemoveLessonSpecialityController {
         }
         else{
             if(bool){
-                speciality.setSpecialityName(text1.getText());
-                specialityService.updateSpeciality(speciality);
+                curriculum.setCurriculumName(text1.getText());
+                curriculumService.updateCurriculum(curriculum);
             }
             else{
-                specialityService.deleteSpeciality(speciality);
+                curriculumService.deleteCurriculum(curriculum);
             }
         }
         cancelOnClick();
@@ -129,7 +130,7 @@ public class editRemoveLessonSpecialityController {
             lesson.setLessonType(LessonType.values()[box1.getSelectionModel().getSelectedIndex()]);
         }
         else {
-            speciality.setCurriculum(Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex()));
+            curriculum.setSpeciality(Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex()));
         }
     }
     @FXML public void box2OnClick(){
@@ -137,7 +138,7 @@ public class editRemoveLessonSpecialityController {
             lesson.setSubject(Lists.getSubjectService().getSubjectList().get(box2.getSelectionModel().getSelectedIndex()));
         }
         else {
-            speciality.setDepartment(Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex()));
+            curriculum.setDepartment(Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex()));
         }
     }
     @FXML public void chooseOnClick(){
@@ -149,8 +150,8 @@ public class editRemoveLessonSpecialityController {
             parameters = lessonService.getParametersInString(lesson);
         }
         else{
-            speciality = specialityService.getSpecialities().get(box.getSelectionModel().getSelectedIndex());
-            parameters = specialityService.getParametersInString(speciality);
+            curriculum = curriculumService.getCurriculums().get(box.getSelectionModel().getSelectedIndex());
+            parameters = curriculumService.getParametersInString(curriculum);
         }
         text1.setText(parameters.get(0));
         box1.promptTextProperty().set(parameters.get(1));

@@ -10,8 +10,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 public class Lists {
 
@@ -85,8 +83,8 @@ public class Lists {
     }
     public static ArrayList<String> getCurriculumList() {
         ArrayList<String> tempList = new ArrayList<>();
-        for(Curriculum curriculum:curriculumService.getCurriculums()){
-            tempList.add(curriculum.getCurriculumCode() + " " + curriculum.getCurriculumName());
+        for(Curriculum curriculum :curriculumService.getCurriculums()){
+            tempList.add(curriculum.getCurriculumName());
         }
         return tempList;
     }
@@ -106,7 +104,9 @@ public class Lists {
     }
     public static ArrayList<String> getGroupeList() {
         ArrayList<String> tempList = new ArrayList<>();
+        System.out.println(groupService.getGroups().size());
         for(Group group:groupService.getGroups()){
+            System.out.println("input 2");
             tempList.add(group.getGroupName());
         }
         return tempList;
@@ -120,9 +120,8 @@ public class Lists {
     }
     public static ArrayList<String> getSpecialityList() {
         ArrayList<String> tempList = new ArrayList<>();
-        for(Speciality speciality:specialityService.getSpecialities()){
-            System.out.println(speciality.getSpecialityName());
-            tempList.add(speciality.getSpecialityName());
+        for(Speciality speciality :specialityService.getSpecialities()){
+            tempList.add(speciality.getSpecialityCode() + " " + speciality.getSpecialityName());
         }
         return tempList;
     }

@@ -16,9 +16,9 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Speciality.class)
-    @JoinColumn(name = "speciality_id", nullable = false)
-    private Speciality speciality;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Curriculum.class)
+    @JoinColumn(name = "curriculum_id", nullable = false)
+    private Curriculum curriculum;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Group.class)
     private List<Group> groups = new ArrayList<>();
@@ -28,14 +28,14 @@ public class Course {
 
     public Course(){}
 
-    public Course(String courseName, Speciality speciality) {
+    public Course(String courseName, Curriculum curriculum) {
         this.courseName = courseName;
-        this.speciality = speciality;
+        this.curriculum = curriculum;
     }
 
-    public Course(String courseName, Speciality speciality, List<Group> groups, List<Subjects> subjects) {
+    public Course(String courseName, Curriculum curriculum, List<Group> groups, List<Subjects> subjects) {
         this.courseName = courseName;
-        this.speciality = speciality;
+        this.curriculum = curriculum;
         this.groups = groups;
         this.subjects = subjects;
     }
@@ -52,11 +52,11 @@ public class Course {
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
-    public Speciality getSpeciality() {
-        return speciality;
+    public Curriculum getCurriculum() {
+        return curriculum;
     }
-    public void setSpeciality(Speciality speciality) {
-        this.speciality = speciality;
+    public void setCurriculum(Curriculum curriculum) {
+        this.curriculum = curriculum;
     }
     public List<Group> getGroups() {
         return groups;
@@ -92,7 +92,7 @@ public class Course {
         final StringBuilder sb = new StringBuilder("Course{");
         sb.append("courseId=").append(courseId);
         sb.append(", courseName='").append(courseName).append('\'');
-        sb.append(", speciality=").append(speciality);
+        sb.append(", curriculum=").append(curriculum);
         sb.append(", groups=").append(groupsToString());
         sb.append(", subjects=").append(subjectsToString());
         sb.append('}');

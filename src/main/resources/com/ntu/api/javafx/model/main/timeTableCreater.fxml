@@ -1706,7 +1706,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="curriculum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#curriculumChoose" prefWidth="150.0" GridPane.rowIndex="1">
+                        <ComboBox fx:id="speciality" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#curriculumChoose" prefWidth="150.0" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>
@@ -1760,7 +1760,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="speciality" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#specialityChoose" prefWidth="150.0" GridPane.rowIndex="1">
+                        <ComboBox fx:id="curriculum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#specialityChoose" prefWidth="150.0" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>

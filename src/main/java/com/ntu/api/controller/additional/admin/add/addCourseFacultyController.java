@@ -37,9 +37,9 @@ public class addCourseFacultyController {
         box1.setEditable(false);
         if(counter==1){
             label1.setText("Назва курсу");
-            label2.setText("Спеціальність");
+            label2.setText("Освітня програма");
             button1.textProperty().set("Додати курс");
-            tempList.addAll(Lists.getSpecialityList());
+            tempList.addAll(Lists.getCurriculumList());
             box1.getItems().setAll(tempList);
         }
         if(counter==2){
@@ -57,7 +57,7 @@ public class addCourseFacultyController {
         if(counter==1) {
             CourseServiceInt courseService = context.getBean(CourseServiceInt.class);
             courseService.addCourse(new Course(text1.getText(),
-                    Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex())));
+                    Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex())));
         }
         if(counter==2) {
             FacultyServiceInt facultyService = context.getBean(FacultyServiceInt.class);

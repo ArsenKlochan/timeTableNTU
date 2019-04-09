@@ -1,6 +1,5 @@
 package com.ntu.api.domain.database.entity;
 
-import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 
 import javax.persistence.*;
@@ -42,8 +41,8 @@ public class Subjects {
     @JoinColumn(name = "course_id",nullable = false)
     private Course course;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects", cascade = CascadeType.ALL, targetEntity = Speciality.class)
-    private List<Speciality> specialities = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects", cascade = CascadeType.ALL, targetEntity = Curriculum.class)
+    private List<Curriculum> curriculums = new ArrayList<>();
 
     public Subjects(){}
 
@@ -57,7 +56,7 @@ public class Subjects {
     }
 
     public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType,
-                    List<Lesson> lessons, Course course, List<Speciality> specialities) {
+                    List<Lesson> lessons, Course course, List<Curriculum> curriculums) {
         this.subjectName = subjectName;
         this.lection = lection;
         this.practic = practic;
@@ -66,7 +65,7 @@ public class Subjects {
         this.examType = examType;
         this.lessons = lessons;
         this.course = course;
-        this.specialities = specialities;
+        this.curriculums = curriculums;
     }
 
     public Long getSubjectId() {
@@ -123,17 +122,17 @@ public class Subjects {
     public void setCourse(Course course) {
         this.course = course;
     }
-    public List<Speciality> getSpecialities() {
-        return specialities;
+    public List<Curriculum> getCurriculums() {
+        return curriculums;
     }
-    public void setSpecialities(List<Speciality> specialities) {
-        this.specialities = specialities;
+    public void setCurriculums(List<Curriculum> curriculums) {
+        this.curriculums = curriculums;
     }
 
-    private String specialityToString(){
+    private String curriculumsToString(){
         StringBuilder sb = new StringBuilder();
-        for(Speciality speciality : specialities){
-            sb.append(speciality.getSpecialityName()+ "/n");
+        for(Curriculum curriculum : curriculums){
+            sb.append(curriculum.getCurriculumName()+ "/n");
         }
         return sb.toString();
     }
@@ -158,7 +157,7 @@ public class Subjects {
         sb.append(", examType=").append(examType);
         sb.append(", lessons=").append(lessonsToString());
         sb.append(", course=").append(course);
-        sb.append(", specialities=").append(specialityToString());
+        sb.append(", curriculums=").append(curriculumsToString());
         sb.append('}');
         return sb.toString();
     }

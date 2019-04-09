@@ -1,5 +1,6 @@
 package com.ntu.api.domain.database.dao.DAOinterface;
 
+import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.Speciality;
 
 import java.util.List;

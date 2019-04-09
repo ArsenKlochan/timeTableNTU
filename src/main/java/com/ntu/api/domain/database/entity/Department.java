@@ -23,8 +23,8 @@ public class Department {
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = Speciality.class)
-    private List<Speciality> specialities = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = Curriculum.class)
+    private List<Curriculum> curriculums = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = Teacher.class)
     private List<Teacher> teachers = new ArrayList<>();
@@ -41,11 +41,11 @@ public class Department {
     }
 
     public Department(String departmentCode, String departmentName, Faculty faculty,
-                      List<Speciality> specialities, List<Teacher> teachers, List<ClassRoom> classRooms) {
+                      List<Curriculum> curriculums, List<Teacher> teachers, List<ClassRoom> classRooms) {
         this.departmentCode = departmentCode;
         this.departmentName = departmentName;
         this.faculty = faculty;
-        this.specialities = specialities;
+        this.curriculums = curriculums;
         this.teachers = teachers;
         this.classRooms = classRooms;
     }
@@ -74,11 +74,11 @@ public class Department {
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
-    public List<Speciality> getSpecialities() {
-        return specialities;
+    public List<Curriculum> getCurriculums() {
+        return curriculums;
     }
-    public void setSpecialities(List<Speciality> specialities) {
-        this.specialities = specialities;
+    public void setCurriculums(List<Curriculum> curriculums) {
+        this.curriculums = curriculums;
     }
     public List<Teacher> getTeachers() {
         return teachers;
@@ -96,10 +96,10 @@ public class Department {
         this.classRooms = classRooms;
     }
 
-    private String specialitiesToString(){
+    private String curriculumsToString(){
         StringBuilder sb = new StringBuilder();
-        for(Speciality speciality : specialities){
-            sb.append(speciality.getSpecialityId() + " " + speciality.getSpecialityName() + "/n");
+        for(Curriculum curriculum : curriculums){
+            sb.append(curriculum.getCurriculumName() + "/n");
         }
         return sb.toString();
     }
@@ -127,7 +127,7 @@ public class Department {
         sb.append(", departmentCode='").append(departmentCode).append('\'');
         sb.append(", departmentName='").append(departmentName).append('\'');
         sb.append(", faculty=").append(faculty);
-        sb.append(", specialities=").append(specialitiesToString());
+        sb.append(", curriculums=").append(curriculumsToString());
         sb.append(", teachers=").append(teacherToString());
         sb.append(", classRooms=").append(classRoomsToString());
         sb.append('}');

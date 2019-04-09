@@ -57,7 +57,7 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void initialize(){
-        label0.setText("Аудиторії");
+        label0.setText("Аудиторія");
         label1.setText("Назва аудиторії");
         label2.setText("Кількість робочих місць");
         label3.setText("Тип аудиторії");
