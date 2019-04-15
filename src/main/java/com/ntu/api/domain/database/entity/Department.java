@@ -1,12 +1,14 @@
 package com.ntu.api.domain.database.entity;
 
+import com.ntu.api.domain.BaseObject;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "departments", schema = "ntu")
-public class Department {
+public class Department extends BaseObject {
 
     @Id
     @Column(name = "department_id")

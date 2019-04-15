@@ -1,12 +1,14 @@
 package com.ntu.api.domain.database.entity;
 
+import com.ntu.api.domain.BaseObject;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "teachers", schema = "ntu")
-public class Teacher {
+public class Teacher extends BaseObject {
     @Id
     @Column(name = "teacher_id")
     @GeneratedValue(strategy = GenerationType.AUTO)

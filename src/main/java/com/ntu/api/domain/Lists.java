@@ -5,11 +5,13 @@ import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 import com.ntu.api.domain.database.entity.enums.LessonType;
 import com.ntu.api.domain.database.entity.enums.Position;
+import com.ntu.api.domain.database.service.serviceImplementation.DepartmentService;
 import com.ntu.api.domain.database.service.serviceInterface.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Lists {
 
@@ -74,9 +76,9 @@ public class Lists {
         }
         return tempList;
     }
-    public static ArrayList<String> getCourseList() {
+    public static ArrayList<String> getCourseList(Curriculum curriculum) {
         ArrayList<String> tempList = new ArrayList<>();
-        for(Course course:courseService.getCourses()){
+        for(Course course:curriculum.getCourses()){
             tempList.add(course.getCourseName());
         }
         return tempList;
@@ -95,6 +97,21 @@ public class Lists {
         }
         return tempList;
     }
+//    public static ArrayList<String> getDepatmentsOnFacultyList(Faculty faculty){
+//        ArrayList<String> tempList = new ArrayList<>();
+//        for(Department department:departmentService.getDepartments()) {
+//            Faculty tempFaculty = facultyService.getFaculty(department.getFaculty().getFacultyId());
+//            if (tempFaculty==faculty) {
+//                System.out.println(department.getFaculty().equals(faculty));
+//                tempList.add(department.getDepartmentCode() + " " + department.getDepartmentName());
+//            }
+//            else{
+//                System.out.println(tempFaculty==faculty);
+//                System.out.println(tempFaculty.equals(faculty));
+//            }
+//        }
+//        return tempList;
+//    }
     public static ArrayList<String> getFacultyList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Faculty faculty:facultyService.getFaculties()){
@@ -104,9 +121,9 @@ public class Lists {
     }
     public static ArrayList<String> getGroupeList() {
         ArrayList<String> tempList = new ArrayList<>();
+        System.out.println(lessonService.getLessons().size());
         System.out.println(groupService.getGroups().size());
         for(Group group:groupService.getGroups()){
-            System.out.println("input 2");
             tempList.add(group.getGroupName());
         }
         return tempList;

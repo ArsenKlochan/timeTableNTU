@@ -1,5 +1,6 @@
 package com.ntu.api.domain.database.entity;
 
+import com.ntu.api.domain.BaseObject;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "subjects", schema = "ntu")
-public class Subjects {
+public class Subjects extends BaseObject {
 
     @Id
     @Column(name = "subject_id")
@@ -41,9 +42,6 @@ public class Subjects {
     @JoinColumn(name = "course_id",nullable = false)
     private Course course;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects", cascade = CascadeType.ALL, targetEntity = Curriculum.class)
-    private List<Curriculum> curriculums = new ArrayList<>();
-
     public Subjects(){}
 
     public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType) {
@@ -55,8 +53,18 @@ public class Subjects {
         this.examType = examType;
     }
 
+    public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType, Course course) {
+        this.subjectName = subjectName;
+        this.lection = lection;
+        this.practic = practic;
+        this.labaratory = labaratory;
+        this.allHours = allHours;
+        this.examType = examType;
+        this.course = course;
+    }
+
     public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType,
-                    List<Lesson> lessons, Course course, List<Curriculum> curriculums) {
+                    List<Lesson> lessons, Course course) {
         this.subjectName = subjectName;
         this.lection = lection;
         this.practic = practic;
@@ -65,7 +73,6 @@ public class Subjects {
         this.examType = examType;
         this.lessons = lessons;
         this.course = course;
-        this.curriculums = curriculums;
     }
 
     public Long getSubjectId() {
@@ -122,20 +129,6 @@ public class Subjects {
     public void setCourse(Course course) {
         this.course = course;
     }
-    public List<Curriculum> getCurriculums() {
-        return curriculums;
-    }
-    public void setCurriculums(List<Curriculum> curriculums) {
-        this.curriculums = curriculums;
-    }
-
-    private String curriculumsToString(){
-        StringBuilder sb = new StringBuilder();
-        for(Curriculum curriculum : curriculums){
-            sb.append(curriculum.getCurriculumName()+ "/n");
-        }
-        return sb.toString();
-    }
 
     private String lessonsToString(){
         StringBuilder sb = new StringBuilder();
@@ -157,7 +150,6 @@ public class Subjects {
         sb.append(", examType=").append(examType);
         sb.append(", lessons=").append(lessonsToString());
         sb.append(", course=").append(course);
-        sb.append(", curriculums=").append(curriculumsToString());
         sb.append('}');
         return sb.toString();
     }

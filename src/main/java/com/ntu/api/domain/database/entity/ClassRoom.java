@@ -1,12 +1,13 @@
 package com.ntu.api.domain.database.entity;
 
+import com.ntu.api.domain.BaseObject;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "classRooms", schema = "ntu")
-public class ClassRoom {
+public class ClassRoom extends BaseObject {
 
     @Id
     @Column(name = "classrooms_id")

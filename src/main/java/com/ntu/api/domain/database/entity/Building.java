@@ -1,12 +1,14 @@
 package com.ntu.api.domain.database.entity;
 
+import com.ntu.api.domain.BaseObject;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "buildings", schema = "ntu")
-public class Building {
+public class Building extends BaseObject {
 
     @Id
     @Column(name = "building_id")
@@ -22,9 +24,6 @@ public class Building {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building", targetEntity = ClassRoom.class)
     private List<ClassRoom> classRooms= new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building", targetEntity = Faculty.class)
-    private List<Faculty> faculties= new ArrayList<>();
-
     public Building(){}
 
     public Building(String buildingName, String buildingAdress) {
@@ -32,11 +31,10 @@ public class Building {
         this.buildingAdress = buildingAdress;
     }
 
-    public Building(String buildingName, String buildingAdress, List<ClassRoom> classRooms, List<Faculty> faculties) {
+    public Building(String buildingName, String buildingAdress, List<ClassRoom> classRooms) {
         this.buildingName = buildingName;
         this.buildingAdress = buildingAdress;
         this.classRooms = classRooms;
-        this.faculties = faculties;
     }
 
     public Long getBuildingId() {
@@ -63,12 +61,6 @@ public class Building {
     public void setClassRooms(List<ClassRoom> classRooms) {
         this.classRooms = classRooms;
     }
-    public List<Faculty> getFaculties() {
-        return faculties;
-    }
-    public void setFaculties(List<Faculty> faculties) {
-        this.faculties = faculties;
-    }
 
     private String classRoomsToString(){
         StringBuilder sb = new StringBuilder();
@@ -78,15 +70,6 @@ public class Building {
         return sb.toString();
     }
 
-    private String facultyToString(){
-        StringBuilder sb = new StringBuilder();
-        for(Faculty faculty: faculties){
-            sb.append(faculty.getFacultyName() + "/n");
-        }
-        return sb.toString();
-    }
-
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Building{");
@@ -94,7 +77,6 @@ public class Building {
         sb.append(", buildingName='").append(buildingName).append('\'');
         sb.append(", buildingAdress='").append(buildingAdress).append('\'');
         sb.append(", classRooms=").append(classRoomsToString()).append('\'');
-        sb.append(", buildingDescription='").append(facultyToString());
         sb.append('}');
         return sb.toString();
     }

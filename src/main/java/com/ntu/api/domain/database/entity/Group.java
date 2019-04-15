@@ -1,10 +1,12 @@
 package com.ntu.api.domain.database.entity;
 
+import com.ntu.api.domain.BaseObject;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "groups", schema = "ntu")
-public class Group {
+public class Group extends BaseObject {
 
     @Id
     @Column(name = "group_id")
