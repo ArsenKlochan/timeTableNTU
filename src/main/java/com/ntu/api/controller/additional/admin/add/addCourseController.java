@@ -5,6 +5,8 @@ import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
+import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class addCourseFacultyController {
+public class addCourseController {
     @FXML private AnchorPane addCourse;
     @FXML private Label label1;
     @FXML private Label label2;
@@ -26,49 +28,33 @@ public class addCourseFacultyController {
     @FXML private Button button1;
     @FXML private Button button2;
     private static ObservableList<String> tempList;
-    private static int counter;
-
-    public static void setCounter(int counter) {
-        addCourseFacultyController.counter = counter;
-    }
 
     @FXML public void initialize(){
         tempList = FXCollections.observableArrayList();
         box1.setEditable(false);
-        if(counter==1){
             label1.setText("Назва курсу");
             label2.setText("Освітня програма");
             button1.textProperty().set("Додати курс");
             tempList.addAll(Lists.getCurriculumList());
             box1.getItems().setAll(tempList);
-        }
-        if(counter==2){
-            label1.setText("Назва факультету");
-            label2.setText("Корпус");
-            button1.textProperty().set("Додати факультет");
-            tempList.addAll(Lists.getBuildingList());
-            box1.getItems().setAll(tempList);
-        }
     }
 
     @FXML public void okOnClick(){
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "com/ntu/api/spring/database/config.xml");
-        if(counter==1) {
             CourseServiceInt courseService = context.getBean(CourseServiceInt.class);
             courseService.addCourse(new Course(text1.getText(),
                     Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex())));
-        }
-        if(counter==2) {
-            FacultyServiceInt facultyService = context.getBean(FacultyServiceInt.class);
-            facultyService.addFaculty(new Faculty(text1.getText(),
-                    Lists.getBuildingService().getBuildingList().get(box1.getSelectionModel().getSelectedIndex())));
-        }
-        cancelOnClick();
+            clear();
+        Message.questionOnClick(addCourse,"Додавання курсу","Додати ще один курс?");
     }
 
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage)(addCourse.getScene().getWindow());
         dlg.close();
+    }
+    private void clear(){
+        text1.clear();
+        BoxCleaner.boxClear(box1);
     }
 }

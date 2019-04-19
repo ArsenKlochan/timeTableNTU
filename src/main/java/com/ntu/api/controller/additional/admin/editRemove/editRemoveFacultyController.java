@@ -5,6 +5,7 @@ import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
 import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -66,7 +67,14 @@ public class editRemoveFacultyController {
         else{
             facultyService.deleteFacultu(faculty);
         }
-        cancelOnClick();
+        clear();
+        if(bool){
+            Message.questionOnClick(removeDeleteFaculty, "Редагування факультету", "Редагувати ще один факультет?");
+
+        }
+        else{
+            Message.questionOnClick(removeDeleteFaculty, "Видалення факультету", "Видалити ще один факультет?");
+        }
     }
 
     @FXML public void cancelOnClick(){
@@ -80,5 +88,10 @@ public class editRemoveFacultyController {
         parameters = facultyService.getParametersInString(faculty);
         text1.setText(parameters.get(0));
     }
+    private void clear(){
+        text1.clear();
+        BoxCleaner.boxClear(box);
+    }
+
 
 }

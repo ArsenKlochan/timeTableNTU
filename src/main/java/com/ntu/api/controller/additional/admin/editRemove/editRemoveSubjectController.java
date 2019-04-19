@@ -131,5 +131,17 @@ public class editRemoveSubjectController {
         Stage dlg = (Stage)(editRemoveSubject.getScene().getWindow());
         dlg.close();
     }
+
+    private void clear(){
+        text1.clear();
+        text2.clear();
+        text3.clear();
+        text4.clear();
+        text5.clear();
+        BoxCleaner.boxClear(box0);
+        BoxCleaner.boxClear(box1);
+        BoxCleaner.boxClear(box2);
+        BoxCleaner.boxClear(box3);
+    }
 }
 

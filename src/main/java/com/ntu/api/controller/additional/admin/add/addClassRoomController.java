@@ -4,6 +4,8 @@ import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.ClassRoom;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.service.serviceInterface.ClassRoomServiceInt;
+import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -68,11 +70,21 @@ public class addClassRoomController {
                 ClassRoomTypes.valueOf(box1.getSelectionModel().getSelectedItem()),
                 Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex()),
                 Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex())));
-        cancelOnClick();
+        clear();
+        Message.questionOnClick(addClassRoom,"Додавання аудиторії", "Додати ще одну аудиторію?");
     }
 
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage)(addClassRoom.getScene().getWindow());
         dlg.close();
     }
+
+    private void clear(){
+        text1.clear();
+        text2.clear();
+        BoxCleaner.boxClear(box1);
+        BoxCleaner.boxClear(box2);
+        BoxCleaner.boxClear(box3);
+    }
 }
+

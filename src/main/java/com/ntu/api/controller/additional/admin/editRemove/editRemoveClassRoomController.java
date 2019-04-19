@@ -5,6 +5,7 @@ import com.ntu.api.domain.database.entity.ClassRoom;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.service.serviceInterface.ClassRoomServiceInt;
 import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -102,7 +103,13 @@ public class editRemoveClassRoomController {
         else{
             classRoomService.deleteClassRoom(classRoom);
         }
-        cancelOnClick();
+        clear();
+        if(bool){
+            Message.questionOnClick(editRemoveClassRoom,"Редагування аудиторії", "Редагувати ще одну аудиторію?");
+        }
+        else{
+            Message.questionOnClick(editRemoveClassRoom,"Видалення аудиторії", "Видалити ще одну аудиторію?");
+        }
     }
 
     @FXML public void cancelOnClick(){
@@ -131,5 +138,14 @@ public class editRemoveClassRoomController {
         box1.promptTextProperty().set(parameters.get(2));
         box2.promptTextProperty().set(parameters.get(3));
         box3.promptTextProperty().set(parameters.get(4));
+    }
+
+    private void clear(){
+        text1.clear();
+        text2.clear();
+        BoxCleaner.boxClear(box);
+        BoxCleaner.boxClear(box1);
+        BoxCleaner.boxClear(box2);
+        BoxCleaner.boxClear(box3);
     }
 }

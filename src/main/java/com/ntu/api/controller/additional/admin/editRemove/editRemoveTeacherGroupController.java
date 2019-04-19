@@ -8,6 +8,7 @@ import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.TeacherServiceInt;
 import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -169,11 +170,33 @@ public class editRemoveTeacherGroupController {
                 groupService.deleteGroupe(group);
             }
         }
-        cancelOnClick();
+        clear();
+        if(flag==1) {
+            if (bool) {
+                Message.questionOnClick(editRemoveTeacherGroup, "Редагування викладача", "Редагувати ще одного викладлача?");
+            } else {
+                Message.questionOnClick(editRemoveTeacherGroup, "Видалення викладача", "Видалити ще одного викладлача?");
+            }
+        }
+        else{
+            if (bool) {
+                Message.questionOnClick(editRemoveTeacherGroup,"Редагування групи", "Редагувати ще одну групу?");
+            }
+            else {
+                Message.questionOnClick(editRemoveTeacherGroup,"Видалення групи", "Видалити ще одну групу?");
+            }
+        }
     }
 
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage)(editRemoveTeacherGroup.getScene().getWindow());
         dlg.close();
+    }
+    private void clear(){
+        BoxCleaner.boxClear(box);
+        BoxCleaner.boxClear(box1);
+        BoxCleaner.boxClear(box2);
+        text1.clear();
+        text2.clear();
     }
 }

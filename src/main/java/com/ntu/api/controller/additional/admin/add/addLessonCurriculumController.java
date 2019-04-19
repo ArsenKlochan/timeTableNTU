@@ -7,6 +7,8 @@ import com.ntu.api.domain.database.entity.enums.LessonType;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
+import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -93,11 +95,23 @@ public class addLessonCurriculumController {
                     Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex()),
                     Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex())));
         }
-        cancelOnClick();
+        clear();
+        if(count==1) {
+            Message.questionOnClick(addLessonSpeciality, "Додавання заняття", "Додати ще одне заняття?");
+        }
+        else{
+            Message.questionOnClick(addLessonSpeciality,"Додавання освітньої програми", "Додати ще одну освітню програму?");
+        }
     }
 
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage)(addLessonSpeciality.getScene().getWindow());
         dlg.close();
+    }
+
+    private void clear(){
+        text1.clear();
+        BoxCleaner.boxClear(box1);
+        BoxCleaner.boxClear(box2);
     }
 }

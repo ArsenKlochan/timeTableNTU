@@ -9,6 +9,7 @@ import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -110,8 +111,15 @@ public class editRemoveDepartmentController {
             objectList.addAll(departmentService.getDepartmentsOnFaculty(faculty));
             departments = departmentService.getDepartmentsOnFacultyList(faculty);
             box.getItems().setAll(objectList);
-            }
         }
+        clear();
+        if(editBool){
+            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Редагування кафедри", "Редагувати ще одну кафедру?");
+        }
+        else{
+            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Видалення кафедри", "Видалити ще одну кафедру?");
+        }
+    }
     @FXML public void chooseOnClick(){
         editBool = true;
         BoxCleaner.boxClear(box1);
@@ -128,5 +136,12 @@ public class editRemoveDepartmentController {
         objectList.clear();
         box.promptTextProperty().setValue(null);
         box.setValue(null);
+    }
+
+    private void clear(){
+        text1.clear();
+        text2.clear();
+        BoxCleaner.boxClear(box);
+        BoxCleaner.boxClear(box1);
     }
 }

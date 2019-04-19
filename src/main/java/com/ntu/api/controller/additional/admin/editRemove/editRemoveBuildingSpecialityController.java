@@ -5,6 +5,8 @@ import com.ntu.api.domain.database.entity.Building;
 import com.ntu.api.domain.database.entity.Speciality;
 import com.ntu.api.domain.database.service.serviceInterface.BuildingServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
+import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -104,15 +106,31 @@ public class editRemoveBuildingSpecialityController {
                 specialityService.deleteSpeciality(speciality);
             }
         }
-        cancelOnClick();
+        clear();
+        if(flag==1){
+            if (bool){
+                Message.questionOnClick(editRemoveBuildingSpeciality,"Редагування корпусу", "Редагувати ще один корпус?");
+            }
+            else{
+                Message.questionOnClick(editRemoveBuildingSpeciality,"Видалення корпусу", "Видалити ще один корпус?");
+            }
+        }
+        else if (flag==2){
+            if(bool){
+                Message.questionOnClick(editRemoveBuildingSpeciality,"Редагування спеціальності", "Редагувати ще одну спеціальність?");
+            }
+            else{
+                Message.questionOnClick(editRemoveBuildingSpeciality,"Видалення спеціальності", "Видалити ще одну спеціальність?");
+            }
+        }
     }
     @FXML public void chooseOnClick(){
-        if(flag==1){
+        if(flag==2){
             speciality = specialityService.getSpecialities().get(box.getSelectionModel().getSelectedIndex());
             text1.setText(speciality.getSpecialityCode());
             text2.setText(speciality.getSpecialityName());
         }
-        else if(flag==2) {
+        else if(flag==1) {
             building = buildingService.getBuildingList().get(box.getSelectionModel().getSelectedIndex());
             text1.setText(building.getBuildingName());
             text2.setText(building.getBuildingAdress());
@@ -122,5 +140,12 @@ public class editRemoveBuildingSpecialityController {
     private void windowsDisabled(){
         text1.setDisable(true);
         text2.setDisable(true);
+    }
+
+    private void clear(){
+        text1.clear();
+        text2.clear();
+        BoxCleaner.boxClear(box);
+
     }
 }

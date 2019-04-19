@@ -6,6 +6,7 @@ import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
 import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,7 +55,7 @@ public class editRemoveCourseController {
         parametersList = FXCollections.observableArrayList();
         label0.setText("Курс");
         label1.setText("Назва курсу");
-        label2.setText("Спеціальність");
+        label2.setText("Освітня програма");
         if (bool){
             button1.textProperty().set("Зберегти курс");
         }
@@ -62,8 +63,8 @@ public class editRemoveCourseController {
             button1.textProperty().set("Видалити курс");
             box1.setDisable(true);
         }
-//        objectsList.addAll(Lists.getCourseList());
-        parametersList.addAll(Lists.getSpecialityList());
+        objectsList.addAll(Lists.getCourseList(course.getCurriculum()));
+        parametersList.addAll(Lists.getCurriculumList());
         box.setEditable(false);
         box1.setEditable(false);
         box.getItems().setAll(objectsList);
@@ -77,7 +78,13 @@ public class editRemoveCourseController {
         else{
             courseService.deleteCourse(course);
         }
-        cancelOnClick();
+        clear();
+        if(bool){
+            Message.questionOnClick(removeDeleteCourse,"Редагування курсу","Редагувати ще один курс?");
+        }
+        else{
+            Message.questionOnClick(removeDeleteCourse,"Видалення курсу","Видалити ще один курс?");
+        }
     }
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage) removeDeleteCourse.getScene().getWindow();
@@ -94,5 +101,10 @@ public class editRemoveCourseController {
         parameters = courseService.getParametersInString(course);
         text1.setText(parameters.get(0));
         box1.promptTextProperty().set(parameters.get(1));
+    }
+    private void clear(){
+        text1.clear();
+        BoxCleaner.boxClear(box);
+        BoxCleaner.boxClear(box1);
     }
 }

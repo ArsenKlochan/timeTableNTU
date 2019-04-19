@@ -8,6 +8,7 @@ import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import com.ntu.api.model.BoxCleaner;
+import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -119,7 +120,23 @@ public class editRemoveLessonCurriculumController {
                 curriculumService.deleteCurriculum(curriculum);
             }
         }
-        cancelOnClick();
+        clear();
+        if(flag==1){
+            if(bool){
+                Message.questionOnClick(editRemoveLessonSpeciality, "Редагувати заняття", "Редагувати ще одне заняття?");
+            }
+            else{
+                Message.questionOnClick(editRemoveLessonSpeciality, "Видалити заняття", "Видалити ще одне заняття?");
+            }
+        }
+        else{
+            if(bool){
+                Message.questionOnClick(editRemoveLessonSpeciality,"Редагування освітньої програми", "Редагувати ще одну освітню програму?");
+            }
+            else{
+                Message.questionOnClick(editRemoveLessonSpeciality,"Видалення освітньої програми", "Видалити ще одну освітню програму?");
+            }
+        }
     }
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage) editRemoveLessonSpeciality.getScene().getWindow();
@@ -156,5 +173,11 @@ public class editRemoveLessonCurriculumController {
         text1.setText(parameters.get(0));
         box1.promptTextProperty().set(parameters.get(1));
         box2.promptTextProperty().set(parameters.get(2));
+    }
+    private void clear(){
+        text1.clear();
+        BoxCleaner.boxClear(box);
+        BoxCleaner.boxClear(box1);
+        BoxCleaner.boxClear(box2);
     }
 }
