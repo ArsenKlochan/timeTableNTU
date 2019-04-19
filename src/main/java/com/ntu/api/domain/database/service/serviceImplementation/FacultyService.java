@@ -3,6 +3,7 @@ package com.ntu.api.domain.database.service.serviceImplementation;
 import com.ntu.api.domain.database.dao.DAOinterface.BuildingDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.FacultyDAOInt;
 import com.ntu.api.domain.database.entity.Building;
+import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,7 @@ public class FacultyService implements FacultyServiceInt {
     @Override
     public List<String> getParametersInString(Faculty faculty){
         List<String> parameters = new ArrayList<>();
-        Building building = buildingDAO.get(faculty.getBuilding().getBuildingId());
         parameters.add(faculty.getFacultyName());
-        parameters.add(building.getBuildingName());
         return parameters;
     }
 }

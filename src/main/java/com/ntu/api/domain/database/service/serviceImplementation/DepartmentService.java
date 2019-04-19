@@ -47,4 +47,34 @@ public class DepartmentService implements DepartmentServiceInt {
         parameters.add(faculty.getFacultyName());
         return parameters;
     }
+
+    @Override
+    public List<String> getDepartmentsOnFaculty(Faculty faculty) {
+        List<String> departmentsList = new ArrayList<>();
+        List<Department> departments = departmentDAO.findAll();
+        Faculty tempFaculty;
+        for(Department department: departments){
+            tempFaculty = facultyDAO.get(department.getFaculty().getFacultyId());
+            if(tempFaculty.getFacultyId()==faculty.getFacultyId()){
+                departmentsList.add(department.getDepartmentCode() + " " + department.getDepartmentName());
+            }
+        }
+        return departmentsList;
+    }
+
+    @Override
+    public List<Department> getDepartmentsOnFacultyList(Faculty faculty) {
+        List<Department> departmentsList = new ArrayList<>();
+        List<Department> departments = departmentDAO.findAll();
+        Faculty tempFaculty;
+        for(Department department: departments){
+            tempFaculty = facultyDAO.get(department.getFaculty().getFacultyId());
+            if(tempFaculty.getFacultyId()==faculty.getFacultyId()){
+                departmentsList.add(department);
+            }
+        }
+        return departmentsList;
+    }
+
+
 }

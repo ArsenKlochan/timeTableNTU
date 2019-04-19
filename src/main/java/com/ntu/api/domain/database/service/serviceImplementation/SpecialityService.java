@@ -17,7 +17,6 @@ import java.util.List;
 @Transactional
 public class SpecialityService implements SpecialityServiceInt {
     @Autowired private SpecialityDAOInt specialityDAO;
-    @Autowired private FacultyDAOInt facultyDAO;
 
     @Override
     public Long addSpeciality(Speciality speciality) {
@@ -47,10 +46,8 @@ public class SpecialityService implements SpecialityServiceInt {
     @Override
     public List<String> getParametersInString(Speciality speciality) {
         List<String> parameters = new ArrayList<>();
-        Faculty faculty = facultyDAO.get(speciality.getFaculty().getFacultyId());
         parameters.add(speciality.getSpecialityCode());
         parameters.add(speciality.getSpecialityName());
-        parameters.add(faculty.getFacultyName());
         return parameters;
     }
 }

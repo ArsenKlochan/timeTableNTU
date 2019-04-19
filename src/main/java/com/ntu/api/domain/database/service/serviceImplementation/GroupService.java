@@ -1,6 +1,7 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
 import com.ntu.api.domain.database.dao.DAOinterface.CourseDAOInt;
+import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.GroupDAOInt;
 import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
@@ -16,6 +17,7 @@ import java.util.List;
 public class GroupService implements GroupServiceInt {
     @Autowired private GroupDAOInt groupDAO;
     @Autowired private CourseDAOInt courseDAO;
+    @Autowired private CurriculumDAOInt curriculumDAO;
 
     @Override
     public Long addGroupe(Group groupe) {
@@ -41,8 +43,10 @@ public class GroupService implements GroupServiceInt {
     public List<String> getParametersInString(Group group) {
         List<String> parameters = new ArrayList<>();
         Course course = courseDAO.get(group.getCourse().getCourseId());
+        Curriculum curriculum = curriculumDAO.get(course.getCurriculum().getCurriculumId());
         parameters.add(group.getGroupName());
         parameters.add(group.getStudentsNumber().toString());
+        parameters.add(curriculum.getCurriculumName());
         parameters.add(course.getCourseName());
         return parameters;
     }

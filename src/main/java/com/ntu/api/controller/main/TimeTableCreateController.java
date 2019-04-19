@@ -30,9 +30,9 @@ public class TimeTableCreateController {
     private static ObservableList<String> groupList;
 
     private static ArrayList<Faculty> faculties = new ArrayList();
-    private static ArrayList<Curriculum> curriculums = new ArrayList();
+    private static ArrayList<Speciality> curriculuses = new ArrayList();
     private static ArrayList<Department> departments = new ArrayList();
-    private static ArrayList<Speciality> specialities = new ArrayList();
+    private static ArrayList<Curriculum> specialities = new ArrayList();
     private static ArrayList<Course> courses = new ArrayList();
     private static ArrayList<Group> groups = new ArrayList();
 

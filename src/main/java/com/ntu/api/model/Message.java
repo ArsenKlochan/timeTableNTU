@@ -1,11 +1,14 @@
 package com.ntu.api.model;
 
 import com.ntu.api.controller.additional.AboutController;
+import com.ntu.api.controller.additional.QuestionController;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -50,12 +53,42 @@ public class Message {
         try {
             helpDlg = FXMLLoader.load(Message.class.getResource("/com/ntu/api/javafx/model/additional/about.fxml"));
         } catch (IOException e) {
-            Message.errorCatch(pane, "name", name + "Error");
+            Message.errorCatch(pane, name, name + " Error");
         }
 
         help.initOwner(pane.getScene().getWindow());
         help.initModality(Modality.WINDOW_MODAL);
         help.setScene(new Scene(helpDlg));
         help.show();
+    }
+
+    public static void questionOnClick(AnchorPane pane, String name, String question){
+        Stage dlgQuestion = new Stage();
+        dlgQuestion.setTitle(name);
+        dlgQuestion.setResizable(false);
+        QuestionController.setQuestion(question);
+
+        AnchorPane dlgQ = null;
+        try {
+            dlgQ = FXMLLoader.load(Message.class.getResource("/com/ntu/api/javafx/model/additional/questionWindows.fxml"));
+        } catch (IOException e) {
+            Message.errorCatch(pane, name, name + " Error");
+        }
+        dlgQuestion.initOwner(pane.getScene().getWindow());
+        dlgQuestion.initModality(Modality.WINDOW_MODAL);
+        dlgQuestion.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                cancelOnClick(pane);
+            }
+        });
+        dlgQuestion.setScene(new Scene(dlgQ));
+        dlgQuestion.showAndWait();
+    }
+
+    private static void cancelOnClick(AnchorPane pane){
+        Stage dialog = (Stage)pane.getScene().getWindow();
+//        dialog.getOnCloseRequest().handle(new WindowEvent(dialog, WindowEvent.WINDOW_CLOSE_REQUEST));
+        dialog.close();
     }
 }

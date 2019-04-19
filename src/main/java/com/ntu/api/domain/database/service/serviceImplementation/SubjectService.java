@@ -46,10 +46,8 @@ public class SubjectService implements SubjectServiceInt {
     @Override
     public List<String> getParametersInString(Subjects subjects) {
         List<String> parameters = new ArrayList<>();
-        ArrayList<Curriculum> curriculumList = (ArrayList<Curriculum>) subjects.getCurriculums();
         Course course = courseDAO.get(subjects.getCourse().getCourseId());
         parameters.add(subjects.getSubjectName());
-        parameters.add(" ");
         parameters.add(course.getCourseName());
         parameters.add(Integer.toString(subjects.getLection()));
         parameters.add(Integer.toString(subjects.getPractic()));
