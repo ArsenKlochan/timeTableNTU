@@ -95,7 +95,13 @@ public class editRemoveDepartmentController {
        else{
             departmentService.deleteDepartment(department);
        }
-        cancelOnClick();
+        clear();
+        if(bool){
+            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Редагування кафедри", "Редагувати ще одну кафедру?");
+        }
+        else{
+            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Видалення кафедри", "Видалити ще одну кафедру?");
+        }
     }
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage) editRemoveCurriculumDepartmentGroup.getScene().getWindow();
@@ -111,13 +117,6 @@ public class editRemoveDepartmentController {
             objectList.addAll(departmentService.getDepartmentsOnFaculty(faculty));
             departments = departmentService.getDepartmentsOnFacultyList(faculty);
             box.getItems().setAll(objectList);
-        }
-        clear();
-        if(editBool){
-            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Редагування кафедри", "Редагувати ще одну кафедру?");
-        }
-        else{
-            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Видалення кафедри", "Видалити ще одну кафедру?");
         }
     }
     @FXML public void chooseOnClick(){

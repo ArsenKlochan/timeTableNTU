@@ -11,4 +11,6 @@ public interface DepartmentServiceInt {
     void deleteDepartment(Department department);
     List<Department> getDepartments();
     List<String> getParametersInString(Department department);
+    List<String> getDepartmentsOnFaculty(Faculty faculty);
+    List<Department> getDepartmentsOnFacultyList(Faculty faculty);
 }

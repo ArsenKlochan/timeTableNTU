@@ -11,4 +11,6 @@ public interface CourseServiceInt {
     void deleteCourse(Course course);
     List<Course> getCourses();
     List<String> getParametersInString(Course course);
+    List<String> getCourseOnCurriculuminString(Curriculum curriculum);
+    List<Course> getCourseOnCurriculumList(Curriculum curriculum);
 }

@@ -11,5 +11,4 @@ public interface FacultyServiceInt {
     void deleteFacultu(Faculty faculty);
     List<Faculty> getFaculties();
     List<String> getParametersInString(Faculty faculty);
-
 }

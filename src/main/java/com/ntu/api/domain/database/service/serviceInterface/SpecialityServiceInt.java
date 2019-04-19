@@ -1,5 +1,6 @@
 package com.ntu.api.domain.database.service.serviceInterface;
 
+import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.entity.Speciality;
 
 import java.util.List;
