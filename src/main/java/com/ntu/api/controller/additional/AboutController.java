@@ -26,5 +26,7 @@ public class AboutController {
     @FXML public void okOnClick(){
         Stage dlg = (Stage)(aboutDlg.getScene().getWindow());
         dlg.close();
+//
+//        aboutDlg.getParent()
     }
 }

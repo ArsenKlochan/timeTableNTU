@@ -1,5 +1,6 @@
 package com.ntu.api.controller.additional;
 
+import com.ntu.api.TimeTableNtuApp;
 import com.ntu.api.domain.database.entity.User;
 import com.ntu.api.domain.database.service.serviceInterface.UserServiceInt;
 import com.ntu.api.model.Message;

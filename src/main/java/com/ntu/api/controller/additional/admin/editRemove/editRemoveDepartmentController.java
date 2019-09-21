@@ -28,7 +28,7 @@ import java.util.List;
 
 @Transactional
 public class editRemoveDepartmentController {
-    @FXML private AnchorPane editRemoveCurriculumDepartmentGroup;
+    @FXML private AnchorPane editRemoveDepartment;
     @FXML private Label label0;
     @FXML private Label label1;
     @FXML private Label label2;
@@ -97,14 +97,14 @@ public class editRemoveDepartmentController {
        }
         clear();
         if(bool){
-            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Редагування кафедри", "Редагувати ще одну кафедру?");
+            Message.questionOnClick(editRemoveDepartment, "Редагування кафедри", "Редагувати ще одну кафедру?");
         }
         else{
-            Message.questionOnClick(editRemoveCurriculumDepartmentGroup, "Видалення кафедри", "Видалити ще одну кафедру?");
+            Message.questionOnClick(editRemoveDepartment, "Видалення кафедри", "Видалити ще одну кафедру?");
         }
     }
     @FXML public void cancelOnClick(){
-        Stage dlg = (Stage) editRemoveCurriculumDepartmentGroup.getScene().getWindow();
+        Stage dlg = (Stage) editRemoveDepartment.getScene().getWindow();
         dlg.close();
     }
     @FXML public void box1OnClick(){

@@ -39,6 +39,7 @@ public class MainController {
                 dlg.close();
             }
         });
+        cancelOnClick();
         authentication.setScene(new Scene(dlgAuthentication));
         authentication.show();
     }
@@ -59,7 +60,12 @@ public class MainController {
         registration.initModality(Modality.WINDOW_MODAL);
         registration.setScene(new Scene(regDlg));
         registration.show();
+        cancelOnClick();
+    }
 
+    public void cancelOnClick(){
+        Stage dlg = (Stage) main.getScene().getWindow();
+        dlg.close();
     }
 
     public void closeOnClick(){

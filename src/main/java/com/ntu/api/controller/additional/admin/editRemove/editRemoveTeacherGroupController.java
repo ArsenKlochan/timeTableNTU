@@ -148,7 +148,6 @@ public class editRemoveTeacherGroupController {
         else {
             group.setCourse(curriculum.getCourses().get(box2.getSelectionModel().getSelectedIndex()));
         }
-
     }
 
     @FXML public void okOnClick(){
