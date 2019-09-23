@@ -2,8 +2,10 @@ package com.ntu.api.controller.additional.admin.editRemove;
 
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Curriculum;
+import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Group;
 import com.ntu.api.domain.database.entity.Teacher;
+import com.ntu.api.domain.database.entity.enums.Position;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.TeacherServiceInt;
@@ -45,6 +47,10 @@ public class editRemoveTeacherGroupController {
     private Teacher teacher;
     private Group group;
     private Curriculum curriculum;
+    private static Boolean editBool;
+    private Department department;
+    private Position position;
+    List<Teacher> teachers;
 
     private static ApplicationContext context = new ClassPathXmlApplicationContext(
             "/com/ntu/api/spring/database/config.xml");
@@ -68,6 +74,7 @@ public class editRemoveTeacherGroupController {
     }
 
     @FXML public void initialize(){
+        editBool = false;
         objectList = FXCollections.observableArrayList();
         parameterOneList = FXCollections.observableArrayList();
         parameterTwoList = FXCollections.observableArrayList();
@@ -109,14 +116,20 @@ public class editRemoveTeacherGroupController {
             box2.setEditable(false);
             box.getItems().setAll(objectList);
             box1.getItems().setAll(parameterOneList);
+            teachers = Lists.getTeacherService().getTeachers();
     }
 
     @FXML public void chooseOnClick(){
+        if(!editBool && !bool){
+            box1.setDisable(true);
+            box2.setDisable(true);
+        }
+        editBool = true;
         BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
         List<String> parameters = new ArrayList<>();
         if(flag==1){
-            teacher = teacherService.getTeachers().get(box.getSelectionModel().getSelectedIndex());
+            teacher = teachers.get(box.getSelectionModel().getSelectedIndex());
             parameters = teacherService.getParametersInString(teacher);
         }
         else{
@@ -131,8 +144,18 @@ public class editRemoveTeacherGroupController {
     }
 
     @FXML public void box1OnClick(){
-        if (flag==1){
-            teacher.setDepartment(Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex()));
+        if (flag==1) {
+            department = Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex());
+            if (editBool) {
+                teacher.setDepartment(department);
+            }
+            else {
+                parameterTwoList.clear();
+                boxClear(box,box2);
+                objectList. addAll(teacherService.getTeachersOnDepartments(department));
+                teachers = teacherService.getTeacherOnDepartmentList(department);
+                box.getItems().setAll(objectList);
+            }
         }
         else {
             curriculum = curriculumService.getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
@@ -143,7 +166,17 @@ public class editRemoveTeacherGroupController {
 
     @FXML public void box2OnClick(){
         if(flag==1){
-            teacher.setTeacherPosition(Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex()));
+            position = Position.values()[box2.getSelectionModel().getSelectedIndex()];
+            if(editBool){
+                teacher.setTeacherPosition(position.name());
+            }
+            else{
+                parameterOneList.clear();
+                boxClear(box, box1);
+                objectList.addAll(teacherService.getTeachersByPosition(position));
+                teachers = teacherService.getTeacherByPositionList(position);
+                box.getItems().setAll(objectList);
+            }
         }
         else {
             group.setCourse(curriculum.getCourses().get(box2.getSelectionModel().getSelectedIndex()));
@@ -170,6 +203,7 @@ public class editRemoveTeacherGroupController {
             }
         }
         clear();
+        initialize();
         if(flag==1) {
             if (bool) {
                 Message.questionOnClick(editRemoveTeacherGroup, "Редагування викладача", "Редагувати ще одного викладлача?");
@@ -197,5 +231,12 @@ public class editRemoveTeacherGroupController {
         BoxCleaner.boxClear(box2);
         text1.clear();
         text2.clear();
+    }
+    private void boxClear(ComboBox<String> box, ComboBox<String> box1){
+        objectList.clear();
+        box.promptTextProperty().setValue(null);
+        box.setValue(null);
+        box2.promptTextProperty().setValue(null);
+        box2.setValue(null);
     }
 }

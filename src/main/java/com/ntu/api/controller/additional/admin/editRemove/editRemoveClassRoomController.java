@@ -1,7 +1,9 @@
 package com.ntu.api.controller.additional.admin.editRemove;
 
 import com.ntu.api.domain.Lists;
+import com.ntu.api.domain.database.entity.Building;
 import com.ntu.api.domain.database.entity.ClassRoom;
+import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.service.serviceInterface.ClassRoomServiceInt;
 import com.ntu.api.model.BoxCleaner;
@@ -39,6 +41,13 @@ public class editRemoveClassRoomController {
     @FXML private Button button1;
     @FXML private Button button2;
     private static Boolean bool;
+    private static Boolean editBool;
+    private Building building;
+    private Department department;
+    List<ClassRoom> classRooms;
+    List<Department> departments;
+    List<Building> buildings;
+
 
     private static ObservableList<String> classRoomList;
     private static ObservableList<String> typeList;
@@ -58,6 +67,7 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void initialize(){
+        editBool = false;
         label0.setText("Аудиторія");
         label1.setText("Назва аудиторії");
         label2.setText("Кількість робочих місць");
@@ -70,8 +80,6 @@ public class editRemoveClassRoomController {
         else{
             button1.textProperty().set("Видалити аудиторію");
             box1.setDisable(true);
-            box2.setDisable(true);
-            box3.setDisable(true);
         }
         classRoomList = FXCollections.observableArrayList();
         typeList = FXCollections.observableArrayList();
@@ -92,6 +100,7 @@ public class editRemoveClassRoomController {
         box2.getItems().setAll(buildingList);
         box3.getItems().setAll(departmentList);
         box.getItems().setAll(classRoomList);
+        classRooms = Lists.getClassRoomService().getClassRoomList();
     }
 
     @FXML public void okOnClick(){
@@ -104,6 +113,7 @@ public class editRemoveClassRoomController {
             classRoomService.deleteClassRoom(classRoom);
         }
         clear();
+        initialize();
         if(bool){
             Message.questionOnClick(editRemoveClassRoom,"Редагування аудиторії", "Редагувати ще одну аудиторію?");
         }
@@ -118,20 +128,45 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void box1OnChoose(){
-            classRoom.setType(ClassRoomTypes.valueOf(box1.promptTextProperty().get()));
+            classRoom.setType(ClassRoomTypes.values()[box1.getSelectionModel().getSelectedIndex()]);
     }
     @FXML public void box2OnChoose(){
-        classRoom.setBuilding(Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex()));
+        building = Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex());
+        if(editBool){
+            classRoom.setBuilding(building);
+        }
+        else{
+            departmentList.clear();
+            boxClear(box,box3);
+            classRoomList.addAll(classRoomService.getClassRoomsOnBuildin(building));
+            classRooms = classRoomService.getClassRoomsOnBuildinList(building);
+            box.getItems().setAll(classRoomList);
+        }
     }
     @FXML public void box3OnChoose(){
-        classRoom.setDepartment(Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()));
+        department = Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex());
+        if(editBool){
+            classRoom.setDepartment(department);
+        }
+        else{
+            buildingList.clear();
+            boxClear(box,box2);
+            classRoomList.addAll(classRoomService.getClassRoomsOnDepartments(department));
+            classRooms = classRoomService.getClassRoomsOnDepartmentsList(department);
+            box.getItems().setAll(classRoomList);
+        }
     }
 
     @FXML public void boxchooseOnClick(){
+        if(!editBool && !bool){
+            box2.setDisable(true);
+            box3.setDisable(true);
+        }
+        editBool = true;
         BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
         BoxCleaner.boxClear(box3);
-        classRoom = classRoomService.getClassRoomList().get(box.getSelectionModel().getSelectedIndex());
+        classRoom = classRooms.get(box.getSelectionModel().getSelectedIndex());
         List<String> parameters = classRoomService.getParametersInString(classRoom);
         text1.setText(parameters.get(0));
         text2.setText(parameters.get(1));
@@ -147,5 +182,13 @@ public class editRemoveClassRoomController {
         BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
         BoxCleaner.boxClear(box3);
+    }
+
+    private void boxClear(ComboBox<String> box, ComboBox<String> box1){
+        classRoomList.clear();
+        box.promptTextProperty().setValue(null);
+        box1.promptTextProperty().setValue(null);
+        box.setValue(null);
+        box1.setValue(null);
     }
 }

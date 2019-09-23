@@ -60,7 +60,7 @@ public class MainController {
         registration.initModality(Modality.WINDOW_MODAL);
         registration.setScene(new Scene(regDlg));
         registration.show();
-        cancelOnClick();
+//        cancelOnClick();
     }
 
     public void cancelOnClick(){

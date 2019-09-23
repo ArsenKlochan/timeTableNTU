@@ -117,8 +117,8 @@ public class inputController {
         open("Редагування викладача", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveTeacherGroup.fxml","Помилка редагування викладача");
     }
     @FXML public void editSpesiality(){
+        editRemoveBuildingSpecialityController.setBool(true);
         editRemoveBuildingSpecialityController.setFlag(2);
-        editRemoveDepartmentController.setBool(true);
         open("Редагування спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuildingSpeciality.fxml","Помилка редагування спеціальності");
     }
     @FXML public void editSubject(){}
@@ -165,7 +165,7 @@ public class inputController {
         open("Видалення викладача", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveTeacherGroup.fxml", "Помилка видалення викладача");
     }
     @FXML public void deleteSpesiality(){
-        editRemoveDepartmentController.setBool(false);
+        editRemoveBuildingSpecialityController.setBool(false);
         editRemoveBuildingSpecialityController.setFlag(2);
         open("Редагування спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuildingSpeciality.fxml","Помилка видалення спеціальності");
     }

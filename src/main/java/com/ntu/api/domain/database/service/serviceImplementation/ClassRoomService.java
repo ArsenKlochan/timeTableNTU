@@ -1,5 +1,7 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
+import com.ntu.api.domain.Lists;
+import com.ntu.api.domain.database.dao.DAOImplementation.DepartmentDAO;
 import com.ntu.api.domain.database.dao.DAOinterface.BuildingDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.ClassRoomDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
@@ -59,4 +61,62 @@ public class ClassRoomService implements ClassRoomServiceInt {
         parameters.add(department.getDepartmentCode() + " " + department.getDepartmentName());
         return parameters;
     }
+
+    @Override
+    public List<String> getClassRoomsOnDepartments(Department department) {
+        List<String> classRoomsList = new ArrayList<>();
+        List<ClassRoom> classRooms = classRoomDAO.findAll();
+        Department tempDepartment;
+        for (ClassRoom classRoom: classRooms){
+            tempDepartment = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
+            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
+                classRoomsList.add(classRoom.getClassRoomName());
+            }
+        }
+        return classRoomsList;
+    }
+
+    @Override
+    public List<String> getClassRoomsOnBuildin(Building building) {
+        List<String> classRoomsList = new ArrayList<>();
+        List<ClassRoom> classRooms = classRoomDAO.findAll();
+        Building tempBuilding;
+        for (ClassRoom classRoom:classRooms){
+            tempBuilding = buildingDAO.get(classRoom.getBuilding().getBuildingId());
+            if(tempBuilding.getBuildingId() == building.getBuildingId()){
+                classRoomsList.add(classRoom.getClassRoomName());
+            }
+        }
+        return classRoomsList;
+    }
+
+    @Override
+    public List<ClassRoom> getClassRoomsOnDepartmentsList(Department department) {
+        List<ClassRoom> classRoomsList = new ArrayList<>();
+        List<ClassRoom> classRooms = classRoomDAO.findAll();
+        Department tempDepartment;
+        for (ClassRoom classRoom: classRooms) {
+            tempDepartment = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
+            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
+                classRoomsList.add(classRoom);
+            }
+        }
+        return classRoomsList;
+    }
+
+    @Override
+    public List<ClassRoom> getClassRoomsOnBuildinList(Building building) {
+        List<ClassRoom> classRoomsList = new ArrayList<>();
+        List<ClassRoom> classRooms = classRoomDAO.findAll();
+        Building tempBuilding;
+        for (ClassRoom classRoom: classRooms) {
+            tempBuilding = buildingDAO.get(classRoom.getBuilding().getBuildingId());
+            if(tempBuilding.getBuildingId() == building.getBuildingId()){
+                classRoomsList.add(classRoom);
+            }
+        }
+        return classRoomsList;
+    }
+
+
 }

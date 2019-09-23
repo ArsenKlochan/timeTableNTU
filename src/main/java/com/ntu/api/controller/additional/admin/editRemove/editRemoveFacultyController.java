@@ -68,6 +68,7 @@ public class editRemoveFacultyController {
             facultyService.deleteFacultu(faculty);
         }
         clear();
+        initialize();
         if(bool){
             Message.questionOnClick(removeDeleteFaculty, "Редагування факультету", "Редагувати ще один факультет?");
 

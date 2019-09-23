@@ -96,10 +96,17 @@ public class editRemoveLessonCurriculumController {
                 box1.setDisable(true);
                 box2.setDisable(true);
             }
-            objectList.addAll(Lists.getSpecialityList());
-            parameterOneList.addAll(Lists.getCurriculumList());
+            objectList.addAll(Lists.getCurriculumList());
+            parameterOneList.addAll(Lists.getSpecialityList());
             parameterTwoList.addAll(Lists.getDepartmentList());
         }
+        box.setEditable(false);
+        box1.setEditable(false);
+        box2.setEditable(false);
+
+        box.getItems().setAll(objectList);
+        box1.getItems().setAll(parameterOneList);
+        box2.getItems().setAll(parameterTwoList);
     }
     @FXML public void okOnClick(){
         if(flag==1){
@@ -121,6 +128,7 @@ public class editRemoveLessonCurriculumController {
             }
         }
         clear();
+        initialize();
         if(flag==1){
             if(bool){
                 Message.questionOnClick(editRemoveLessonSpeciality, "Редагувати заняття", "Редагувати ще одне заняття?");

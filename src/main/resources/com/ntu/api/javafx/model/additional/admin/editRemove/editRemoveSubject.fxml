@@ -34,17 +34,6 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="text1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
             <Button fx:id="button1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#okOnClick" GridPane.rowIndex="9">
                <font>
                   <Font size="20.0" />
@@ -97,7 +86,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox fx:id="box2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#courseChooseOnClick" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ComboBox fx:id="box2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#courseChooseOnClick" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -220,6 +209,17 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ComboBox>
+            <TextField fx:id="text1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

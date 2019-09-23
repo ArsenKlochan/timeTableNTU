@@ -107,6 +107,7 @@ public class editRemoveBuildingSpecialityController {
             }
         }
         clear();
+        initialize();
         if(flag==1){
             if (bool){
                 Message.questionOnClick(editRemoveBuildingSpeciality,"Редагування корпусу", "Редагувати ще один корпус?");

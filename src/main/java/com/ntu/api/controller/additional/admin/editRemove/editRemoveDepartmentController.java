@@ -96,6 +96,8 @@ public class editRemoveDepartmentController {
             departmentService.deleteDepartment(department);
        }
         clear();
+        initialize();
+        box1.setDisable(false);
         if(bool){
             Message.questionOnClick(editRemoveDepartment, "Редагування кафедри", "Редагувати ще одну кафедру?");
         }
@@ -120,10 +122,12 @@ public class editRemoveDepartmentController {
         }
     }
     @FXML public void chooseOnClick(){
+        if(!editBool && !bool){
+            box1.setDisable(true);
+        }
         editBool = true;
         BoxCleaner.boxClear(box1);
-        List<String> parameters = new ArrayList<>();
-        box1.setDisable(true);
+        List<String> parameters;
         department = departments.get(box.getSelectionModel().getSelectedIndex());
         parameters = departmentService.getParametersInString(department);
         text1.setText(parameters.get(0));
