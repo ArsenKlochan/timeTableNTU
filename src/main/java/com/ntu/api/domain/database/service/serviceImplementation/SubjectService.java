@@ -1,15 +1,19 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
+import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.dao.DAOinterface.CourseDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SubjectDAOInt;
 import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.Subjects;
+import com.ntu.api.domain.database.entity.enums.ExamType;
 import com.ntu.api.domain.database.service.serviceInterface.SubjectServiceInt;
+import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -69,5 +73,18 @@ public class SubjectService implements SubjectServiceInt {
     @Override
     public List<Subjects> getSubjectOnCourseList(Course course) {
         return courseDAO.get(course.getCourseId()).getSubjects();
+    }
+
+    @Override
+    public void addSubjectFromFile(File file) {
+        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
+            String name = list.get(0);
+            int lection = Integer.parseInt(list.get(1));
+            int practic = Integer.parseInt(list.get(2));
+            int labaratory = Integer.parseInt(list.get(3));
+            int allHours = Integer.parseInt(list.get(4));
+            addSubject(new Subjects(name, lection, practic, labaratory, allHours, ExamType.valueOf(list.get(5)),
+                    Lists.getCourseService().getCourses().get(Lists.getCourseList().indexOf(list.get(6)))));
+        }
     }
 }

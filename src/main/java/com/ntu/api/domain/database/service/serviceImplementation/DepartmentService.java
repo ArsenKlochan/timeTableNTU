@@ -1,13 +1,16 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
+import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.FacultyDAOInt;
 import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.service.serviceInterface.DepartmentServiceInt;
+import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +79,13 @@ public class DepartmentService implements DepartmentServiceInt {
         return departmentsList;
     }
 
-
+    @Override
+    public void addDepartmentFromFile(File file) {
+        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
+            String code = list.get(0);
+            String name = list.get(1);
+            addDepartment(new Department(code, name,
+                    Lists.getFacultyService().getFaculties().get(Lists.getFacultyList().indexOf(list.get(2)))));
+        }
+    }
 }

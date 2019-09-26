@@ -1,8 +1,10 @@
 package com.ntu.api.controller.additional.admin.editRemove;
 
 import com.ntu.api.domain.Lists;
+import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Lesson;
 import com.ntu.api.domain.database.entity.Curriculum;
+import com.ntu.api.domain.database.entity.Speciality;
 import com.ntu.api.domain.database.entity.enums.LessonType;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
@@ -38,6 +40,9 @@ public class editRemoveLessonCurriculumController {
     @FXML private Button button2;
     private static Boolean bool;
     private static int flag;
+    private static Boolean editBool;
+    List<Curriculum> curriculums;
+    List<Lesson> lessons;
 
     private ObservableList<String> objectList;
     private ObservableList<String> parameterOneList;
@@ -45,6 +50,8 @@ public class editRemoveLessonCurriculumController {
 
     Lesson lesson;
     Curriculum curriculum;
+    Department department;
+    Speciality speciality;
     ApplicationContext context = new ClassPathXmlApplicationContext("com/ntu/api/spring/database/config.xml");
     LessonServiceInt lessonService = context.getBean(LessonServiceInt.class);
     CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
@@ -63,6 +70,7 @@ public class editRemoveLessonCurriculumController {
     }
 
     @FXML public void initialize(){
+        editBool = false;
         objectList = FXCollections.observableArrayList();
         parameterOneList = FXCollections.observableArrayList();
         parameterTwoList = FXCollections.observableArrayList();
@@ -78,10 +86,12 @@ public class editRemoveLessonCurriculumController {
                 button1.textProperty().set("Видалити заняття");
                 box1.setDisable(true);
                 box2.setDisable(true);
+                text1.setDisable(true);
             }
             objectList.addAll(Lists.getLessonList());
             parameterOneList.addAll(Lists.getLessonTypeList());
             parameterTwoList.addAll(Lists.getSubjectsList());
+            lessons = Lists.getLessonService().getLessons();
         }
         else{
             label0.setText("Освітня програма");
@@ -93,12 +103,12 @@ public class editRemoveLessonCurriculumController {
             }
             else{
                 button1.textProperty().set("Видалити освітню програму");
-                box1.setDisable(true);
-                box2.setDisable(true);
+                text1.setDisable(true);
             }
             objectList.addAll(Lists.getCurriculumList());
             parameterOneList.addAll(Lists.getSpecialityList());
             parameterTwoList.addAll(Lists.getDepartmentList());
+            curriculums = Lists.getCurriculumService().getCurriculums();
         }
         box.setEditable(false);
         box1.setEditable(false);
@@ -155,7 +165,18 @@ public class editRemoveLessonCurriculumController {
             lesson.setLessonType(LessonType.values()[box1.getSelectionModel().getSelectedIndex()]);
         }
         else {
-            curriculum.setSpeciality(Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex()));
+            speciality = Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex());
+            if(editBool) {
+                curriculum.setSpeciality(speciality);
+            }
+            else {
+                parameterTwoList.clear();
+                objectList.clear();
+                BoxCleaner.boxTwoClear(box, box2);
+//                objectList.addAll(curriculumService.)
+
+
+            }
         }
     }
     @FXML public void box2OnClick(){
@@ -170,6 +191,8 @@ public class editRemoveLessonCurriculumController {
         BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
         List<String> parameters = new ArrayList<>();
+        box1.setDisable(true);
+        box2.setDisable(true);
         if(flag==1){
             lesson = lessonService.getLessons().get(box.getSelectionModel().getSelectedIndex());
             parameters = lessonService.getParametersInString(lesson);

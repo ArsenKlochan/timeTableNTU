@@ -1,21 +1,42 @@
 package com.ntu.api.controller.additional.admin;
 
 import com.ntu.api.controller.additional.admin.add.addBuildingSpecialityController;
-import com.ntu.api.controller.additional.admin.add.addLessonCurriculumController;
+import com.ntu.api.controller.additional.admin.add.addCurriculumController;
 import com.ntu.api.controller.additional.admin.add.addTeacherGroupController;
 import com.ntu.api.controller.additional.admin.editRemove.*;
+import com.ntu.api.domain.database.service.serviceInterface.*;
 import com.ntu.api.model.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.File;
 import java.io.IOException;
 
 public class inputController {
     @FXML private AnchorPane adminDlgInput;
+    ApplicationContext context = new ClassPathXmlApplicationContext(
+            "com/ntu/api/spring/database/config.xml");
+    private BuildingServiceInt buildingService = context.getBean(BuildingServiceInt.class);
+    private ClassRoomServiceInt classRoomService = context.getBean(ClassRoomServiceInt.class);
+    private CourseServiceInt courseService = context.getBean(CourseServiceInt.class);
+    private CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
+    private DepartmentServiceInt departmentService = context.getBean(DepartmentServiceInt.class);
+    private GroupServiceInt groupService = context.getBean(GroupServiceInt.class);
+    private LessonServiceInt lessonService = context.getBean(LessonServiceInt.class);
+    private TeacherServiceInt teacherService = context.getBean(TeacherServiceInt.class);
+    private SpecialityServiceInt specialityService = context.getBean(SpecialityServiceInt.class);
+    private SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
+    private FacultyServiceInt facultyService = context.getBean(FacultyServiceInt.class);
+
+    private static FileChooser chooser = new FileChooser();
+    private static File fileName;
 
     @FXML public void okOnClick(){
 
@@ -32,8 +53,7 @@ public class inputController {
         open("Додавання курсу", "/com/ntu/api/javafx/model/additional/admin/add/addCourse.fxml", "Помилка додавання курсу");
     }
     @FXML public void addCurriculum(){
-        addLessonCurriculumController.setCount(2);
-        open("Додавання освітньої програми", "/com/ntu/api/javafx/model/additional/admin/add/addLessonCurriculum.fxml", "Помилка додавання освітньої програми");
+        open("Додавання освітньої програми", "/com/ntu/api/javafx/model/additional/admin/add/addCurriculum.fxml", "Помилка додавання освітньої програми");
     }
     @FXML public void addDepartment(){
         open("Додавання кафедри", "/com/ntu/api/javafx/model/additional/admin/add/addDepartment.fxml", "Помилка додавання кафедри");
@@ -43,8 +63,7 @@ public class inputController {
         open("Додавання групи", "/com/ntu/api/javafx/model/additional/admin/add/addTeacherGroup.fxml", "Помилка додавання групи");
     }
     @FXML public void addLesson(){
-        addLessonCurriculumController.setCount(1);
-        open("Додавання заняття", "/com/ntu/api/javafx/model/additional/admin/add/addLessonCurriculum.fxml", "Помилка додавання заняття");
+        open("Додавання заняття", "/com/ntu/api/javafx/model/additional/admin/add/addLesson.fxml", "Помилка додавання заняття");
     }
     @FXML public void addTeacher(){
         addTeacherGroupController.setCounter(1);
@@ -174,6 +193,53 @@ public class inputController {
         editRemoveFacultyController.setBool(false);
         open("Видалення факультет", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveFaculty.fxml","Помилка видалення факультету");
     }
+
+    @FXML public void buildingFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        buildingService.addBuildingFromFile(fileName);
+    }
+    @FXML public void classRoomFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        classRoomService.addClassRoomFromFile(fileName);
+    }
+    @FXML public void courseFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        courseService.addCourseFromFile(fileName);
+    }
+    @FXML public void curriculumFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        curriculumService.addCurriculumsFromFile(fileName);
+    }
+    @FXML public void departmentFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        departmentService.addDepartmentFromFile(fileName);
+    }
+    @FXML public void groupFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        groupService.addGroupFromFile(fileName);
+    }
+    @FXML public void lessonFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        lessonService.addLessonFromFile(fileName);
+    }
+    @FXML public void teacherFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        teacherService.addTeacherFromFile(fileName);
+    }
+    @FXML public void spesialityFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        specialityService.addSpecialityFromFile(fileName);
+    }
+    @FXML public void subjectFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        subjectService.addSubjectFromFile(fileName);
+    }
+    @FXML public void facultyFromFile(){
+        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
+        facultyService.addFacultyFromFile(fileName);
+    }
+
+
 
 
 }

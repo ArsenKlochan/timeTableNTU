@@ -31,7 +31,7 @@ public class Speciality extends BaseObject {
         this.specialityName = specialityName;
     }
 
-    public Speciality(String specialityCode, String specialityName, Faculty faculty, List<Curriculum> curriculums) {
+    public Speciality(String specialityCode, String specialityName, List<Curriculum> curriculums) {
         this.specialityCode = specialityCode;
         this.specialityName = specialityName;
         this.curriculums = curriculums;

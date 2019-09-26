@@ -88,8 +88,8 @@ public class editRemoveTeacherGroupController {
                 button1.textProperty().set("Зберегти викладача");
             } else {
                 button1.textProperty().set("Видалити викладача");
-                box1.setDisable(true);
-                box2.setDisable(true);
+                text1.setDisable(true);
+                text2.setDisable(true);
             }
             objectList.addAll(Lists.getTeacherList());
             parameterOneList.addAll(Lists.getDepartmentList());
@@ -151,7 +151,8 @@ public class editRemoveTeacherGroupController {
             }
             else {
                 parameterTwoList.clear();
-                boxClear(box,box2);
+                objectList.clear();
+                BoxCleaner.boxTwoClear(box,box2);
                 objectList. addAll(teacherService.getTeachersOnDepartments(department));
                 teachers = teacherService.getTeacherOnDepartmentList(department);
                 box.getItems().setAll(objectList);
@@ -172,7 +173,8 @@ public class editRemoveTeacherGroupController {
             }
             else{
                 parameterOneList.clear();
-                boxClear(box, box1);
+                objectList.clear();
+                BoxCleaner.boxTwoClear(box, box1);
                 objectList.addAll(teacherService.getTeachersByPosition(position));
                 teachers = teacherService.getTeacherByPositionList(position);
                 box.getItems().setAll(objectList);
@@ -232,11 +234,5 @@ public class editRemoveTeacherGroupController {
         text1.clear();
         text2.clear();
     }
-    private void boxClear(ComboBox<String> box, ComboBox<String> box1){
-        objectList.clear();
-        box.promptTextProperty().setValue(null);
-        box.setValue(null);
-        box2.promptTextProperty().setValue(null);
-        box2.setValue(null);
-    }
+
 }

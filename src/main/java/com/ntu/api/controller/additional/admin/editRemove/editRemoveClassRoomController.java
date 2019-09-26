@@ -80,6 +80,8 @@ public class editRemoveClassRoomController {
         else{
             button1.textProperty().set("Видалити аудиторію");
             box1.setDisable(true);
+            text1.setDisable(true);
+            text2.setDisable(true);
         }
         classRoomList = FXCollections.observableArrayList();
         typeList = FXCollections.observableArrayList();

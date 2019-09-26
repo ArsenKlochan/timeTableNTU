@@ -26,21 +26,26 @@ public class Curriculum extends BaseObject {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
+    @Column (name = "qualification")
+    private String qualification;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curriculum", targetEntity = Course.class)
     private List<Course> courses = new ArrayList<>();
 
     public Curriculum(){}
 
-    public Curriculum(String curriculumName, Speciality speciality, Department department) {
+    public Curriculum(String curriculumName, Speciality speciality, Department department, String qualification) {
         this.curriculumName = curriculumName;
         this.speciality = speciality;
         this.department = department;
+        this.qualification = qualification;
     }
 
-    public Curriculum(String curriculumName, Speciality speciality, Department department, List<Course> courses) {
+    public Curriculum(String curriculumName, Speciality speciality, Department department, String qualification, List<Course> courses) {
         this.curriculumName = curriculumName;
         this.speciality = speciality;
         this.department = department;
+        this.qualification = qualification;
         this.courses = courses;
     }
 

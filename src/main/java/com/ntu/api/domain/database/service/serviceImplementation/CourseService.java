@@ -1,15 +1,18 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
+import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.dao.DAOinterface.CourseDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
 import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
+import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +63,15 @@ public class CourseService implements CourseServiceInt {
     @Override
     public List<Course> getCourseOnCurriculumList(Curriculum curriculum) {
         return curriculumDAO.get(curriculum.getCurriculumId()).getCourses();
+    }
+
+    @Override
+    public void addCourseFromFile(File file) {
+        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
+            String name = list.get(0);
+            addCourse(new Course(name,
+                    Lists.getCurriculumService().getCurriculums().get(Lists.getCurriculumList().indexOf(list.get(1)))));
+        }
+
     }
 }

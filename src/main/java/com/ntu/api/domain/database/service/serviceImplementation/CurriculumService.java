@@ -1,15 +1,18 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
+import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.FacultyDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
 import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
+import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,5 +52,45 @@ public class CurriculumService implements CurriculumServiceInt {
         parameters.add(department.getDepartmentName());
         parameters.add(speciality.getSpecialityName());
         return parameters;
+    }
+
+    @Override
+    public void addCurriculumsFromFile(File file) {
+        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
+            String name = list.get(0);
+            addCurriculum(new Curriculum(name,
+            Lists.getSpecialityService().getSpecialities().get(Lists.getSpecialityNameList().indexOf(list.get(2))),
+            Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(1))),
+                    list.get(3)));
+        }
+    }
+
+    @Override
+    public List<Curriculum> getCurriculumByDepartment(Department department) {
+        return null;
+    }
+
+    @Override
+    public List<String> getCurriculumsByDepartmentNames(Department department) {
+        List<String> curriculumsList = new ArrayList<>();
+        List<Curriculum> curriculums = curriculumDAO.findAll();
+        Department tempDepartment;
+        for(Curriculum curriculum: curriculums){
+            tempDepartment = departmentDAO.get(curriculum.getDepartment().getDepartmentId());
+            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
+                curriculumsList.add(curriculum.getCurriculumName());
+            }
+        }
+        return curriculumsList;
+    }
+
+    @Override
+    public List<Curriculum> getCurriculumsBySpeciality(Speciality speciality) {
+        return null;
+    }
+
+    @Override
+    public List<String> getCurriculumsBySpecialityNames(Speciality speciality) {
+        return null;
     }
 }

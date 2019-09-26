@@ -21,6 +21,21 @@
             <items>
                   <Menu mnemonicParsing="false" text="Add">
                     <items>
+                        <Menu mnemonicParsing="false" text="From File">
+                          <items>
+                              <MenuItem mnemonicParsing="false" onAction="#buildingFromFile" text="Building" />
+                              <MenuItem mnemonicParsing="false" onAction="#classRoomFromFile" text="ClassRoom" />
+                              <MenuItem mnemonicParsing="false" onAction="#courseFromFile" text="Course" />
+                              <MenuItem mnemonicParsing="false" onAction="#curriculumFromFile" text="Curriculum" />
+                            <MenuItem mnemonicParsing="false" onAction="#departmentFromFile" text="Department" />
+                              <MenuItem mnemonicParsing="false" onAction="#groupFromFile" text="Group" />
+                              <MenuItem mnemonicParsing="false" onAction="#lessonFromFile" text="Lesson" />
+                              <MenuItem mnemonicParsing="false" onAction="#teacherFromFile" text="Teacher" />
+                              <MenuItem mnemonicParsing="false" onAction="#spesialityFromFile" text="Spesiality" />
+                              <MenuItem mnemonicParsing="false" onAction="#subjectFromFile" text="Subject" />
+                              <MenuItem mnemonicParsing="false" onAction="#facultyFromFile" text="Faculty" />
+                          </items>
+                        </Menu>
                         <MenuItem mnemonicParsing="false" onAction="#addBuilding" text="Building" />
                         <MenuItem mnemonicParsing="false" onAction="#addClassroom" text="Classroom" />
                         <MenuItem mnemonicParsing="false" onAction="#addCourse" text="Course" />

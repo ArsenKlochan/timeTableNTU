@@ -1,5 +1,6 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
+import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.TeacherDAOInt;
 import com.ntu.api.domain.database.entity.Department;
@@ -7,10 +8,12 @@ import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.entity.Teacher;
 import com.ntu.api.domain.database.entity.enums.Position;
 import com.ntu.api.domain.database.service.serviceInterface.TeacherServiceInt;
+import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,5 +109,15 @@ public class TeacherService implements TeacherServiceInt {
             }
         }
         return teacherList;
+    }
+
+    @Override
+    public void addTeacherFromFile(File file) {
+        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
+            String surname = list.get(0);
+            String name = list.get(1);
+            addTeacher(new Teacher(surname, name, Position.valueOf(list.get(2)).toString(),
+             Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(1)))));
+        }
     }
 }

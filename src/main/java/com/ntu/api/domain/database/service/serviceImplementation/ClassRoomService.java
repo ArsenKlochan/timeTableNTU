@@ -8,11 +8,14 @@ import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
 import com.ntu.api.domain.database.entity.Building;
 import com.ntu.api.domain.database.entity.ClassRoom;
 import com.ntu.api.domain.database.entity.Department;
+import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.service.serviceInterface.ClassRoomServiceInt;
+import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -118,5 +121,14 @@ public class ClassRoomService implements ClassRoomServiceInt {
         return classRoomsList;
     }
 
-
+    @Override
+    public void addClassRoomFromFile(File file) {
+        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
+            String name = list.get(0);
+            int size = Integer.parseInt(list.get(1));
+            addClassRoom(new ClassRoom(name, size, ClassRoomTypes.valueOf(list.get(2)),
+               Lists.getBuildingService().getBuildingList().get(Lists.getBuildingList().indexOf(list.get(3))),
+               Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(4)))));
+        }
+    }
 }

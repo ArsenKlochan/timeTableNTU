@@ -1,10 +1,7 @@
 package com.ntu.api.domain;
 
 import com.ntu.api.domain.database.entity.*;
-import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
-import com.ntu.api.domain.database.entity.enums.ExamType;
-import com.ntu.api.domain.database.entity.enums.LessonType;
-import com.ntu.api.domain.database.entity.enums.Position;
+import com.ntu.api.domain.database.entity.enums.*;
 import com.ntu.api.domain.database.service.serviceImplementation.DepartmentService;
 import com.ntu.api.domain.database.service.serviceInterface.*;
 import org.springframework.context.ApplicationContext;
@@ -97,21 +94,15 @@ public class Lists {
         }
         return tempList;
     }
-//    public static ArrayList<String> getDepatmentsOnFacultyList(Faculty faculty){
-//        ArrayList<String> tempList = new ArrayList<>();
-//        for(Department department:departmentService.getDepartments()) {
-//            Faculty tempFaculty = facultyService.getFaculty(department.getFaculty().getFacultyId());
-//            if (tempFaculty==faculty) {
-//                System.out.println(department.getFaculty().equals(faculty));
-//                tempList.add(department.getDepartmentCode() + " " + department.getDepartmentName());
-//            }
-//            else{
-//                System.out.println(tempFaculty==faculty);
-//                System.out.println(tempFaculty.equals(faculty));
-//            }
-//        }
-//        return tempList;
-//    }
+
+    public static ArrayList<String> getDepartmentNameList() {
+        ArrayList<String> tempList = new ArrayList<>();
+        for(Department department:departmentService.getDepartments()){
+            tempList.add(department.getDepartmentName());
+        }
+        return tempList;
+    }
+
     public static ArrayList<String> getFacultyList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Faculty faculty:facultyService.getFaculties()){
@@ -135,10 +126,19 @@ public class Lists {
         }
         return tempList;
     }
+
     public static ArrayList<String> getSpecialityList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Speciality speciality :specialityService.getSpecialities()){
             tempList.add(speciality.getSpecialityCode() + " " + speciality.getSpecialityName());
+        }
+        return tempList;
+    }
+
+    public static ArrayList<String> getSpecialityNameList() {
+        ArrayList<String> tempList = new ArrayList<>();
+        for(Speciality speciality :specialityService.getSpecialities()){
+            tempList.add(speciality.getSpecialityName());
         }
         return tempList;
     }
@@ -155,6 +155,14 @@ public class Lists {
         ArrayList<String> tempList = new ArrayList<>();
         for(Teacher teacher:teacherService.getTeachers()){
             tempList.add(teacher.getTeacherSurname()+ " " +teacher.getTeacherName());
+        }
+        return tempList;
+    }
+
+    public static ArrayList<String> getCourseList(){
+        ArrayList<String> tempList = new ArrayList<>();
+        for(Course course : courseService.getCourses()){
+            tempList.add(course.getCourseName());
         }
         return tempList;
     }
@@ -187,6 +195,14 @@ public class Lists {
         ArrayList<String> tempList = new ArrayList<>();
         for(Position position: Position.values()){
             tempList.add(position.toString());
+        }
+        return tempList;
+    }
+
+    public static ArrayList<String> getQualificationList(){
+        ArrayList<String> tempList = new ArrayList<>();
+        for(Qualification qualification:Qualification.values()){
+            tempList.add(qualification.toString());
         }
         return tempList;
     }
