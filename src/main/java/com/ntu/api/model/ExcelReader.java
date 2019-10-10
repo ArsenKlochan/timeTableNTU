@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ExcelReader {
-    public static void main(String[] args) {
-        excelRead("/home/arsen/TimeTableNTU/Освітні програми new.xlsx");
-    }
 
     public static void excelWrite(String fileName, String sheetName, Object[][] data){
         XSSFWorkbook workbook = new XSSFWorkbook();

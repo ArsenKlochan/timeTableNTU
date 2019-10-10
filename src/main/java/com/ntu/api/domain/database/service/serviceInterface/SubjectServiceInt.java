@@ -3,6 +3,7 @@ package com.ntu.api.domain.database.service.serviceInterface;
 import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Subjects;
 
+import java.io.File;
 import java.util.List;
 
 public interface SubjectServiceInt {
@@ -14,5 +15,6 @@ public interface SubjectServiceInt {
     List<String> getParametersInString(Subjects subjects);
     List<String> getSubjectOnCourse(Course course);
     List<Subjects> getSubjectOnCourseList(Course course);
+    void addSubjectFromFile(File file);
 
 }

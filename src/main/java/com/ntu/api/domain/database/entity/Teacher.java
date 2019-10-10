@@ -29,7 +29,7 @@ public class Teacher extends BaseObject {
 
     public Teacher(){}
 
-    public Teacher(String teacherName, String teacherSurname, String teacherPosition, Department department) {
+    public Teacher(String teacherSurname, String teacherName, Department department, String teacherPosition) {
         this.teacherName = teacherName;
         this.teacherSurname = teacherSurname;
         this.teacherPosition = teacherPosition;

@@ -2,11 +2,8 @@ package com.ntu.api.controller.additional.admin.add;
 
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Lesson;
-import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.enums.LessonType;
-import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
-import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import com.ntu.api.model.BoxCleaner;
 import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
@@ -21,8 +18,8 @@ import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class addLessonCurriculumController {
-    @FXML private AnchorPane addLessonSpeciality;
+public class addLessonController {
+    @FXML private AnchorPane addLesson;
     @FXML private Label label1;
     @FXML private Label label2;
     @FXML private Label label3;
@@ -31,18 +28,10 @@ public class addLessonCurriculumController {
     @FXML private ComboBox<String> box2;
     @FXML private Button button1;
     @FXML private Button button2;
-    private static int count;
     private static ObservableList<String> lessonTypeList;
     private static ObservableList<String> subjectList;
-    private static ObservableList<String> specialityList;
-    private static ObservableList<String> departmentList;
-
-    public static void setCount(int count) {
-        addLessonCurriculumController.count = count;
-    }
 
     @FXML public void initialize(){
-        if(count==1){
             label1.setText("Назва заняття");
             label2.setText("Тип заняття");
             label3.setText("Дисципліна");
@@ -59,53 +48,22 @@ public class addLessonCurriculumController {
 
             box1.getItems().setAll(lessonTypeList);
             box2.getItems().setAll(subjectList);
-        }
-        if(count==2){
-            label1.setText("Назва освітньої програми");
-            label2.setText("Спеціальність");
-            label3.setText("Кафедра");
-            button1.textProperty().set("Додати освітню програму");
-
-            specialityList = FXCollections.observableArrayList();
-            departmentList = FXCollections.observableArrayList();
-
-            specialityList.addAll(Lists.getSpecialityList());
-            departmentList.addAll(Lists.getDepartmentList());
-
-            box1.setEditable(false);
-            box2.setEditable(false);
-
-            box1.getItems().setAll(specialityList);
-            box2.getItems().setAll(departmentList);
-        }
     }
 
     @FXML public void okOnClick(){
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "com/ntu/api/spring/database/config.xml");
-        if(count == 1) {
             LessonServiceInt lessonService = context.getBean(LessonServiceInt.class);
             lessonService.addLesson(new Lesson(text1.getText(),
                     LessonType.valueOf(box1.getSelectionModel().getSelectedItem()),
                     Lists.getSubjectService().getSubjectList().get(box2.getSelectionModel().getSelectedIndex())));
-        }
-        if(count==2){
-            CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
-            curriculumService.addCurriculum(new Curriculum(text1.getText(),
-                    Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex()),
-                    Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex())));
-        }
+
         clear();
-        if(count==1) {
-            Message.questionOnClick(addLessonSpeciality, "Додавання заняття", "Додати ще одне заняття?");
-        }
-        else{
-            Message.questionOnClick(addLessonSpeciality,"Додавання освітньої програми", "Додати ще одну освітню програму?");
-        }
+            Message.questionOnClick(addLesson, "Додавання заняття", "Додати ще одне заняття?");
     }
 
     @FXML public void cancelOnClick(){
-        Stage dlg = (Stage)(addLessonSpeciality.getScene().getWindow());
+        Stage dlg = (Stage)(addLesson.getScene().getWindow());
         dlg.close();
     }
 

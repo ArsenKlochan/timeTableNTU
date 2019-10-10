@@ -64,61 +64,89 @@ public class ClassRoomService implements ClassRoomServiceInt {
         parameters.add(department.getDepartmentCode() + " " + department.getDepartmentName());
         return parameters;
     }
+//
+//    @Override
+//    public List<String> getClassRoomsOnDepartments(Department department) {
+//        List<String> classRoomsList = new ArrayList<>();
+//        List<ClassRoom> classRooms = classRoomDAO.findAll();
+//        Department tempDepartment;
+//        for (ClassRoom classRoom: classRooms){
+//            tempDepartment = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
+//            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
+//                classRoomsList.add(classRoom.getClassRoomName());
+//            }
+//        }
+//        return classRoomsList;
+//    }
 
     @Override
     public List<String> getClassRoomsOnDepartments(Department department) {
         List<String> classRoomsList = new ArrayList<>();
-        List<ClassRoom> classRooms = classRoomDAO.findAll();
-        Department tempDepartment;
-        for (ClassRoom classRoom: classRooms){
-            tempDepartment = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
-            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
-                classRoomsList.add(classRoom.getClassRoomName());
-            }
+        for (ClassRoom classRoom: department.getClassRooms()){
+            classRoomsList.add(classRoom.getClassRoomName());
         }
         return classRoomsList;
     }
+
+//    @Override
+//    public List<String> getClassRoomsOnBuildin(Building building) {
+//        List<String> classRoomsList = new ArrayList<>();
+//        List<ClassRoom> classRooms = classRoomDAO.findAll();
+//        Building tempBuilding;
+//        for (ClassRoom classRoom:classRooms){
+//            tempBuilding = buildingDAO.get(classRoom.getBuilding().getBuildingId());
+//            if(tempBuilding.getBuildingId() == building.getBuildingId()){
+//                classRoomsList.add(classRoom.getClassRoomName());
+//            }
+//        }
+//        return classRoomsList;
+//    }
 
     @Override
     public List<String> getClassRoomsOnBuildin(Building building) {
         List<String> classRoomsList = new ArrayList<>();
-        List<ClassRoom> classRooms = classRoomDAO.findAll();
-        Building tempBuilding;
-        for (ClassRoom classRoom:classRooms){
-            tempBuilding = buildingDAO.get(classRoom.getBuilding().getBuildingId());
-            if(tempBuilding.getBuildingId() == building.getBuildingId()){
-                classRoomsList.add(classRoom.getClassRoomName());
-            }
+        for (ClassRoom classRoom:building.getClassRooms()){
+            classRoomsList.add(classRoom.getClassRoomName());
         }
         return classRoomsList;
     }
+
+//    @Override
+//    public List<ClassRoom> getClassRoomsOnDepartmentsList(Department department) {
+//        List<ClassRoom> classRoomsList = new ArrayList<>();
+//        List<ClassRoom> classRooms = classRoomDAO.findAll();
+//        Department tempDepartment;
+//        for (ClassRoom classRoom: classRooms) {
+//            tempDepartment = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
+//            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
+//                classRoomsList.add(classRoom);
+//            }
+//        }
+//        return classRoomsList;
+//    }
 
     @Override
     public List<ClassRoom> getClassRoomsOnDepartmentsList(Department department) {
-        List<ClassRoom> classRoomsList = new ArrayList<>();
-        List<ClassRoom> classRooms = classRoomDAO.findAll();
-        Department tempDepartment;
-        for (ClassRoom classRoom: classRooms) {
-            tempDepartment = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
-            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
-                classRoomsList.add(classRoom);
-            }
-        }
-        return classRoomsList;
+        return department.getClassRooms();
     }
+
+//    @Override
+//    public List<ClassRoom> getClassRoomsOnBuildinList(Building building) {
+//        List<ClassRoom> classRoomsList = new ArrayList<>();
+//        List<ClassRoom> classRooms = classRoomDAO.findAll();
+//        Building tempBuilding;
+//        for (ClassRoom classRoom: classRooms) {
+//            tempBuilding = buildingDAO.get(classRoom.getBuilding().getBuildingId());
+//            if(tempBuilding.getBuildingId() == building.getBuildingId()){
+//                classRoomsList.add(classRoom);
+//            }
+//        }
+//        return classRoomsList;
+//    }
 
     @Override
     public List<ClassRoom> getClassRoomsOnBuildinList(Building building) {
-        List<ClassRoom> classRoomsList = new ArrayList<>();
-        List<ClassRoom> classRooms = classRoomDAO.findAll();
-        Building tempBuilding;
-        for (ClassRoom classRoom: classRooms) {
-            tempBuilding = buildingDAO.get(classRoom.getBuilding().getBuildingId());
-            if(tempBuilding.getBuildingId() == building.getBuildingId()){
-                classRoomsList.add(classRoom);
-            }
-        }
-        return classRoomsList;
+        return building.getClassRooms();
     }
 
     @Override

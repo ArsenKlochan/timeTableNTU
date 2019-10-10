@@ -63,4 +63,18 @@ public class GroupService implements GroupServiceInt {
                     Lists.getCourseService().getCourses().get(Lists.getCourseList().indexOf(list.get(2)))));
         }
     }
+
+    @Override
+    public List<String> getGroupOnCourse(Course course) {
+        List<String> grouptList = new ArrayList<>();
+        for(Group group: courseDAO.get(course.getCourseId()).getGroups()){
+            grouptList.add(group.getGroupName());
+        }
+        return grouptList;
+    }
+
+    @Override
+    public List<Group> getGroupOnCourseList(Course course) {
+        return courseDAO.get(course.getCourseId()).getGroups();
+    }
 }

@@ -3,6 +3,7 @@ package com.ntu.api.domain.database.service.serviceImplementation;
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.dao.DAOinterface.LessonDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SubjectDAOInt;
+import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Lesson;
 import com.ntu.api.domain.database.entity.Subjects;
 import com.ntu.api.domain.database.entity.enums.LessonType;
@@ -54,6 +55,20 @@ public class LessonService implements LessonServiceInt {
         parameters.add(lesson.getLessonType().toString());
         parameters.add(subjects.getSubjectName());
         return parameters;
+    }
+
+    @Override
+    public List<String> getLessonsOnSubject(Subjects subjects) {
+        List<String> lessonsList = new ArrayList<>();
+        for(Lesson lesson: subjects.getLessons()){
+            lessonsList.add(lesson.getLessonType() + " " + lesson.getLessonName());
+        }
+        return lessonsList;
+    }
+
+    @Override
+    public List<Lesson> getLessonsOnSubjectList(Subjects subjects) {
+        return subjects.getLessons();
     }
 
     @Override

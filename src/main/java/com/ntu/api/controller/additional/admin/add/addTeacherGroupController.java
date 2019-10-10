@@ -92,8 +92,8 @@ public class addTeacherGroupController {
     @FXML public void okOnClick(){
         if(counter==1) {
             teacherService.addTeacher(new Teacher(text1.getText(), text2.getText(),
-                    Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex()),
-                    Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex())));
+                    Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex()),
+                    Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex())));
         }
         else{
             groupService.addGroupe(new Group(text1.getText(), Integer.parseInt(text2.getText()),Lists.getCourseService().getCourses().get(box2.getSelectionModel().getSelectedIndex())));

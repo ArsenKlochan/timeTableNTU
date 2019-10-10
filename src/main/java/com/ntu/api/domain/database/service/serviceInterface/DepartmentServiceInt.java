@@ -2,6 +2,7 @@ package com.ntu.api.domain.database.service.serviceInterface;
 
 import com.ntu.api.domain.database.entity.*;
 
+import java.io.File;
 import java.util.List;
 
 public interface DepartmentServiceInt {
@@ -13,4 +14,5 @@ public interface DepartmentServiceInt {
     List<String> getParametersInString(Department department);
     List<String> getDepartmentsOnFaculty(Faculty faculty);
     List<Department> getDepartmentsOnFacultyList(Faculty faculty);
+    void addDepartmentFromFile(File file);
 }
