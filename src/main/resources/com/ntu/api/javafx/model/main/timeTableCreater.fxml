@@ -1698,7 +1698,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="218.0" text="Освітня програма" textAlignment="CENTER">
+                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="218.0" text="Спеціальність" textAlignment="CENTER">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -1706,7 +1706,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="speciality" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#curriculumChoose" prefWidth="150.0" GridPane.rowIndex="1">
+                        <ComboBox fx:id="speciality" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#specialityChoose" prefWidth="150.0" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>
@@ -1752,15 +1752,15 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Спеціальність" textAlignment="CENTER">
+                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Освітня програма" textAlignment="CENTER">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="22.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="curriculum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#specialityChoose" prefWidth="150.0" GridPane.rowIndex="1">
+                        <ComboBox fx:id="curriculum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#curriculumChoose" prefWidth="150.0" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" />
                            </GridPane.margin>

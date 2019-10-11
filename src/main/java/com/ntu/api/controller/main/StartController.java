@@ -52,12 +52,12 @@ public class StartController {
     }
 
     @FXML private void aboutOnClick(){
-        String message = "";
+        String message = "Програма \"NTU TimeTable\" призначена для формування розкладу навчання в Національному транспортному університеті.";
         Message.helpOnClick(start, "About", message);
     }
 
     @FXML private void helpOnClick(){
-        String message = "";
+        String message = "Алгоритм роботи з програмою:\n" +"- " + "";
         Message. helpOnClick(start,"Help", message);
     }
 

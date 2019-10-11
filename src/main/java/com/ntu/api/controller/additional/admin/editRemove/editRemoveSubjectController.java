@@ -54,7 +54,7 @@ public class editRemoveSubjectController {
     private static ObservableList<String> subjectList;
     private static ObservableList<String> curriculumList;
     private static ObservableList<String> courseList;;
-    private boolean bool;
+    private static boolean bool;
     private static Boolean editBool = false;
     Curriculum curriculum;
     Course course;
@@ -64,11 +64,11 @@ public class editRemoveSubjectController {
     CourseServiceInt courseService = context.getBean(CourseServiceInt.class);
     SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
 
-    public boolean isBool() {
+    public static boolean isBool() {
         return bool;
     }
-    public void setBool(boolean bool) {
-        this.bool = bool;
+    public static void setBool(boolean bool) {
+        editRemoveSubjectController.bool = bool;
     }
 
     @FXML public void initialize(){

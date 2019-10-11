@@ -39,7 +39,8 @@ public class inputController {
     private static File fileName;
 
     @FXML public void okOnClick(){
-
+        Stage dlg = (Stage) adminDlgInput.getScene().getWindow();
+        dlg.close();
     }
 
     @FXML public void addBuilding(){
@@ -140,7 +141,10 @@ public class inputController {
         editRemoveBuildingSpecialityController.setFlag(2);
         open("Редагування спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuildingSpeciality.fxml","Помилка редагування спеціальності");
     }
-    @FXML public void editSubject(){}
+    @FXML public void editSubject(){
+        editRemoveSubjectController.setBool(true);
+        open("Редагування дисципліни", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveSubject.fxml", "Помилка редагування дисципліни");
+    }
     @FXML public void editFaculty(){
         editRemoveFacultyController.setBool(true);
         open("Редагування факультет", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveFaculty.fxml","Помилка редагування факультету");
@@ -186,9 +190,12 @@ public class inputController {
     @FXML public void deleteSpesiality(){
         editRemoveBuildingSpecialityController.setBool(false);
         editRemoveBuildingSpecialityController.setFlag(2);
-        open("Редагування спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuildingSpeciality.fxml","Помилка видалення спеціальності");
+        open("Видалення спеціальності", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveBuildingSpeciality.fxml","Помилка видалення спеціальності");
     }
-    @FXML public void deleteSubject(){}
+    @FXML public void deleteSubject(){
+        editRemoveSubjectController.setBool(false);
+        open("Видалення дисципліни", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveSubject.fxml", "Помилка видалення дисципліни");
+    }
     @FXML public void deleteFaculty(){
         editRemoveFacultyController.setBool(false);
         open("Видалення факультет", "/com/ntu/api/javafx/model/additional/admin/editRemove/editRemoveFaculty.fxml","Помилка видалення факультету");

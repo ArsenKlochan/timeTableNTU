@@ -84,7 +84,7 @@ public class addSubjectController {
         subjectService.addSubject(new Subjects(text1.getText(), Integer.parseInt(text2.getText()),
                 Integer.parseInt(text3.getText()), Integer.parseInt(text4.getText()),
                 Integer.parseInt(text5.getText()), ExamType.values()[box3.getSelectionModel().getSelectedIndex()],
-                curriculum.getCourses().get(box2.getSelectionModel().getSelectedIndex())));
+                Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex())));
         clear();
         Message.questionOnClick(addSubject, "Додавання дисципліни", "Додати ще одну дисципліну?");
     }
