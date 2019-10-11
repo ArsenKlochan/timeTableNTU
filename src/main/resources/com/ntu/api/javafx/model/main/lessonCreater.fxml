@@ -32,12 +32,12 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+                  <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="88.0" fitWidth="88.0" onMouseClicked="#logoOnClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="88.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../picture/emblema.jpeg" />
                      </image></ImageView>

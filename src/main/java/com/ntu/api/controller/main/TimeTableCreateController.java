@@ -87,7 +87,8 @@ public class TimeTableCreateController {
         try {
             addLes = FXMLLoader.load(getClass().getResource("/com/ntu/api/javafx/model/main/lessonCreater.fxml"));
         } catch (IOException e) {
-            Message.errorCatch(create,"Error", "Add lesson Error");
+            e.printStackTrace();
+//            Message.errorCatch(create,"Error", "Add lesson Error");
         }
         addLesson.initOwner(create.getScene().getWindow());
         addLesson.initModality(Modality.WINDOW_MODAL);
