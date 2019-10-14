@@ -72,7 +72,11 @@ public class SubjectService implements SubjectServiceInt {
 
     @Override
     public List<Subjects> getSubjectOnCourseList(Course course) {
-        return courseDAO.get(course.getCourseId()).getSubjects();
+        ArrayList<Subjects> subjects = new ArrayList<>();
+        for(Subjects subject: courseDAO.get(course.getCourseId()).getSubjects()){
+            subjects.add(subject);
+        }
+        return subjects;
     }
 
     @Override

@@ -12,7 +12,8 @@ public class Curriculum extends BaseObject {
 
     @Id
     @Column(name = "curriculum_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "curriculumId", sequenceName = "seq_curriculum_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "curriculumId")
     private Long curriculumId;
 
     @Column(name = "curriculum_name")
@@ -78,6 +79,12 @@ public class Curriculum extends BaseObject {
     }
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+    public String getQualification() {
+        return qualification;
+    }
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     private String courseToString(){

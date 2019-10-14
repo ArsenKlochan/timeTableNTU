@@ -55,56 +55,29 @@ public class TeacherService implements TeacherServiceInt {
         return parameters;
     }
 
-//    @Override
-//    public List<String> getTeachersOnDepartments(Department department) {
-//        List<String> teacherList = new ArrayList<>();
-//        List<Teacher> teachers = teacherDAO.findAll();
-//        Department tempDepartment;
-//        for(Teacher teacher: teachers){
-//            tempDepartment = departmentDAO.get(teacher.getDepartment().getDepartmentId());
-//            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
-//                teacherList.add(teacher.getTeacherSurname() + " " + teacher.getTeacherName());
-//            }
-//        }
-//        return teacherList;
-//    }
-
     @Override
     public List<String> getTeachersOnDepartments(Department department) {
         List<String> teacherList = new ArrayList<>();
-        for(Teacher teacher: department.getTeachers()){
+        for(Teacher teacher: departmentDAO.get(department.getDepartmentId()).getTeachers()){
             teacherList.add(teacher.getTeacherSurname() + " " + teacher.getTeacherName());
         }
         return teacherList;
     }
 
-//    @Override
-//    public List<Teacher> getTeacherOnDepartmentList(Department department) {
-//        List<Teacher> teacherList = new ArrayList<>();
-//        List<Teacher> teachers = teacherDAO.findAll();
-//        Department tempDepartment;
-//        for(Teacher teacher: teachers){
-//            tempDepartment = departmentDAO.get(teacher.getDepartment().getDepartmentId());
-//            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
-//                teacherList.add(teacher);
-//            }
-//        }
-//        return teacherList;
-//    }
-
     @Override
     public List<Teacher> getTeacherOnDepartmentList(Department department) {
-        return department.getTeachers();
+        ArrayList<Teacher> teachers = new ArrayList<>();
+        for(Teacher teacher: departmentDAO.get(department.getDepartmentId()).getTeachers()){
+            teachers.add(teacher);
+        }
+        return teachers;
     }
 
     @Override
     public List<String> getTeachersByPosition(Position position) {
         List<String> teacherList = new ArrayList<>();
-        List<Teacher> teachers = teacherDAO.findAll();
-        Position tempPosition;
-        for(Teacher teacher: teachers){
-            tempPosition = Position.valueOf(teacher.getTeacherPosition());
-            if(tempPosition.name().equals(position.name())){
+        for(Teacher teacher: teacherDAO.findAll()){
+            if(Position.valueOf(teacher.getTeacherPosition()).name().equals(position.name())){
                 teacherList.add(teacher.getTeacherSurname() + " " + teacher.getTeacherName());
             }
         }
@@ -114,11 +87,8 @@ public class TeacherService implements TeacherServiceInt {
     @Override
     public List<Teacher> getTeacherByPositionList(Position position) {
         List<Teacher> teacherList = new ArrayList<>();
-        List<Teacher> teachers = teacherDAO.findAll();
-        Position tempPosition;
-        for(Teacher teacher:teachers){
-            tempPosition = Position.valueOf(teacher.getTeacherPosition());
-            if(tempPosition.name().equals(position.name())){
+        for(Teacher teacher:teacherDAO.findAll()){
+            if(Position.valueOf(teacher.getTeacherPosition()).name().equals(position.name())){
                 teacherList.add(teacher);
             }
         }

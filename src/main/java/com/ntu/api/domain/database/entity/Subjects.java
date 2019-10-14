@@ -13,7 +13,8 @@ public class Subjects extends BaseObject {
 
     @Id
     @Column(name = "subject_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "subjectId", sequenceName = "seq_subject_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subjectId")
     private Long subjectId;
 
     @Column(name = "subject_name")

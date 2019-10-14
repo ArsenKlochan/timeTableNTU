@@ -1,10 +1,7 @@
 package com.ntu.api.controller.additional.admin.editRemove;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.entity.Department;
-import com.ntu.api.domain.database.entity.Lesson;
-import com.ntu.api.domain.database.entity.Curriculum;
-import com.ntu.api.domain.database.entity.Speciality;
+import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.entity.enums.LessonType;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.LessonServiceInt;
@@ -38,9 +35,10 @@ public class editRemoveLessonCurriculumController {
     @FXML private ComboBox<String> box2;
     @FXML private Button button1;
     @FXML private Button button2;
-    private static Boolean bool;
     private static int flag;
+    private static Boolean bool;
     private static Boolean editBool;
+    private static Boolean enterBool;
     List<Curriculum> curriculums;
     List<Lesson> lessons;
 
@@ -71,6 +69,7 @@ public class editRemoveLessonCurriculumController {
 
     @FXML public void initialize(){
         editBool = false;
+        enterBool = true;
         objectList = FXCollections.observableArrayList();
         parameterOneList = FXCollections.observableArrayList();
         parameterTwoList = FXCollections.observableArrayList();
@@ -88,9 +87,9 @@ public class editRemoveLessonCurriculumController {
                 box2.setDisable(true);
                 text1.setDisable(true);
             }
-            objectList.addAll(Lists.getLessonList());
-            parameterOneList.addAll(Lists.getLessonTypeList());
-            parameterTwoList.addAll(Lists.getSubjectsList());
+            objectList.setAll(Lists.getLessonList());
+            parameterOneList.setAll(Lists.getLessonTypeList());
+            parameterTwoList.setAll(Lists.getSubjectsList());
             lessons = Lists.getLessonService().getLessons();
         }
         else{
@@ -103,11 +102,13 @@ public class editRemoveLessonCurriculumController {
             }
             else{
                 button1.textProperty().set("Видалити освітню програму");
+                box1.setDisable(true);
+                box2.setDisable(true);
                 text1.setDisable(true);
             }
-            objectList.addAll(Lists.getCurriculumList());
-            parameterOneList.addAll(Lists.getSpecialityList());
-            parameterTwoList.addAll(Lists.getDepartmentList());
+            objectList.setAll(Lists.getCurriculumList());
+            parameterOneList.setAll(Lists.getSpecialityList());
+            parameterTwoList.setAll(Lists.getDepartmentList());
             curriculums = Lists.getCurriculumService().getCurriculums();
         }
         box.setEditable(false);
@@ -119,6 +120,7 @@ public class editRemoveLessonCurriculumController {
         box2.getItems().setAll(parameterTwoList);
     }
     @FXML public void okOnClick(){
+        enterBool = false;
         if(flag==1){
             if(bool){
                 lesson.setLessonName(text1.getText());
@@ -161,49 +163,79 @@ public class editRemoveLessonCurriculumController {
         dlg.close();
     }
     @FXML public void box1OnClick(){
-        if(flag==1){
-            lesson.setLessonType(LessonType.values()[box1.getSelectionModel().getSelectedIndex()]);
-        }
-        else {
-            speciality = Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex());
-            if(editBool) {
-                curriculum.setSpeciality(speciality);
+        if(enterBool) {
+            if (flag == 1) {
+                LessonType lessonType = LessonType.values()[box2.getSelectionModel().getSelectedIndex()];
+                if(editBool) {
+                    lesson.setLessonType(lessonType);
+                }
+                else{
+                    BoxCleaner.boxTwoClear(box, box2);
+                    objectList.setAll(Lists.getLessonService().getLessonsOnType(lessonType));
+                    lessons = Lists.getLessonService().getLessonsOnTypeList(lessonType);
+                }
+            } else {
+                Speciality speciality = Lists.getSpecialityService().getSpecialities().get(box1.getSelectionModel().getSelectedIndex());
+                if(editBool){
+                    curriculum.setSpeciality(speciality);
+                }
+                else{
+                    BoxCleaner.boxTwoClear(box, box2);
+                    objectList.setAll(Lists.getCurriculumService().getCurriculumsBySpecialityNames(speciality));
+                    curriculums = Lists.getCurriculumService().getCurriculumsBySpeciality(speciality);
+                }
             }
-            else {
-                parameterTwoList.clear();
-                objectList.clear();
-                BoxCleaner.boxTwoClear(box, box2);
-//                objectList.addAll(curriculumService.)
-
-
-            }
+            box.getItems().setAll(objectList);
         }
     }
+
     @FXML public void box2OnClick(){
-        if(flag==1){
-            lesson.setSubject(Lists.getSubjectService().getSubjectList().get(box2.getSelectionModel().getSelectedIndex()));
-        }
-        else {
-            curriculum.setDepartment(Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex()));
+        if(enterBool) {
+            if (flag == 1) {
+                Subjects subjects = Lists.getSubjectService().getSubjectList().get(box2.getSelectionModel().getSelectedIndex());
+                if(editBool) {
+                    lesson.setSubject(subjects);
+                }
+                else{
+                    BoxCleaner.boxTwoClear(box, box1);
+                    objectList.setAll(Lists.getLessonService().getLessonsOnSubject(subjects));
+                    lessons = Lists.getLessonService().getLessonsOnSubjectList(subjects);
+                }
+            } else {
+                Department department = Lists.getDepartmentService().getDepartments().get(box2.getSelectionModel().getSelectedIndex());
+                if(editBool){
+                    curriculum.setDepartment(department);
+                }
+                else{
+                    BoxCleaner.boxTwoClear(box, box1);
+                    objectList.setAll(Lists.getCurriculumService().getCurriculumsByDepartmentNames(department));
+                    curriculums = Lists.getCurriculumService().getCurriculumByDepartment(department);
+                }
+            }
+            box.getItems().setAll(objectList);
         }
     }
     @FXML public void chooseOnClick(){
-        BoxCleaner.boxClear(box1);
-        BoxCleaner.boxClear(box2);
-        List<String> parameters = new ArrayList<>();
-        box1.setDisable(true);
-        box2.setDisable(true);
-        if(flag==1){
-            lesson = lessonService.getLessons().get(box.getSelectionModel().getSelectedIndex());
-            parameters = lessonService.getParametersInString(lesson);
+        if(enterBool) {
+            enterBool = false;
+            if (!editBool && !bool) {
+                box1.setDisable(true);
+                box2.setDisable(true);
+            }
+            editBool = true;
+            List<String> parameters;
+            if (flag == 1) {
+                lesson = lessons.get(box.getSelectionModel().getSelectedIndex());
+                parameters = lessonService.getParametersInString(lesson);
+            } else {
+                curriculum = curriculums.get(box.getSelectionModel().getSelectedIndex());
+                parameters = curriculumService.getParametersInString(curriculum);
+            }
+            text1.setText(parameters.get(0));
+            box1.setValue(parameters.get(2));
+            box2.setValue(parameters.get(1));
+            enterBool = true;
         }
-        else{
-            curriculum = curriculumService.getCurriculums().get(box.getSelectionModel().getSelectedIndex());
-            parameters = curriculumService.getParametersInString(curriculum);
-        }
-        text1.setText(parameters.get(0));
-        box1.promptTextProperty().set(parameters.get(1));
-        box2.promptTextProperty().set(parameters.get(2));
     }
     private void clear(){
         text1.clear();

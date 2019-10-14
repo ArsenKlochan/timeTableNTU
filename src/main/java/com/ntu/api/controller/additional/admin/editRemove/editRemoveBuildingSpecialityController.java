@@ -80,6 +80,8 @@ public class editRemoveBuildingSpecialityController {
         }
         box.setEditable(false);
         box.getItems().setAll(objectList);
+        text1.clear();
+        text2.clear();
     }
     @FXML public void cancelOnClick(){
         Stage dlg = (Stage) editRemoveBuildingSpeciality.getScene().getWindow();
@@ -106,7 +108,7 @@ public class editRemoveBuildingSpecialityController {
                 specialityService.deleteSpeciality(speciality);
             }
         }
-        clear();
+        BoxCleaner.boxClear(box);
         initialize();
         if(flag==1){
             if (bool){
@@ -141,12 +143,5 @@ public class editRemoveBuildingSpecialityController {
     private void windowsDisabled(){
         text1.setDisable(true);
         text2.setDisable(true);
-    }
-
-    private void clear(){
-        text1.clear();
-        text2.clear();
-        BoxCleaner.boxClear(box);
-
     }
 }

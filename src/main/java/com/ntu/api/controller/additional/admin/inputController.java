@@ -94,6 +94,7 @@ public class inputController {
             add.setScene(new Scene(addPane));
             add.show();
         } catch (IOException e) {
+//            e.printStackTrace();
             Message.errorCatch(adminDlgInput, "Error", message);
         }
     }

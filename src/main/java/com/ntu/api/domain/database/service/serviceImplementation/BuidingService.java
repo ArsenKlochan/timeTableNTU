@@ -47,7 +47,7 @@ public class BuidingService implements BuildingServiceInt {
         for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
             String name = list.get(0);
             String adress = list.get(1);
-            addBuilding(new Building(name, adress));
+            addBuilding(new Building(adress, name));
         }
     }
 

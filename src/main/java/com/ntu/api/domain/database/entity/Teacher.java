@@ -11,7 +11,8 @@ import java.util.List;
 public class Teacher extends BaseObject {
     @Id
     @Column(name = "teacher_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "teacherId", sequenceName = "seq_teacher_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacherId")
     private Long teacherId;
 
     @Column(name = "teacher_name")

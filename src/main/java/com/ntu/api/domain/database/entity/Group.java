@@ -10,7 +10,8 @@ public class Group extends BaseObject {
 
     @Id
     @Column(name = "group_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "groupId", sequenceName = "seq_group_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupId")
     private Long groupId;
 
     @Column(name = "group_name")

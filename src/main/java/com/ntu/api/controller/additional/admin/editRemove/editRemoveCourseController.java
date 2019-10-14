@@ -63,7 +63,7 @@ public class editRemoveCourseController {
             button1.textProperty().set("Видалити курс");
             box1.setDisable(true);
         }
-        objectsList.addAll(Lists.getCourseList(course.getCurriculum()));
+        objectsList.setAll(Lists.getCourseList());
         parametersList.addAll(Lists.getCurriculumList());
         box.setEditable(false);
         box1.setEditable(false);

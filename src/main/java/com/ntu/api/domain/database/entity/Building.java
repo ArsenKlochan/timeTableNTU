@@ -12,7 +12,8 @@ public class Building extends BaseObject {
 
     @Id
     @Column(name = "building_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "buildingId", sequenceName = "seq_building_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "buildingId")
     private Long buildingId;
 
     @Column(name = "building_name")

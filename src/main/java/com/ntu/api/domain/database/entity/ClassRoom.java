@@ -11,7 +11,8 @@ public class ClassRoom extends BaseObject {
 
     @Id
     @Column(name = "classrooms_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "classroomId", sequenceName = "seq_classroom_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "classroomId")
     private Long classRoomsId;
 
     @Column(name = "classrooms_name")

@@ -12,7 +12,8 @@ public class Course extends BaseObject {
 
     @Id
     @Column(name = "course_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "courseId", sequenceName = "seq_course_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courseId")
     private Long courseId;
 
     @Column(name = "course_name")

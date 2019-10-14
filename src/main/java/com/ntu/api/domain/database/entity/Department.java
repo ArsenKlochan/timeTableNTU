@@ -12,7 +12,8 @@ public class Department extends BaseObject {
 
     @Id
     @Column(name = "department_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "departmentId", sequenceName = "seq_department_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentId")
     private Long departmentId;
 
     @Column(name = "department_code")
@@ -128,7 +129,7 @@ public class Department extends BaseObject {
         sb.append("departmentId=").append(departmentId);
         sb.append(", departmentCode='").append(departmentCode).append('\'');
         sb.append(", departmentName='").append(departmentName).append('\'');
-        sb.append(", faculty=").append(faculty);
+        sb.append(", faculty=").append(getFaculty().getFacultyName());
         sb.append(", curriculums=").append(curriculumsToString());
         sb.append(", teachers=").append(teacherToString());
         sb.append(", classRooms=").append(classRoomsToString());

@@ -63,8 +63,7 @@ public class CourseService implements CourseServiceInt {
     @Override
     public List<Course> getCourseOnCurriculumList(Curriculum curriculum) {
         ArrayList<Course> courses = new ArrayList<>();
-        Curriculum curriculum1 = curriculumDAO.get(curriculum.getCurriculumId());
-        for(Course course: curriculum1.getCourses()){
+        for(Course course: curriculumDAO.get(curriculum.getCurriculumId()).getCourses()){
             courses.add(course);
         }
         return courses;

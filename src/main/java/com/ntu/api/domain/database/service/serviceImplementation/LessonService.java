@@ -60,7 +60,7 @@ public class LessonService implements LessonServiceInt {
     @Override
     public List<String> getLessonsOnSubject(Subjects subjects) {
         List<String> lessonsList = new ArrayList<>();
-        for(Lesson lesson: subjects.getLessons()){
+        for(Lesson lesson: subjectDAO.get(subjects.getSubjectId()).getLessons()){
             lessonsList.add(lesson.getLessonType() + " " + lesson.getLessonName());
         }
         return lessonsList;
@@ -68,7 +68,33 @@ public class LessonService implements LessonServiceInt {
 
     @Override
     public List<Lesson> getLessonsOnSubjectList(Subjects subjects) {
-        return subjects.getLessons();
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        for(Lesson lesson: subjectDAO.get(subjects.getSubjectId()).getLessons()){
+            lessons.add(lesson);
+        }
+        return lessons;
+    }
+
+    @Override
+    public List<String> getLessonsOnType(LessonType type) {
+        List<String> lessonList = new ArrayList<>();
+        for (Lesson lesson: lessonDAO.findAll()){
+            if(lesson.getLessonType().name().equals(type.name())) {
+                lessonList.add(lesson.getLessonName());
+            }
+        }
+        return lessonList;
+    }
+
+    @Override
+    public List<Lesson> getLessonsOnTypeList(LessonType type) {
+        List<Lesson> lessonList = new ArrayList<>();
+        for (Lesson lesson: lessonDAO.findAll()){
+            if(lesson.getLessonType().name().equals(type.name())) {
+                lessonList.add(lesson);
+            }
+        }
+        return lessonList;
     }
 
     @Override

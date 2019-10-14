@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.commons.codec.net.BCodec;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,11 +43,8 @@ public class editRemoveClassRoomController {
     @FXML private Button button2;
     private static Boolean bool;
     private static Boolean editBool;
-    private Building building;
-    private Department department;
-    List<ClassRoom> classRooms;
-    List<Department> departments;
-    List<Building> buildings;
+    private List<ClassRoom> classRooms;
+    private static Boolean enterBool;
 
 
     private static ObservableList<String> classRoomList;
@@ -68,6 +66,7 @@ public class editRemoveClassRoomController {
 
     @FXML public void initialize(){
         editBool = false;
+        enterBool = true;
         label0.setText("Аудиторія");
         label1.setText("Назва аудиторії");
         label2.setText("Кількість робочих місць");
@@ -106,6 +105,7 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void okOnClick(){
+        enterBool = false;
         if(bool){
             classRoom.setClassRoomName(text1.getText());
             classRoom.setClassRoomSize(Integer.parseInt(text2.getText()));
@@ -130,67 +130,71 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void box1OnChoose(){
-            classRoom.setType(ClassRoomTypes.values()[box1.getSelectionModel().getSelectedIndex()]);
+        if(enterBool) {
+            if (editBool) {
+                classRoom.setType(ClassRoomTypes.values()[box1.getSelectionModel().getSelectedIndex()]);
+            } else {
+                departmentList.clear();
+                buildingList.clear();
+                BoxCleaner.boxTwoClear(box2, box3);
+                BoxCleaner.boxClear(box);
+                classRoomList.setAll(classRoomService.getClassRoomsOnType(ClassRoomTypes.values()[box1.getSelectionModel().getSelectedIndex()]));
+                classRooms = classRoomService.getClassRoomsOnTypeList(ClassRoomTypes.values()[box1.getSelectionModel().getSelectedIndex()]);
+                box.getItems().setAll(classRoomList);
+            }
+        }
     }
     @FXML public void box2OnChoose(){
-        building = Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex());
-        if(editBool){
-            classRoom.setBuilding(building);
-        }
-        else{
-            departmentList.clear();
-            boxClear(box,box3);
-            classRoomList.addAll(classRoomService.getClassRoomsOnBuildin(building));
-            classRooms = classRoomService.getClassRoomsOnBuildinList(building);
-            box.getItems().setAll(classRoomList);
+        if(enterBool) {
+            if (editBool) {
+                classRoom.setBuilding(Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex()));
+            } else {
+                departmentList.clear();
+                BoxCleaner.boxTwoClear(box, box3);
+                BoxCleaner.boxClear(box1);
+                classRoomList.setAll(classRoomService.getClassRoomsOnBuildin(Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex())));
+                classRooms = classRoomService.getClassRoomsOnBuildinList(Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex()));
+                box.getItems().setAll(classRoomList);
+            }
         }
     }
     @FXML public void box3OnChoose(){
-        department = Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex());
-        if(editBool){
-            classRoom.setDepartment(department);
-        }
-        else{
-            buildingList.clear();
-            boxClear(box,box2);
-            classRoomList.addAll(classRoomService.getClassRoomsOnDepartments(department));
-            classRooms = classRoomService.getClassRoomsOnDepartmentsList(department);
-            box.getItems().setAll(classRoomList);
+        if(enterBool) {
+            if (editBool) {
+                classRoom.setDepartment(Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()));
+            } else {
+                buildingList.clear();
+                BoxCleaner.boxTwoClear(box, box2);
+                BoxCleaner.boxClear(box1);
+                classRoomList.setAll(classRoomService.getClassRoomsOnDepartments(Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex())));
+                classRooms = classRoomService.getClassRoomsOnDepartmentsList(Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()));
+                box.getItems().setAll(classRoomList);
+            }
         }
     }
 
     @FXML public void boxchooseOnClick(){
-        if(!editBool && !bool){
-            box2.setDisable(true);
-            box3.setDisable(true);
+        if(enterBool) {
+            if (!editBool && !bool) {
+                box1.setDisable(true);
+                box2.setDisable(true);
+                box3.setDisable(true);
+            }
+            editBool = true;
+            classRoom = classRooms.get(box.getSelectionModel().getSelectedIndex());
+            List<String> parameters = classRoomService.getParametersInString(classRoom);
+            text1.setText(parameters.get(0));
+            text2.setText(parameters.get(1));
+            box1.setValue(parameters.get(2));
+            box2.setValue(parameters.get(3));
+            box3.setValue(parameters.get(4));
         }
-        editBool = true;
-        BoxCleaner.boxClear(box1);
-        BoxCleaner.boxClear(box2);
-        BoxCleaner.boxClear(box3);
-        classRoom = classRooms.get(box.getSelectionModel().getSelectedIndex());
-        List<String> parameters = classRoomService.getParametersInString(classRoom);
-        text1.setText(parameters.get(0));
-        text2.setText(parameters.get(1));
-        box1.promptTextProperty().set(parameters.get(2));
-        box2.promptTextProperty().set(parameters.get(3));
-        box3.promptTextProperty().set(parameters.get(4));
     }
 
     private void clear(){
         text1.clear();
         text2.clear();
-        BoxCleaner.boxClear(box);
-        BoxCleaner.boxClear(box1);
-        BoxCleaner.boxClear(box2);
-        BoxCleaner.boxClear(box3);
-    }
-
-    private void boxClear(ComboBox<String> box, ComboBox<String> box1){
-        classRoomList.clear();
-        box.promptTextProperty().setValue(null);
-        box1.promptTextProperty().setValue(null);
-        box.setValue(null);
-        box1.setValue(null);
+        BoxCleaner.boxTwoClear(box, box1);
+        BoxCleaner.boxTwoClear(box2, box3);
     }
 }

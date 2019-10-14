@@ -3,11 +3,8 @@ package com.ntu.api.controller.additional.admin.editRemove;
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.Faculty;
-import com.ntu.api.domain.database.entity.Speciality;
 import com.ntu.api.domain.database.service.serviceInterface.DepartmentServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
-import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
-import com.ntu.api.domain.database.service.serviceInterface.SpecialityServiceInt;
 import com.ntu.api.model.BoxCleaner;
 import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
@@ -23,7 +20,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -42,18 +38,15 @@ public class editRemoveDepartmentController {
     private Faculty faculty;
     private static Boolean bool;
     private static Boolean editBool = false;
-    List<Department> departments;
-    List<Speciality> specialities;
+    private static Boolean enterBool;
 
     private static ObservableList<String> objectList;
     private static ObservableList<String> parametersList;
-
-    Speciality speciality;
-    Department department;
+    private static Department department;
+    private static List<Department> departments;
     ApplicationContext context = new ClassPathXmlApplicationContext("com/ntu/api/spring/database/config.xml");
     DepartmentServiceInt departmentService = context.getBean(DepartmentServiceInt.class);
     FacultyServiceInt facultyService = context.getBean(FacultyServiceInt.class);
-    GroupServiceInt groupService = context.getBean(GroupServiceInt.class);
 
     public static Boolean getBool() {
         return bool;
@@ -64,6 +57,7 @@ public class editRemoveDepartmentController {
 
     @FXML public void initialize(){
         editBool = false;
+        enterBool = true;
         objectList = FXCollections.observableArrayList();
         parametersList = FXCollections.observableArrayList();
         label0.setText("Кафедра");
@@ -78,22 +72,23 @@ public class editRemoveDepartmentController {
             text1.setDisable(true);
             text2.setDisable(true);
         }
-        objectList.addAll(Lists.getDepartmentList());
-        parametersList.addAll(Lists.getFacultyList());
+        objectList.setAll(Lists.getDepartmentList());
+        parametersList.setAll(Lists.getFacultyList());
         box.setEditable(false);
         box1.setEditable(false);
         box.getItems().setAll(objectList);
         box1.getItems().setAll(parametersList);
-        departments = Lists.getDepartmentService().getDepartments();
+        departments = departmentService.getDepartments();
     }
     @FXML public void okOnClick(){
+        enterBool = false;
        if(bool){
           department.setDepartmentCode(text1.getText());
           department.setDepartmentName(text2.getText());
           departmentService.updateDepartment(department);
        }
-       else{
-            departmentService.deleteDepartment(department);
+       else {
+           departmentService.deleteDepartment(department);
        }
         clear();
         initialize();
@@ -110,41 +105,43 @@ public class editRemoveDepartmentController {
         dlg.close();
     }
     @FXML public void box1OnClick(){
-        faculty = Lists.getFacultyService().getFaculties().get(box1.getSelectionModel().getSelectedIndex());
-        if(editBool){
-            department.setFaculty(faculty);
-        }
-        else{
-            boxClear(box);
-            objectList.addAll(departmentService.getDepartmentsOnFaculty(faculty));
-            departments = departmentService.getDepartmentsOnFacultyList(faculty);
-            box.getItems().setAll(objectList);
+        if(enterBool) {
+            faculty = facultyService.getFaculties().get(box1.getSelectionModel().getSelectedIndex());
+            if (editBool) {
+                department.setFaculty(faculty);
+            } else {
+                boxClear(box);
+                objectList.setAll(departmentService.getDepartmentsOnFaculty(faculty));
+                departments = departmentService.getDepartmentsOnFacultyList(faculty);
+                box.getItems().setAll(objectList);
+            }
         }
     }
     @FXML public void chooseOnClick(){
-        if(!editBool && !bool){
-            box1.setDisable(true);
+        if(enterBool) {
+            if (!editBool && !bool) {
+                box1.setDisable(true);
+            }
+            editBool = true;
+            List<String> parameters;
+            department = departments.get(box.getSelectionModel().getSelectedIndex());
+            parameters = departmentService.getParametersInString(department);
+            text1.setText(parameters.get(0));
+            text2.setText(parameters.get(1));
+            box1.setValue(parameters.get(2));
         }
-        editBool = true;
-        BoxCleaner.boxClear(box1);
-        List<String> parameters;
-        department = departments.get(box.getSelectionModel().getSelectedIndex());
-        parameters = departmentService.getParametersInString(department);
-        text1.setText(parameters.get(0));
-        text2.setText(parameters.get(1));
-        box1.promptTextProperty().set(parameters.get(2));
     }
 
     private void boxClear(ComboBox<String> box){
         objectList.clear();
-        box.promptTextProperty().setValue(null);
-        box.setValue(null);
+        box.promptTextProperty().setValue("");
+        box.setValue("");
     }
-
     private void clear(){
-        text1.clear();
-        text2.clear();
         BoxCleaner.boxClear(box);
         BoxCleaner.boxClear(box1);
+        text1.setText("");
+        text2.setText("");
     }
+
 }

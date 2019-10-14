@@ -57,6 +57,7 @@ public class editRemoveFacultyController {
         objectsList.addAll(Lists.getFacultyList());
         box.setEditable(false);
         box.getItems().setAll(objectsList);
+        text1.clear();
     }
 
     @FXML public void okOnClick(){
@@ -67,7 +68,7 @@ public class editRemoveFacultyController {
         else{
             facultyService.deleteFacultu(faculty);
         }
-        clear();
+        BoxCleaner.boxClear(box);
         initialize();
         if(bool){
             Message.questionOnClick(removeDeleteFaculty, "Редагування факультету", "Редагувати ще один факультет?");
@@ -89,10 +90,4 @@ public class editRemoveFacultyController {
         parameters = facultyService.getParametersInString(faculty);
         text1.setText(parameters.get(0));
     }
-    private void clear(){
-        text1.clear();
-        BoxCleaner.boxClear(box);
-    }
-
-
 }

@@ -70,11 +70,9 @@ public class addSubjectController {
     }
 
     @FXML public void curriculumChooseOnClick(){
-        curriculum = Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
-        courceList = FXCollections.observableArrayList();
-        courceList.addAll(Lists.getCourseList(curriculum));
         box2.setEditable(false);
-        box2.getItems().setAll(courceList);
+        curriculum = Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
+        box2.getItems().setAll(Lists.getCourseService().getCourseOnCurriculuminString(curriculum));
     }
 
     @FXML public void okOnClick(){

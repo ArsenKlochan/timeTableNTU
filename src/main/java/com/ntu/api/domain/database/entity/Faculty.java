@@ -10,7 +10,8 @@ public class Faculty  {
 
     @Id
     @Column(name = "faculty_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "facultyId", sequenceName = "seq_faculty_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facultyId")
     private Long facultyId;
 
     @Column(name= "faculty_name")

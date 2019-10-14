@@ -12,7 +12,8 @@ public class Speciality extends BaseObject {
 
     @Id
     @Column (name = "speciality_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "specialityId", sequenceName = "seq_speciality_id", initialValue = 10001)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialityId")
     private Long specialityId;
 
     @Column(name = "speciality_code")

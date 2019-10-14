@@ -75,7 +75,7 @@ public class Lists {
     }
     public static ArrayList<String> getCourseList(Curriculum curriculum) {
         ArrayList<String> tempList = new ArrayList<>();
-        for(Course course:curriculum.getCourses()){
+        for(Course course:courseService.getCourses()){
             tempList.add(course.getCourseName());
         }
         return tempList;
@@ -83,7 +83,7 @@ public class Lists {
     public static ArrayList<String> getCurriculumList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Curriculum curriculum :curriculumService.getCurriculums()){
-            tempList.add(curriculum.getCurriculumName());
+            tempList.add(curriculum.getCurriculumName() + " " + curriculum.getQualification());
         }
         return tempList;
     }
@@ -138,7 +138,7 @@ public class Lists {
     public static ArrayList<String> getSpecialityNameList() {
         ArrayList<String> tempList = new ArrayList<>();
         for(Speciality speciality :specialityService.getSpecialities()){
-            tempList.add(speciality.getSpecialityName());
+            tempList.add(speciality.getSpecialityCode() + speciality.getSpecialityName());
         }
         return tempList;
     }

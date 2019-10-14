@@ -65,86 +65,38 @@ public class CurriculumService implements CurriculumServiceInt {
         }
     }
 
-//    @Override
-//    public List<Curriculum> getCurriculumByDepartment(Department department) {
-//        List<Curriculum> curriculumList = new ArrayList<>();
-//        List<Curriculum> curriculums = curriculumDAO.findAll();
-//        Department tempDepartment;
-//        for(Curriculum curriculum: curriculums){
-//            tempDepartment = departmentDAO.get(curriculum.getDepartment().getDepartmentId());
-//            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
-//                curriculumList.add(curriculum);
-//            }
-//        }
-//        return curriculumList;
-//    }
-
     @Override
     public List<Curriculum> getCurriculumByDepartment(Department department) {
-        return department.getCurriculums();
+        ArrayList<Curriculum> curriculums = new ArrayList<>();
+        for(Curriculum curriculum: departmentDAO.get(department.getDepartmentId()).getCurriculums()){
+            curriculums.add(curriculum);
+        }
+        return curriculums;
     }
-
-//    @Override
-//    public List<String> getCurriculumsByDepartmentNames(Department department) {
-//        List<String> curriculumsList = new ArrayList<>();
-//        List<Curriculum> curriculums = curriculumDAO.findAll();
-//        Department tempDepartment;
-//        for(Curriculum curriculum: curriculums){
-//            tempDepartment = departmentDAO.get(curriculum.getDepartment().getDepartmentId());
-//            if(tempDepartment.getDepartmentId() == department.getDepartmentId()){
-//                curriculumsList.add(curriculum.getCurriculumName());
-//            }
-//        }
-//        return curriculumsList;
-//    }
 
     @Override
     public List<String> getCurriculumsByDepartmentNames(Department department) {
         List<String> curriculumsList = new ArrayList<>();
-        for(Curriculum curriculum: department.getCurriculums()){
-            curriculumsList.add(curriculum.getCurriculumName());
+        for(Curriculum curriculum: departmentDAO.get(department.getDepartmentId()).getCurriculums()){
+            curriculumsList.add(curriculum.getCurriculumName() + " " + curriculum.getQualification());
         }
         return curriculumsList;
     }
 
-//    @Override
-//    public List<Curriculum> getCurriculumsBySpeciality(Speciality speciality) {
-//        List<Curriculum> curriculumList = new ArrayList<>();
-//        List<Curriculum> curriculums = curriculumDAO.findAll();
-//        Speciality tempSpeciality;
-//        for(Curriculum curriculum: curriculums){
-//            tempSpeciality = specialityDAO.get(curriculum.getSpeciality().getSpecialityId());
-//            if(tempSpeciality.getSpecialityId() == speciality.getSpecialityId()){
-//                curriculumList.add(curriculum);
-//            }
-//        }
-//        return curriculumList;
-//    }
-
     @Override
     public List<Curriculum> getCurriculumsBySpeciality(Speciality speciality) {
-        return speciality.getCurriculums();
+        ArrayList<Curriculum> curriculums = new ArrayList<>();
+        for(Curriculum curriculum: specialityDAO.get(speciality.getSpecialityId()).getCurriculums()){
+            curriculums.add(curriculum);
+        }
+        return curriculums;
     }
-
-//    @Override
-//    public List<String> getCurriculumsBySpecialityNames(Speciality speciality) {
-//        List<String> curriculumsList = new ArrayList<>();
-//        List<Curriculum> curriculums = curriculumDAO.findAll();
-//        Speciality tempSpeciality;
-//        for(Curriculum curriculum: curriculums){
-//            tempSpeciality = specialityDAO.get(curriculum.getSpeciality().getSpecialityId());
-//            if(tempSpeciality.getSpecialityId() == speciality.getSpecialityId()){
-//                curriculumsList.add(curriculum.getCurriculumName());
-//            }
-//        }
-//        return curriculumsList;
-//    }
 
     @Override
     public List<String> getCurriculumsBySpecialityNames(Speciality speciality) {
         List<String> curriculumsList = new ArrayList<>();
-        for(Curriculum curriculum: speciality.getCurriculums()){
-            curriculumsList.add(curriculum.getCurriculumName());
+        for(Curriculum curriculum: specialityDAO.get(speciality.getSpecialityId()).getCurriculums()){
+            curriculumsList.add(curriculum.getCurriculumName() + " " + curriculum.getQualification());
         }
         return curriculumsList;
     }

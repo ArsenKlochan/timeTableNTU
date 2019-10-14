@@ -1,13 +1,8 @@
 package com.ntu.api.controller.additional.admin.add;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.entity.Curriculum;
-import com.ntu.api.domain.database.entity.Group;
-import com.ntu.api.domain.database.entity.Teacher;
-import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
-import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
-import com.ntu.api.domain.database.service.serviceInterface.GroupServiceInt;
-import com.ntu.api.domain.database.service.serviceInterface.TeacherServiceInt;
+import com.ntu.api.domain.database.entity.*;
+import com.ntu.api.domain.database.service.serviceInterface.*;
 import com.ntu.api.model.BoxCleaner;
 import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
@@ -43,8 +38,10 @@ public class addTeacherGroupController {
             "/com/ntu/api/spring/database/config.xml");
     private static TeacherServiceInt teacherService = context.getBean(TeacherServiceInt.class);
     private static CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
+    private static DepartmentServiceInt departmentService = context.getBean(DepartmentServiceInt.class);
     private static GroupServiceInt groupService = context.getBean(GroupServiceInt.class);
 
+    private Curriculum curriculum;
     public static int getCounter() {
         return counter;
     }
@@ -77,16 +74,21 @@ public class addTeacherGroupController {
             curriculumList = FXCollections.observableArrayList();
             courseList = FXCollections.observableArrayList();
             curriculumList.addAll(Lists.getCurriculumList());
+//            courseList.setAll(Lists.getCourseList());
             box1.setEditable(false);
             box2.setEditable(false);
             box1.getItems().setAll(curriculumList);
+//            box2.getItems().setAll(courseList);
         }
     }
 
     @FXML public void box1ChooseOnClick(){
-        Curriculum  curriculum = curriculumService.getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
-        courseList.addAll(Lists.getCourseList(curriculum));
-        box2.getItems().setAll(courseList);
+        if(counter != 1){
+            curriculum = curriculumService.getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
+            courseList.setAll(Lists.getCourseService().getCourseOnCurriculuminString(curriculum));
+            BoxCleaner.boxClear(box2);
+            box2.getItems().setAll(courseList);
+        }
     }
 
     @FXML public void okOnClick(){
@@ -96,15 +98,16 @@ public class addTeacherGroupController {
                     Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex())));
         }
         else{
-            groupService.addGroupe(new Group(text1.getText(), Integer.parseInt(text2.getText()),Lists.getCourseService().getCourses().get(box2.getSelectionModel().getSelectedIndex())));
+            groupService.addGroupe(new Group(text1.getText(), Integer.parseInt(text2.getText()),
+                    Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex())));
         }
-        clear();
         if(counter==1) {
             Message.questionOnClick(addTeacherGroup, "Додавання викладача", "Додати ще одного викладлача?");
         }
         else{
             Message.questionOnClick(addTeacherGroup,"Додавання групи", "Додати ще одну групу?");
         }
+        clear();
     }
 
     @FXML public void cancelOnClick(){
@@ -115,7 +118,8 @@ public class addTeacherGroupController {
     private void clear(){
         text1.clear();
         text2.clear();
-        BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
+        BoxCleaner.boxClear(box1);
     }
 }
+//https://github.com/ArsenKlochan/timeTableNTU.git
