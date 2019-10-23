@@ -2,6 +2,7 @@ package com.ntu.api.controller.additional.admin.editRemove;
 
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Course;
+import com.ntu.api.domain.database.entity.Curriculum;
 import com.ntu.api.domain.database.entity.Faculty;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.FacultyServiceInt;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -35,6 +37,9 @@ public class editRemoveCourseController {
     @FXML private Button button1;
     @FXML private Button button2;
     private static Boolean bool;
+    private static Boolean editBool;
+    private static Boolean enterBool;
+    private static List<Course> courses;
 
     private static ObservableList<String> objectsList;
     private static ObservableList<String> parametersList;
@@ -51,6 +56,8 @@ public class editRemoveCourseController {
     }
 
     @FXML public void initialize(){
+        editBool = false;
+        enterBool = true;
         objectsList = FXCollections.observableArrayList();
         parametersList = FXCollections.observableArrayList();
         label0.setText("Курс");
@@ -61,7 +68,8 @@ public class editRemoveCourseController {
         }
         else{
             button1.textProperty().set("Видалити курс");
-            box1.setDisable(true);
+            text1.setDisable(true);
+            box1.setDisable(false);
         }
         objectsList.setAll(Lists.getCourseList());
         parametersList.addAll(Lists.getCurriculumList());
@@ -69,21 +77,27 @@ public class editRemoveCourseController {
         box1.setEditable(false);
         box.getItems().setAll(objectsList);
         box1.getItems().setAll(parametersList);
+        courses = Lists.getCourseService().getCourses();
     }
-    @FXML public void okOnClick(){
-        if(bool){
-            course.setCourseName(text1.getText());
-            courseService.updateCourse(course);
+    @FXML public void okOnClick() {
+        try {
+            editBool = false;
+            if (bool) {
+                course.setCourseName(text1.getText());
+                courseService.updateCourse(course);
+            } else {
+                courseService.deleteCourse(course);
+            }
+            clear();
+            initialize();
+            if (bool) {
+                Message.questionOnClick(removeDeleteCourse, "Редагування курсу", "Редагувати ще один курс?");
+            } else {
+                Message.questionOnClick(removeDeleteCourse, "Видалення курсу", "Видалити ще один курс?");
+            }
         }
-        else{
-            courseService.deleteCourse(course);
-        }
-        clear();
-        if(bool){
-            Message.questionOnClick(removeDeleteCourse,"Редагування курсу","Редагувати ще один курс?");
-        }
-        else{
-            Message.questionOnClick(removeDeleteCourse,"Видалення курсу","Видалити ще один курс?");
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(removeDeleteCourse, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
     @FXML public void cancelOnClick(){
@@ -91,20 +105,37 @@ public class editRemoveCourseController {
         dlg.close();
     }
     @FXML public void box1OnClick(){
-        course.setCurriculum(Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex()));
+        if(enterBool) {
+            Curriculum curriculum = Lists.getCurriculumService().getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
+            if(editBool) {
+                course.setCurriculum(curriculum);
+            }
+            else{
+                objectsList.setAll(Lists.getCourseService().getCourseOnCurriculuminString(curriculum));
+                courses = courseService.getCourseOnCurriculumList(curriculum);
+                box.getItems().setAll(objectsList);
+            }
+        }
     }
 
     @FXML public void choseOnClick(){
-        BoxCleaner.boxClear(box1);
-        List<String> parameters = new ArrayList<>();
-        course = courseService.getCourses().get(box.getSelectionModel().getSelectedIndex());
-        parameters = courseService.getParametersInString(course);
-        text1.setText(parameters.get(0));
-        box1.promptTextProperty().set(parameters.get(1));
+        if(enterBool) {
+            if (!editBool && !bool) {
+                box1.setDisable(true);
+            }
+            enterBool = false;
+            editBool = true;
+            BoxCleaner.boxClear(box1);
+            List<String> parameters;
+            course = courses.get(box.getSelectionModel().getSelectedIndex());
+            parameters = courseService.getParametersInString(course);
+            text1.setText(parameters.get(0));
+            box1.setValue(parameters.get(1));
+            enterBool = true;
+        }
     }
     private void clear(){
+        BoxCleaner.boxTwoClear(box, box1);
         text1.clear();
-        BoxCleaner.boxClear(box);
-        BoxCleaner.boxClear(box1);
     }
 }

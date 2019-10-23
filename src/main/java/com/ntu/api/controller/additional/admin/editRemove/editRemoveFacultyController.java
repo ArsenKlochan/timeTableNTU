@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,22 +61,25 @@ public class editRemoveFacultyController {
         text1.clear();
     }
 
-    @FXML public void okOnClick(){
-        if(bool){
-            faculty.setFacultyName(text1.getText());
-            facultyService.updateFaculty(faculty);
-        }
-        else{
-            facultyService.deleteFacultu(faculty);
-        }
-        BoxCleaner.boxClear(box);
-        initialize();
-        if(bool){
-            Message.questionOnClick(removeDeleteFaculty, "Редагування факультету", "Редагувати ще один факультет?");
+    @FXML public void okOnClick() {
+        try {
+            if (bool) {
+                faculty.setFacultyName(text1.getText());
+                facultyService.updateFaculty(faculty);
+            } else {
+                facultyService.deleteFacultu(faculty);
+            }
+            BoxCleaner.boxClear(box);
+            initialize();
+            if (bool) {
+                Message.questionOnClick(removeDeleteFaculty, "Редагування факультету", "Редагувати ще один факультет?");
 
+            } else {
+                Message.questionOnClick(removeDeleteFaculty, "Видалення факультету", "Видалити ще один факультет?");
+            }
         }
-        else{
-            Message.questionOnClick(removeDeleteFaculty, "Видалення факультету", "Видалити ще один факультет?");
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(removeDeleteFaculty, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
 

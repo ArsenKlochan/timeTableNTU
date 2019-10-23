@@ -19,12 +19,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class editRemoveLessonCurriculumController {
-    @FXML private AnchorPane editRemoveLessonSpeciality;
+    @FXML private AnchorPane editRemoveLessonCurriculum;
     @FXML private Label label0;
     @FXML private Label label1;
     @FXML private Label label2;
@@ -83,8 +84,8 @@ public class editRemoveLessonCurriculumController {
             }
             else{
                 button1.textProperty().set("Видалити заняття");
-                box1.setDisable(true);
-                box2.setDisable(true);
+                box1.setDisable(false);
+                box2.setDisable(false);
                 text1.setDisable(true);
             }
             objectList.setAll(Lists.getLessonList());
@@ -102,8 +103,8 @@ public class editRemoveLessonCurriculumController {
             }
             else{
                 button1.textProperty().set("Видалити освітню програму");
-                box1.setDisable(true);
-                box2.setDisable(true);
+                box1.setDisable(false);
+                box2.setDisable(false);
                 text1.setDisable(true);
             }
             objectList.setAll(Lists.getCurriculumList());
@@ -119,53 +120,52 @@ public class editRemoveLessonCurriculumController {
         box1.getItems().setAll(parameterOneList);
         box2.getItems().setAll(parameterTwoList);
     }
-    @FXML public void okOnClick(){
-        enterBool = false;
-        if(flag==1){
-            if(bool){
-                lesson.setLessonName(text1.getText());
-                lessonService.updateLesson(lesson);
+    @FXML public void okOnClick() {
+        try {
+            enterBool = false;
+            if (flag == 1) {
+                if (bool) {
+                    lesson.setLessonName(text1.getText());
+                    lessonService.updateLesson(lesson);
+                } else {
+                    lessonService.deleteLesson(lesson);
+                }
+            } else {
+                if (bool) {
+                    curriculum.setCurriculumName(text1.getText());
+                    curriculumService.updateCurriculum(curriculum);
+                } else {
+                    curriculumService.deleteCurriculum(curriculum);
+                }
             }
-            else{
-                lessonService.deleteLesson(lesson);
+            clear();
+            initialize();
+            if (flag == 1) {
+                if (bool) {
+                    Message.questionOnClick(editRemoveLessonCurriculum, "Редагувати заняття", "Редагувати ще одне заняття?");
+                } else {
+                    Message.questionOnClick(editRemoveLessonCurriculum, "Видалити заняття", "Видалити ще одне заняття?");
+                }
+            } else {
+                if (bool) {
+                    Message.questionOnClick(editRemoveLessonCurriculum, "Редагування освітньої програми", "Редагувати ще одну освітню програму?");
+                } else {
+                    Message.questionOnClick(editRemoveLessonCurriculum, "Видалення освітньої програми", "Видалити ще одну освітню програму?");
+                }
             }
         }
-        else{
-            if(bool){
-                curriculum.setCurriculumName(text1.getText());
-                curriculumService.updateCurriculum(curriculum);
-            }
-            else{
-                curriculumService.deleteCurriculum(curriculum);
-            }
-        }
-        clear();
-        initialize();
-        if(flag==1){
-            if(bool){
-                Message.questionOnClick(editRemoveLessonSpeciality, "Редагувати заняття", "Редагувати ще одне заняття?");
-            }
-            else{
-                Message.questionOnClick(editRemoveLessonSpeciality, "Видалити заняття", "Видалити ще одне заняття?");
-            }
-        }
-        else{
-            if(bool){
-                Message.questionOnClick(editRemoveLessonSpeciality,"Редагування освітньої програми", "Редагувати ще одну освітню програму?");
-            }
-            else{
-                Message.questionOnClick(editRemoveLessonSpeciality,"Видалення освітньої програми", "Видалити ще одну освітню програму?");
-            }
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(editRemoveLessonCurriculum, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
     @FXML public void cancelOnClick(){
-        Stage dlg = (Stage) editRemoveLessonSpeciality.getScene().getWindow();
+        Stage dlg = (Stage) editRemoveLessonCurriculum.getScene().getWindow();
         dlg.close();
     }
     @FXML public void box1OnClick(){
         if(enterBool) {
             if (flag == 1) {
-                LessonType lessonType = LessonType.values()[box2.getSelectionModel().getSelectedIndex()];
+                LessonType lessonType = LessonType.values()[box1.getSelectionModel().getSelectedIndex()];
                 if(editBool) {
                     lesson.setLessonType(lessonType);
                 }

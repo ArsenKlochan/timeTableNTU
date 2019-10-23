@@ -247,6 +247,10 @@ public class inputController {
         facultyService.addFacultyFromFile(fileName);
     }
 
+    @FXML public void dataBaseSchemeView(){
+        open("Схема бази даних", "/com/ntu/api/javafx/model/additional/admin/schemViewer.fxml", "Помилка відкриття схеми бази даних");
+//        open("Схема бази даних", "/com/ntu/api/javafx/model/additional/registration.fxml", "Помилка відкриття схеми бази даних");
+    }
 
 
 

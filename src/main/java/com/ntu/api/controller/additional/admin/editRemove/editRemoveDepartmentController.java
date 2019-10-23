@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -80,24 +81,27 @@ public class editRemoveDepartmentController {
         box1.getItems().setAll(parametersList);
         departments = departmentService.getDepartments();
     }
-    @FXML public void okOnClick(){
-        enterBool = false;
-       if(bool){
-          department.setDepartmentCode(text1.getText());
-          department.setDepartmentName(text2.getText());
-          departmentService.updateDepartment(department);
-       }
-       else {
-           departmentService.deleteDepartment(department);
-       }
-        clear();
-        initialize();
-        box1.setDisable(false);
-        if(bool){
-            Message.questionOnClick(editRemoveDepartment, "Редагування кафедри", "Редагувати ще одну кафедру?");
+    @FXML public void okOnClick() {
+        try {
+            enterBool = false;
+            if (bool) {
+                department.setDepartmentCode(text1.getText());
+                department.setDepartmentName(text2.getText());
+                departmentService.updateDepartment(department);
+            } else {
+                departmentService.deleteDepartment(department);
+            }
+            if (bool) {
+                Message.questionOnClick(editRemoveDepartment, "Редагування кафедри", "Редагувати ще одну кафедру?");
+            } else {
+                Message.questionOnClick(editRemoveDepartment, "Видалення кафедри", "Видалити ще одну кафедру?");
+            }
+            clear();
+            initialize();
+            box1.setDisable(false);
         }
-        else{
-            Message.questionOnClick(editRemoveDepartment, "Видалення кафедри", "Видалити ще одну кафедру?");
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(editRemoveDepartment, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
     @FXML public void cancelOnClick(){

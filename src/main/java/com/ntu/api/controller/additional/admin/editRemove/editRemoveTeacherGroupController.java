@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +76,8 @@ public class editRemoveTeacherGroupController {
     }
 
     @FXML public void initialize(){
+        clear();
         editBool = false;
-        enterBool = true;
         objectList = FXCollections.observableArrayList();
         parameterOneList = FXCollections.observableArrayList();
         parameterTwoList = FXCollections.observableArrayList();
@@ -92,8 +93,8 @@ public class editRemoveTeacherGroupController {
                 button1.textProperty().set("Видалити викладача");
                 text1.setDisable(true);
                 text2.setDisable(true);
-                box1.setDisable(true);
-                box2.setDisable(true);
+                box1.setDisable(false);
+                box2.setDisable(false);
             }
             objectList.setAll(Lists.getTeacherList());
             parameterOneList.setAll(Lists.getDepartmentList());
@@ -107,15 +108,16 @@ public class editRemoveTeacherGroupController {
             label3.setText("Освітня програма");
             label4.setText("Курс");
             if(bool) {
-                button1.textProperty().set("Додати групу");
+                button1.textProperty().set("Зберегти групу");
             }
             else {
                 button1.textProperty().set("Видалити групу");
                 text1.setDisable(true);
                 text2.setDisable(true);
-                box1.setDisable(true);
-                box2.setDisable(true);
+                box1.setDisable(false);
+                box2.setDisable(false);
             }
+            courses = Lists.getCourseService().getCourses();
             objectList.setAll(Lists.getGroupeList());
             parameterOneList.setAll(Lists.getCurriculumList());
             parameterTwoList.setAll(Lists.getCourseList());
@@ -127,6 +129,7 @@ public class editRemoveTeacherGroupController {
             box.getItems().setAll(objectList);
             box1.getItems().setAll(parameterOneList);
             box2.getItems().setAll(parameterTwoList);
+        enterBool = true;
     }
 
     @FXML public void chooseOnClick(){
@@ -160,7 +163,8 @@ public class editRemoveTeacherGroupController {
                 if (editBool) {
                     teacher.setDepartment(department);
                 } else {
-                    BoxCleaner.boxTwoClear(box, box2);
+                    BoxCleaner.boxClear(box2);
+                    objectList.clear();
                     objectList.setAll(teacherService.getTeachersOnDepartments(department));
                     teachers = teacherService.getTeacherOnDepartmentList(department);
                     box.getItems().setAll(objectList);
@@ -168,10 +172,12 @@ public class editRemoveTeacherGroupController {
             } else {
                 curriculum = curriculumService.getCurriculums().get(box1.getSelectionModel().getSelectedIndex());
                 if(!editBool){
-                    BoxCleaner.boxTwoClear(box, box2);
+                    BoxCleaner.boxTwoClear(box,box2);
+                    objectList.clear();
                     parameterTwoList.setAll(Lists.getCourseService().getCourseOnCurriculuminString(curriculum));
                     courses = Lists.getCourseService().getCourseOnCurriculumList(curriculum);
                     box2.getItems().setAll(parameterTwoList);
+                    box.setDisable(true);
                 }
             }
         }
@@ -184,61 +190,69 @@ public class editRemoveTeacherGroupController {
                 if (editBool) {
                     teacher.setTeacherPosition(position.name());
                 } else {
-                    BoxCleaner.boxTwoClear(box, box1);
+                    BoxCleaner.boxClear(box1);
+                    objectList.clear();
                     objectList.setAll(teacherService.getTeachersByPosition(position));
                     teachers = teacherService.getTeacherByPositionList(position);
+                    box.getItems().setAll(objectList);
                 }
             } else {
-                course = Lists.getCourseService().getCourses().get(box2.getSelectionModel().getSelectedIndex());
+                course = courses.get(box2.getSelectionModel().getSelectedIndex());
                 if(editBool){
                     group.setCourse(course);
                 }
                 else{
-                    BoxCleaner.boxTwoClear(box, box1);
+                    BoxCleaner.boxClear(box1);
+                    box.setDisable(false);
+                    objectList.clear();
                     objectList.setAll(groupService.getGroupOnCourse(course));
                     groups = groupService.getGroupOnCourseList(course);
+                    box.getItems().setAll(objectList);
                 }
             }
-            box.getItems().setAll(objectList);
         }
     }
 
-    @FXML public void okOnClick(){
-        enterBool = false;
-        if(flag==1) {
-            if (bool) {
-                teacher.setTeacherSurname(text1.getText());
-                teacher.setTeacherName(text2.getText());
-                teacherService.updateTeacher(teacher);
+    @FXML public void okOnClick() {
+        try {
+            enterBool = false;
+            if (flag == 1) {
+                if (bool) {
+                    teacher.setTeacherSurname(text1.getText());
+                    teacher.setTeacherName(text2.getText());
+                    teacherService.updateTeacher(teacher);
+                } else {
+                    teacherService.deleteTeacher(teacher);
+                }
             } else {
-                teacherService.deleteTeacher(teacher);
+                if (bool) {
+                    group.setGroupName(text1.getText());
+                    group.setStudentsNumber(Integer.parseInt(text2.getText()));
+                    groupService.updateGroupe(group);
+                } else {
+                    groupService.deleteGroupe(group);
+                }
             }
-        }
-        else{
-            if (bool) {
-                group.setGroupName(text1.getText());
-                group.setStudentsNumber(Integer.parseInt(text2.getText()));
-                groupService.updateGroupe(group);
+            clear();
+            initialize();
+            if (flag == 1) {
+                if (bool) {
+                    Message.questionOnClick(editRemoveTeacherGroup, "Редагування викладача", "Редагувати ще одного викладлача?");
+                } else {
+                    Message.questionOnClick(editRemoveTeacherGroup, "Видалення викладача", "Видалити ще одного викладлача?");
+                }
             } else {
-                groupService.deleteGroupe(group);
+                if (bool) {
+                    Message.questionOnClick(editRemoveTeacherGroup, "Редагування групи", "Редагувати ще одну групу?");
+                } else {
+                    Message.questionOnClick(editRemoveTeacherGroup, "Видалення групи", "Видалити ще одну групу?");
+                }
             }
+        } catch (NumberFormatException e) {
+            Message.errorCatch(editRemoveTeacherGroup, "Помилка введення", "Перевірте правильність введення числових даних");
         }
-        clear();
-        initialize();
-        if(flag==1) {
-            if (bool) {
-                Message.questionOnClick(editRemoveTeacherGroup, "Редагування викладача", "Редагувати ще одного викладлача?");
-            } else {
-                Message.questionOnClick(editRemoveTeacherGroup, "Видалення викладача", "Видалити ще одного викладлача?");
-            }
-        }
-        else{
-            if (bool) {
-                Message.questionOnClick(editRemoveTeacherGroup,"Редагування групи", "Редагувати ще одну групу?");
-            }
-            else {
-                Message.questionOnClick(editRemoveTeacherGroup,"Видалення групи", "Видалити ще одну групу?");
-            }
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(editRemoveTeacherGroup, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
 
@@ -251,6 +265,10 @@ public class editRemoveTeacherGroupController {
         BoxCleaner.boxClear(box2);
         text1.clear();
         text2.clear();
+    }
+    private void boxClear(ComboBox<String> box){
+        box.promptTextProperty().setValue("");
+        box.setValue("");
     }
 
 }

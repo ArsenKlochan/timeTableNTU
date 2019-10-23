@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 
 public class editRemoveBuildingSpecialityController {
     @FXML private AnchorPane editRemoveBuildingSpeciality;
@@ -30,6 +31,7 @@ public class editRemoveBuildingSpecialityController {
     @FXML private Button button1;
     @FXML private Button button2;
     private static Boolean bool;
+    private static Boolean enterBool;
     private static  int flag;
     private static ObservableList<String> objectList;
     Building building;
@@ -50,6 +52,7 @@ public class editRemoveBuildingSpecialityController {
     }
 
     @FXML public void initialize(){
+        enterBool = true;
         objectList = FXCollections.observableArrayList();
         if(flag==1) {
             label0.setText("Корпус");
@@ -87,56 +90,57 @@ public class editRemoveBuildingSpecialityController {
         Stage dlg = (Stage) editRemoveBuildingSpeciality.getScene().getWindow();
         dlg.close();
     }
-    @FXML public void okOnClick(){
-        if(flag==1){
-            if (bool){
-                building.setBuildingName(text1.getText());
-                building.setBuildingAdress(text2.getText());
-                buildingService.updateBuilding(building);
+    @FXML public void okOnClick() {
+        try {
+            enterBool = false;
+            if (flag == 1) {
+                if (bool) {
+                    building.setBuildingName(text1.getText());
+                    building.setBuildingAdress(text2.getText());
+                    buildingService.updateBuilding(building);
+                } else {
+                    buildingService.deleteBuilding(building);
+                }
+            } else if (flag == 2) {
+                if (bool) {
+                    speciality.setSpecialityCode(text1.getText());
+                    speciality.setSpecialityName(text2.getText());
+                    specialityService.updateSpeciality(speciality);
+                } else {
+                    specialityService.deleteSpeciality(speciality);
+                }
             }
-            else{
-                buildingService.deleteBuilding(building);
+            BoxCleaner.boxClear(box);
+            initialize();
+            if (flag == 1) {
+                if (bool) {
+                    Message.questionOnClick(editRemoveBuildingSpeciality, "Редагування корпусу", "Редагувати ще один корпус?");
+                } else {
+                    Message.questionOnClick(editRemoveBuildingSpeciality, "Видалення корпусу", "Видалити ще один корпус?");
+                }
+            } else if (flag == 2) {
+                if (bool) {
+                    Message.questionOnClick(editRemoveBuildingSpeciality, "Редагування спеціальності", "Редагувати ще одну спеціальність?");
+                } else {
+                    Message.questionOnClick(editRemoveBuildingSpeciality, "Видалення спеціальності", "Видалити ще одну спеціальність?");
+                }
             }
         }
-        else if (flag==2){
-            if(bool){
-                speciality.setSpecialityCode(text1.getText());
-                speciality.setSpecialityName(text2.getText());
-                specialityService.updateSpeciality(speciality);
-            }
-            else{
-                specialityService.deleteSpeciality(speciality);
-            }
-        }
-        BoxCleaner.boxClear(box);
-        initialize();
-        if(flag==1){
-            if (bool){
-                Message.questionOnClick(editRemoveBuildingSpeciality,"Редагування корпусу", "Редагувати ще один корпус?");
-            }
-            else{
-                Message.questionOnClick(editRemoveBuildingSpeciality,"Видалення корпусу", "Видалити ще один корпус?");
-            }
-        }
-        else if (flag==2){
-            if(bool){
-                Message.questionOnClick(editRemoveBuildingSpeciality,"Редагування спеціальності", "Редагувати ще одну спеціальність?");
-            }
-            else{
-                Message.questionOnClick(editRemoveBuildingSpeciality,"Видалення спеціальності", "Видалити ще одну спеціальність?");
-            }
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(editRemoveBuildingSpeciality, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
     @FXML public void chooseOnClick(){
-        if(flag==2){
-            speciality = specialityService.getSpecialities().get(box.getSelectionModel().getSelectedIndex());
-            text1.setText(speciality.getSpecialityCode());
-            text2.setText(speciality.getSpecialityName());
-        }
-        else if(flag==1) {
-            building = buildingService.getBuildingList().get(box.getSelectionModel().getSelectedIndex());
-            text1.setText(building.getBuildingName());
-            text2.setText(building.getBuildingAdress());
+        if(enterBool) {
+            if (flag == 2) {
+                speciality = specialityService.getSpecialities().get(box.getSelectionModel().getSelectedIndex());
+                text1.setText(speciality.getSpecialityCode());
+                text2.setText(speciality.getSpecialityName());
+            } else if (flag == 1) {
+                building = buildingService.getBuildingList().get(box.getSelectionModel().getSelectedIndex());
+                text1.setText(building.getBuildingName());
+                text2.setText(building.getBuildingAdress());
+            }
         }
     }
 

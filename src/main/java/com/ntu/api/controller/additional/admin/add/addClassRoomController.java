@@ -1,7 +1,11 @@
 package com.ntu.api.controller.additional.admin.add;
 
+import com.ntu.api.controller.Filter;
+import com.ntu.api.controller.additional.ErrorController;
 import com.ntu.api.domain.Lists;
+import com.ntu.api.domain.database.entity.Building;
 import com.ntu.api.domain.database.entity.ClassRoom;
+import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.service.serviceInterface.ClassRoomServiceInt;
 import com.ntu.api.model.BoxCleaner;
@@ -17,6 +21,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class addClassRoomController {
     @FXML private AnchorPane addClassRoom;
@@ -36,6 +43,8 @@ public class addClassRoomController {
     private static ObservableList<String> typeList;
     private static ObservableList<String> buildingList;
     private static ObservableList<String> departmentList;
+    private static ArrayList<Department> departments;
+    private static ArrayList<Building> buildings;
 
     @FXML public void initialize(){
         button1.textProperty().set("Додати аудиторію");
@@ -54,24 +63,29 @@ public class addClassRoomController {
         departmentList.addAll(Lists.getDepartmentList());
 
         box1.setEditable(false);
-        box2.setEditable(false);
-        box3.setEditable(false);
 
         box1.getItems().setAll(typeList);
         box2.getItems().setAll(buildingList);
         box3.getItems().setAll(departmentList);
+        buildings = Filter.filtere(buildingList,box2, Lists.getBuildingService().getBuildingList());
+        departments = Filter.filtere(departmentList,box3, Lists.getDepartmentService().getDepartments());
     }
 
     @FXML public void okOnClick(){
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                "com/ntu/api/spring/database/config.xml");
-        ClassRoomServiceInt classRoomService = context.getBean(ClassRoomServiceInt.class);
-        classRoomService.addClassRoom(new ClassRoom(text1.getText(), Integer.parseInt(text2.getText()),
-                ClassRoomTypes.valueOf(box1.getSelectionModel().getSelectedItem()),
-                Lists.getBuildingService().getBuildingList().get(box2.getSelectionModel().getSelectedIndex()),
-                Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex())));
-        clear();
-        Message.questionOnClick(addClassRoom,"Додавання аудиторії", "Додати ще одну аудиторію?");
+        try {
+            ApplicationContext context = new ClassPathXmlApplicationContext(
+                    "com/ntu/api/spring/database/config.xml");
+            ClassRoomServiceInt classRoomService = context.getBean(ClassRoomServiceInt.class);
+            classRoomService.addClassRoom(new ClassRoom(text1.getText(), Integer.parseInt(text2.getText()),
+                    ClassRoomTypes.valueOf(box1.getSelectionModel().getSelectedItem()),
+                    buildings.get(box2.getSelectionModel().getSelectedIndex()),
+                    departments.get(box3.getSelectionModel().getSelectedIndex())));
+            clear();
+            Message.questionOnClick(addClassRoom, "Додавання аудиторії", "Додати ще одну аудиторію?");
+        }
+        catch (NumberFormatException e){
+            Message.errorCatch(addClassRoom, "Помилка введення", "Перевірте правильність введення числових даних");
+        }
     }
 
     @FXML public void cancelOnClick(){

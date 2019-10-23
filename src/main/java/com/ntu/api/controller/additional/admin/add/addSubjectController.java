@@ -76,15 +76,20 @@ public class addSubjectController {
     }
 
     @FXML public void okOnClick(){
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                "com/ntu/api/spring/database/config.xml");
-        SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
-        subjectService.addSubject(new Subjects(text1.getText(), Integer.parseInt(text2.getText()),
-                Integer.parseInt(text3.getText()), Integer.parseInt(text4.getText()),
-                Integer.parseInt(text5.getText()), ExamType.values()[box3.getSelectionModel().getSelectedIndex()],
-                Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex())));
-        clear();
-        Message.questionOnClick(addSubject, "Додавання дисципліни", "Додати ще одну дисципліну?");
+        try {
+            ApplicationContext context = new ClassPathXmlApplicationContext(
+                    "com/ntu/api/spring/database/config.xml");
+            SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
+            subjectService.addSubject(new Subjects(text1.getText(), Integer.parseInt(text2.getText()),
+                    Integer.parseInt(text3.getText()), Integer.parseInt(text4.getText()),
+                    Integer.parseInt(text5.getText()), ExamType.values()[box3.getSelectionModel().getSelectedIndex()],
+                    Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex())));
+            clear();
+            Message.questionOnClick(addSubject, "Додавання дисципліни", "Додати ще одну дисципліну?");
+        }
+        catch (NumberFormatException e){
+            Message.errorCatch(addSubject, "Помилка введення", "Перевірте правильність введення числових даних");
+        }
     }
 
     @FXML public void cancelOnClick(){

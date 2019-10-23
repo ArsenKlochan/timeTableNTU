@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="schemeViewerPane" prefHeight="501.0" prefWidth="851.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ntu.api.controller.additional.admin.ImageSchemViewerController">
+   <children>
+      <ImageView fx:id="scheme" fitHeight="517.0" fitWidth="842.0" layoutX="210.0" layoutY="81.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <image>
+            <Image url="@../../../picture/NTUTimeTable1Schem.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

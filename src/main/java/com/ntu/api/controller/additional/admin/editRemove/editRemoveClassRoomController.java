@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import org.apache.commons.codec.net.BCodec;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -65,6 +66,7 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void initialize(){
+        clear();
         editBool = false;
         enterBool = true;
         label0.setText("Аудиторія");
@@ -78,7 +80,7 @@ public class editRemoveClassRoomController {
         }
         else{
             button1.textProperty().set("Видалити аудиторію");
-            box1.setDisable(true);
+            box1.setDisable(false);
             text1.setDisable(true);
             text2.setDisable(true);
         }
@@ -92,11 +94,6 @@ public class editRemoveClassRoomController {
         buildingList.addAll(Lists.getBuildingList());
         departmentList.addAll(Lists.getDepartmentList());
 
-        box1.setEditable(false);
-        box2.setEditable(false);
-        box3.setEditable(false);
-        box.setEditable(false);
-
         box1.getItems().setAll(typeList);
         box2.getItems().setAll(buildingList);
         box3.getItems().setAll(departmentList);
@@ -105,22 +102,34 @@ public class editRemoveClassRoomController {
     }
 
     @FXML public void okOnClick(){
-        enterBool = false;
-        if(bool){
-            classRoom.setClassRoomName(text1.getText());
-            classRoom.setClassRoomSize(Integer.parseInt(text2.getText()));
-            classRoomService.updateClassRoom(classRoom);
+        try {
+            enterBool = false;
+            if(bool){
+                classRoom.setClassRoomName(text1.getText());
+                classRoom.setClassRoomSize(Integer.parseInt(text2.getText()));
+                classRoomService.updateClassRoom(classRoom);
+            }
+            else{
+                classRoomService.deleteClassRoom(classRoom);
+            }
+            clear();
+            initialize();
+            box1.setDisable(false);
+            box2.setDisable(false);
+            box3.setDisable(false);
+            box.setDisable(false);
+            if(bool){
+                Message.questionOnClick(editRemoveClassRoom,"Редагування аудиторії", "Редагувати ще одну аудиторію?");
+            }
+            else{
+                Message.questionOnClick(editRemoveClassRoom,"Видалення аудиторії", "Видалити ще одну аудиторію?");
+            }
         }
-        else{
-            classRoomService.deleteClassRoom(classRoom);
+        catch (NumberFormatException e){
+            Message.errorCatch(editRemoveClassRoom, "Помилка введення", "Перевірте правильність введення числових даних");
         }
-        clear();
-        initialize();
-        if(bool){
-            Message.questionOnClick(editRemoveClassRoom,"Редагування аудиторії", "Редагувати ще одну аудиторію?");
-        }
-        else{
-            Message.questionOnClick(editRemoveClassRoom,"Видалення аудиторії", "Видалити ще одну аудиторію?");
+        catch (DataIntegrityViolationException e){
+            Message.errorCatch(editRemoveClassRoom, "Помилка видалення", "Об'єкт, який Ви намагаєтесь видалити містить прив'язані записи в базі даних. Для видалення даного об'єкту видаліть або відредагуйте всі повязані з ним записи в базі даних");
         }
     }
 

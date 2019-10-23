@@ -92,22 +92,26 @@ public class addTeacherGroupController {
     }
 
     @FXML public void okOnClick(){
+        try {
         if(counter==1) {
             teacherService.addTeacher(new Teacher(text1.getText(), text2.getText(),
                     Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex()),
                     Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex())));
         }
-        else{
+        else {
             groupService.addGroupe(new Group(text1.getText(), Integer.parseInt(text2.getText()),
                     Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex())));
         }
-        if(counter==1) {
+        if (counter == 1) {
             Message.questionOnClick(addTeacherGroup, "Додавання викладача", "Додати ще одного викладлача?");
+        } else {
+            Message.questionOnClick(addTeacherGroup, "Додавання групи", "Додати ще одну групу?");
+            }
+            clear();
         }
-        else{
-            Message.questionOnClick(addTeacherGroup,"Додавання групи", "Додати ще одну групу?");
+        catch(NumberFormatException e){
+            Message.errorCatch(addTeacherGroup, "Помилка введення", "Перевірте правильність введення числових даних");
         }
-        clear();
     }
 
     @FXML public void cancelOnClick(){
