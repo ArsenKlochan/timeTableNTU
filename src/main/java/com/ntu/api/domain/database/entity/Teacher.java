@@ -1,14 +1,14 @@
 package com.ntu.api.domain.database.entity;
 
 import com.ntu.api.domain.BaseObject;
+import com.ntu.api.domain.ObjectWithTimeTable;
+import com.ntu.api.domain.timeTable.TimeTableObject;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "teachers", schema = "ntu")
-public class Teacher extends BaseObject {
+public class Teacher extends BaseObject implements ObjectWithTimeTable {
     @Id
     @Column(name = "teacher_id")
     @SequenceGenerator(name = "teacherId", sequenceName = "seq_teacher_id", initialValue = 10001)
@@ -28,8 +28,19 @@ public class Teacher extends BaseObject {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
-    public Teacher(){}
+    @Transient
+    private TimeTableObject timeTable;
 
+    public Teacher() {
+    }
+
+    public Teacher(String teacherSurname, String teacherName, Department department, String teacherPosition, TimeTableObject timeTable) {
+        this.teacherName = teacherName;
+        this.teacherSurname = teacherSurname;
+        this.teacherPosition = teacherPosition;
+        this.department = department;
+        this.timeTable = timeTable;
+    }
     public Teacher(String teacherSurname, String teacherName, Department department, String teacherPosition) {
         this.teacherName = teacherName;
         this.teacherSurname = teacherSurname;
@@ -39,9 +50,6 @@ public class Teacher extends BaseObject {
 
     public Long getTeacherId() {
         return teacherId;
-    }
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
     }
     public String getTeacherName() {
         return teacherName;
@@ -66,6 +74,12 @@ public class Teacher extends BaseObject {
     }
     public void setDepartment(Department department) {
         this.department = department;
+    }
+    public TimeTableObject getTimeTable() {
+        return timeTable;
+    }
+    public void setTimeTable(TimeTableObject timeTable) {
+        this.timeTable = timeTable;
     }
 
     @Override

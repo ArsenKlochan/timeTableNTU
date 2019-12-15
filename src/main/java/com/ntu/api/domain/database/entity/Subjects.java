@@ -39,9 +39,9 @@ public class Subjects extends BaseObject {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "subject", targetEntity = Lesson.class)
     private List<Lesson> lessons = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
-    @JoinColumn(name = "course_id",nullable = false)
-    private Course course;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Semester.class)
+    @JoinColumn(name = "semester_id",nullable = false)
+    private Semester semester;
 
     public Subjects(){}
 
@@ -54,18 +54,18 @@ public class Subjects extends BaseObject {
         this.examType = examType;
     }
 
-    public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType, Course course) {
+    public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType, Semester semester) {
         this.subjectName = subjectName;
         this.lection = lection;
         this.practic = practic;
         this.labaratory = labaratory;
         this.allHours = allHours;
         this.examType = examType;
-        this.course = course;
+        this.semester = semester;
     }
 
     public Subjects(String subjectName, int lection, int practic, int labaratory, int allHours, ExamType examType,
-                    List<Lesson> lessons, Course course) {
+                    List<Lesson> lessons, Semester semester) {
         this.subjectName = subjectName;
         this.lection = lection;
         this.practic = practic;
@@ -73,14 +73,11 @@ public class Subjects extends BaseObject {
         this.allHours = allHours;
         this.examType = examType;
         this.lessons = lessons;
-        this.course = course;
+        this.semester = semester;
     }
 
     public Long getSubjectId() {
         return subjectId;
-    }
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
     }
     public String getSubjectName() {
         return subjectName;
@@ -124,11 +121,11 @@ public class Subjects extends BaseObject {
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
-    public Course getCourse() {
-        return course;
+    public Semester getSemester() {
+        return semester;
     }
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     private String lessonsToString(){
@@ -150,7 +147,7 @@ public class Subjects extends BaseObject {
         sb.append(", allHours=").append(allHours);
         sb.append(", examType=").append(examType);
         sb.append(", lessons=").append(lessonsToString());
-        sb.append(", course=").append(course);
+        sb.append(", semester=").append(semester.getSemesterName());
         sb.append('}');
         return sb.toString();
     }

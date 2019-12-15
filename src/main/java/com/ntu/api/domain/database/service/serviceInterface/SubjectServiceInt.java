@@ -1,6 +1,7 @@
 package com.ntu.api.domain.database.service.serviceInterface;
 
 import com.ntu.api.domain.database.entity.Course;
+import com.ntu.api.domain.database.entity.Semester;
 import com.ntu.api.domain.database.entity.Subjects;
 
 import java.io.File;
@@ -13,8 +14,8 @@ public interface SubjectServiceInt {
     void deleteSubject(Subjects subject);
     List<Subjects> getSubjectList();
     List<String> getParametersInString(Subjects subjects);
-    List<String> getSubjectOnCourse(Course course);
-    List<Subjects> getSubjectOnCourseList(Course course);
+    List<String> getSubjectOnSemester(Semester semester);
+    List<Subjects> getSubjectOnSemesterList(Semester semester);
     void addSubjectFromFile(File file);
 
 }

@@ -210,10 +210,6 @@ public class inputController {
         fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
         classRoomService.addClassRoomFromFile(fileName);
     }
-    @FXML public void courseFromFile(){
-        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
-        courseService.addCourseFromFile(fileName);
-    }
     @FXML public void curriculumFromFile(){
         fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
         curriculumService.addCurriculumsFromFile(fileName);
@@ -225,10 +221,6 @@ public class inputController {
     @FXML public void groupFromFile(){
         fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
         groupService.addGroupFromFile(fileName);
-    }
-    @FXML public void lessonFromFile(){
-        fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());
-        lessonService.addLessonFromFile(fileName);
     }
     @FXML public void teacherFromFile(){
         fileName = chooser.showOpenDialog(adminDlgInput.getScene().getWindow());

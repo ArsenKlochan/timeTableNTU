@@ -28,6 +28,10 @@ public class CurrentLesson {
         this.classRoom = classRoom;
     }
 
+    public String getParametersToView(){
+        return lesson.getLessonName() + " " + teacher.getTeacherPosition() + " " + teacher.getTeacherSurname() + " " + teacher.getTeacherName() + " " + classRoom.getClassRoomName();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();

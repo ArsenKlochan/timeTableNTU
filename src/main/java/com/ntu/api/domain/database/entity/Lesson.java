@@ -37,9 +37,6 @@ public class Lesson extends BaseObject {
     public Long getLessonId() {
         return lessonId;
     }
-    public void setLessonId(Long lessonId) {
-        this.lessonId = lessonId;
-    }
     public String getLessonName() {
         return lessonName;
     }
@@ -65,7 +62,7 @@ public class Lesson extends BaseObject {
         sb.append("lessonId=").append(lessonId);
         sb.append(", lessonName='").append(lessonName).append('\'');
         sb.append(", lessonType=").append(lessonType);
-        sb.append(", subject=").append(subject);
+        sb.append(", subject=").append(subject.getSubjectName());
         sb.append('}');
         return sb.toString();
     }

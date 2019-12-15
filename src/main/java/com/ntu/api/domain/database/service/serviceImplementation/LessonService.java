@@ -52,8 +52,8 @@ public class LessonService implements LessonServiceInt {
         List<String> parameters = new ArrayList<>();
         Subjects subjects = subjectDAO.get(lesson.getSubject().getSubjectId());
         parameters.add(lesson.getLessonName());
-        parameters.add(lesson.getLessonType().toString());
         parameters.add(subjects.getSubjectName());
+        parameters.add(lesson.getLessonType().toString());
         return parameters;
     }
 
@@ -95,14 +95,5 @@ public class LessonService implements LessonServiceInt {
             }
         }
         return lessonList;
-    }
-
-    @Override
-    public void addLessonFromFile(File file) {
-        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
-            String name = list.get(0);
-            addLesson(new Lesson(name, LessonType.valueOf(list.get(1)),
-                    Lists.getSubjectService().getSubjectList().get(Lists.getSubjectsList().indexOf(list.get(2)))));
-        }
     }
 }

@@ -1,10 +1,9 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.dao.DAOinterface.CourseDAOInt;
+import com.ntu.api.domain.database.dao.DAOinterface.SemesterDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SubjectDAOInt;
-import com.ntu.api.domain.database.entity.Course;
-import com.ntu.api.domain.database.entity.Curriculum;
+import com.ntu.api.domain.database.entity.Semester;
 import com.ntu.api.domain.database.entity.Subjects;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 import com.ntu.api.domain.database.service.serviceInterface.SubjectServiceInt;
@@ -20,7 +19,7 @@ import java.util.List;
 @Transactional
 public class SubjectService implements SubjectServiceInt {
     @Autowired private SubjectDAOInt subjectDAO;
-    @Autowired private CourseDAOInt courseDAO;
+    @Autowired private SemesterDAOInt semesterDAO;
 
     @Override
     public Long addSubject(Subjects subject) {
@@ -50,9 +49,9 @@ public class SubjectService implements SubjectServiceInt {
     @Override
     public List<String> getParametersInString(Subjects subjects) {
         List<String> parameters = new ArrayList<>();
-        Course course = courseDAO.get(subjects.getCourse().getCourseId());
+        Semester semester = semesterDAO.get(subjects.getSemester().getSemesterId());
         parameters.add(subjects.getSubjectName());
-        parameters.add(course.getCourseName());
+        parameters.add(semester.getSemesterName());
         parameters.add(Integer.toString(subjects.getLection()));
         parameters.add(Integer.toString(subjects.getPractic()));
         parameters.add(Integer.toString(subjects.getLabaratory()));
@@ -62,18 +61,18 @@ public class SubjectService implements SubjectServiceInt {
     }
 
     @Override
-    public List<String> getSubjectOnCourse(Course course) {
+    public List<String> getSubjectOnSemester(Semester semester) {
         List<String> subjectList = new ArrayList<>();
-        for(Subjects subject: courseDAO.get(course.getCourseId()).getSubjects()){
+        for(Subjects subject: semesterDAO.get(semester.getSemesterId()).getSubjects()){
             subjectList.add(subject.getSubjectName());
         }
         return subjectList;
     }
 
     @Override
-    public List<Subjects> getSubjectOnCourseList(Course course) {
+    public List<Subjects> getSubjectOnSemesterList(Semester semester) {
         ArrayList<Subjects> subjects = new ArrayList<>();
-        for(Subjects subject: courseDAO.get(course.getCourseId()).getSubjects()){
+        for(Subjects subject: semesterDAO.get(semester.getSemesterId()).getSubjects()){
             subjects.add(subject);
         }
         return subjects;
@@ -88,7 +87,7 @@ public class SubjectService implements SubjectServiceInt {
             int labaratory = Integer.parseInt(list.get(3));
             int allHours = Integer.parseInt(list.get(4));
             addSubject(new Subjects(name, lection, practic, labaratory, allHours, ExamType.valueOf(list.get(5)),
-                    Lists.getCourseService().getCourses().get(Lists.getCourseList().indexOf(list.get(6)))));
+                    Lists.getSemesterService().getSemesters().get(Lists.getSemesterList().indexOf(list.get(6)))));
         }
     }
 }

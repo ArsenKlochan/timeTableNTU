@@ -34,9 +34,6 @@ public class Faculty  {
     public Long getFacultyId() {
         return facultyId;
     }
-    public void setFacultyId(Long facultyId) {
-        this.facultyId = facultyId;
-    }
     public String getFacultyName() {
         return facultyName;
     }
@@ -50,13 +47,20 @@ public class Faculty  {
         this.departments = departments;
     }
 
+    private String departmentsToString(){
+        StringBuilder sb = new StringBuilder();
+        for (Department department:departments){
+            sb.append(department.getDepartmentCode() + " " + department.getDepartmentName() + "/n");
+        }
+        return sb.toString();
+    }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Faculty{");
         sb.append("facultyId=").append(facultyId);
         sb.append(", facultyName='").append(facultyName).append('\'');
-        sb.append(", departments=").append(departments);
+        sb.append(", departments=").append(departmentsToString());
         sb.append('}');
         return sb.toString();
     }

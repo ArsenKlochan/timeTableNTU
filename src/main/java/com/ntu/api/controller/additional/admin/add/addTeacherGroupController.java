@@ -3,6 +3,7 @@ package com.ntu.api.controller.additional.admin.add;
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.*;
 import com.ntu.api.domain.database.service.serviceInterface.*;
+import com.ntu.api.domain.timeTable.TimeTableObject;
 import com.ntu.api.model.BoxCleaner;
 import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
@@ -96,11 +97,11 @@ public class addTeacherGroupController {
         if(counter==1) {
             teacherService.addTeacher(new Teacher(text1.getText(), text2.getText(),
                     Lists.getDepartmentService().getDepartments().get(box1.getSelectionModel().getSelectedIndex()),
-                    Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex())));
+                    Lists.getPositionList().get(box2.getSelectionModel().getSelectedIndex()), new TimeTableObject()));
         }
         else {
             groupService.addGroupe(new Group(text1.getText(), Integer.parseInt(text2.getText()),
-                    Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex())));
+                    Lists.getCourseService().getCourseOnCurriculumList(curriculum).get(box2.getSelectionModel().getSelectedIndex()), new TimeTableObject()));
         }
         if (counter == 1) {
             Message.questionOnClick(addTeacherGroup, "Додавання викладача", "Додати ще одного викладлача?");

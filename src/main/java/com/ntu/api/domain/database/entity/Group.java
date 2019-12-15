@@ -1,12 +1,14 @@
 package com.ntu.api.domain.database.entity;
 
 import com.ntu.api.domain.BaseObject;
+import com.ntu.api.domain.ObjectWithTimeTable;
+import com.ntu.api.domain.timeTable.TimeTableObject;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "groups", schema = "ntu")
-public class Group extends BaseObject {
+public class Group extends BaseObject implements ObjectWithTimeTable {
 
     @Id
     @Column(name = "group_id")
@@ -24,6 +26,16 @@ public class Group extends BaseObject {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
+    @Transient
+    private TimeTableObject timeTable;
+
+    public Group(String groupName, Integer studentsNumber, Course course, TimeTableObject timeTable) {
+        this.groupName = groupName;
+        this.studentsNumber = studentsNumber;
+        this.course = course;
+        this.timeTable = timeTable;
+    }
+
     public Group(){}
 
     public Group(String groupName, Integer studentsNumber, Course course) {
@@ -34,9 +46,6 @@ public class Group extends BaseObject {
 
     public Long getGroupId() {
         return groupId;
-    }
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
     }
     public String getGroupName() {
         return groupName;
@@ -56,6 +65,12 @@ public class Group extends BaseObject {
     public void setCourse(Course course) {
         this.course = course;
     }
+    public TimeTableObject getTimeTable() {
+        return timeTable;
+    }
+    public void setTimeTable(TimeTableObject timeTable) {
+        this.timeTable = timeTable;
+    }
 
     @Override
     public String toString() {
@@ -63,7 +78,7 @@ public class Group extends BaseObject {
         sb.append("groupId=").append(groupId);
         sb.append(", groupName='").append(groupName).append('\'');
         sb.append(", studentsNumber=").append(studentsNumber);
-        sb.append(", course=").append(course);
+        sb.append(", course=").append(course.getCourseName());
         sb.append('}');
         return sb.toString();
     }

@@ -1,7 +1,13 @@
 package com.ntu.api.domain.timeTable;
 
 public class TimeTableObject {
-    private Week[] weeks = new Week[2];
+    private Week[] weeks;
+
+    public TimeTableObject(){
+        Week[] weeks = new Week[2];
+        weeks[0] = new Week();
+        weeks[1] = new Week();
+    }
 
     public Week[] getWeeks() {
         return weeks;

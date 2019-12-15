@@ -41,9 +41,6 @@ public class Speciality extends BaseObject {
     public Long getSpecialityId() {
         return specialityId;
     }
-    public void setSpecialityId(Long specialityId) {
-        this.specialityId = specialityId;
-    }
     public String getSpecialityCode() {
         return specialityCode;
     }
@@ -63,7 +60,7 @@ public class Speciality extends BaseObject {
         this.curriculums = curriculums;
     }
 
-    private String specialitiesToString(){
+    private String curriculumsToString(){
         StringBuilder sb = new StringBuilder();
         for(Curriculum curriculum : curriculums){
             sb.append(curriculum.getCurriculumName() + "/n");
@@ -76,7 +73,7 @@ public class Speciality extends BaseObject {
         final StringBuilder sb = new StringBuilder("Speciality{");
         sb.append("specialityId=").append(specialityId);
         sb.append(", specialityName='").append(specialityName).append('\'');
-        sb.append(", spesialities: ").append(specialitiesToString());
+        sb.append(", spesialities: ").append(curriculumsToString());
         sb.append('}');
         return sb.toString();
     }

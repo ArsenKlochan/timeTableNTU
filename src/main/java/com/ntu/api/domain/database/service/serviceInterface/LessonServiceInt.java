@@ -18,5 +18,4 @@ public interface LessonServiceInt {
     List<Lesson> getLessonsOnSubjectList(Subjects subjects);
     List<String> getLessonsOnType(LessonType type);
     List<Lesson> getLessonsOnTypeList(LessonType type);
-    void addLessonFromFile(File file);
 }

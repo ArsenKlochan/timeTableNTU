@@ -26,8 +26,8 @@ public class Course extends BaseObject {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Group.class)
     private List<Group> groups = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Subjects.class)
-    private List<Subjects> subjects = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", targetEntity = Semester.class)
+    private List<Semester> semesters = new ArrayList<>();
 
     public Course(){}
 
@@ -36,18 +36,15 @@ public class Course extends BaseObject {
         this.curriculum = curriculum;
     }
 
-    public Course(String courseName, Curriculum curriculum, List<Group> groups, List<Subjects> subjects) {
+    public Course(String courseName, Curriculum curriculum, List<Group> groups, List<Semester> semesters) {
         this.courseName = courseName;
         this.curriculum = curriculum;
         this.groups = groups;
-        this.subjects = subjects;
+        this.semesters = semesters;
     }
 
     public Long getCourseId() {
         return courseId;
-    }
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
     }
     public String getCourseName() {
         return courseName;
@@ -67,11 +64,11 @@ public class Course extends BaseObject {
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
-    public List<Subjects> getSubjects() {
-        return subjects;
+    public List<Semester> getSemesters() {
+        return semesters;
     }
-    public void setSubjects(List<Subjects> subjects) {
-        this.subjects = subjects;
+    public void setSemesters(List<Semester> semesters) {
+        this.semesters = semesters;
     }
 
     private String groupsToString(){
@@ -82,10 +79,10 @@ public class Course extends BaseObject {
         return sb.toString();
     }
 
-    private String subjectsToString(){
+    private String semestersToString(){
         StringBuilder sb = new StringBuilder();
-        for(Subjects subject: subjects){
-            sb.append(subject.getSubjectName() + " " + subject.getAllHours() + "/n");
+        for(Semester semester: semesters){
+            sb.append(semester.getSemesterName() + "/n");
         }
         return sb.toString();
     }
@@ -95,9 +92,9 @@ public class Course extends BaseObject {
         final StringBuilder sb = new StringBuilder("Course{");
         sb.append("courseId=").append(courseId);
         sb.append(", courseName='").append(courseName).append('\'');
-        sb.append(", curriculum=").append(curriculum);
+        sb.append(", curriculum=").append(curriculum.getCurriculumName());
         sb.append(", groups=").append(groupsToString());
-        sb.append(", subjects=").append(subjectsToString());
+        sb.append(", semesters=").append(semestersToString());
         sb.append('}');
         return sb.toString();
     }

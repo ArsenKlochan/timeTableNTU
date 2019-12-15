@@ -3,10 +3,12 @@ package com.ntu.api.controller.additional.admin.editRemove;
 import com.ntu.api.domain.Lists;
 import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Curriculum;
+import com.ntu.api.domain.database.entity.Semester;
 import com.ntu.api.domain.database.entity.Subjects;
 import com.ntu.api.domain.database.entity.enums.ExamType;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
+import com.ntu.api.domain.database.service.serviceInterface.SemesterServiceInt;
 import com.ntu.api.domain.database.service.serviceInterface.SubjectServiceInt;
 import com.ntu.api.model.BoxCleaner;
 import com.ntu.api.model.Message;
@@ -23,7 +25,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class editRemoveSubjectController {
@@ -37,6 +38,7 @@ public class editRemoveSubjectController {
     @FXML private Label label6;
     @FXML private Label label7;
     @FXML private Label label8;
+    @FXML private Label label9;
     @FXML private TextField text1;
     @FXML private TextField text2;
     @FXML private TextField text3;
@@ -46,25 +48,30 @@ public class editRemoveSubjectController {
     @FXML private ComboBox box1;
     @FXML private ComboBox box2;
     @FXML private ComboBox box3;
+    @FXML private ComboBox box4;
     @FXML private Button button1;
     @FXML private Button button2;
     List<Course> courses;
     List<Subjects> subjects;
+    List<Semester> semesters;
 
     private static ObservableList<String> objectList;
     private static ObservableList<String> subjectList;
     private static ObservableList<String> curriculumList;
-    private static ObservableList<String> courseList;;
+    private static ObservableList<String> courseList;
+    private static ObservableList<String> semestrList;
     private static boolean bool;
     private static Boolean editBool = false;
     private static Boolean enterBool;
     Curriculum curriculum;
     Course course;
+    Semester semester;
     Subjects subject;
     ApplicationContext context = new ClassPathXmlApplicationContext("com/ntu/api/spring/database/config.xml");
     CurriculumServiceInt curriculumService = context.getBean(CurriculumServiceInt.class);
     CourseServiceInt courseService = context.getBean(CourseServiceInt.class);
     SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
+    SemesterServiceInt semesterService = context.getBean(SemesterServiceInt.class);
 
     public static boolean isBool() {
         return bool;
@@ -81,6 +88,7 @@ public class editRemoveSubjectController {
         objectList = FXCollections.observableArrayList();
         curriculumList = FXCollections.observableArrayList();
         courseList = FXCollections.observableArrayList();
+        semestrList = FXCollections.observableArrayList();
 
         label0.setText("Освітня програма");
         label1.setText("Курс");
@@ -91,17 +99,22 @@ public class editRemoveSubjectController {
         label6.setText("Годин лабораторних");
         label7.setText("Всього годин");
         label8.setText("Підсумковий контроль");
+        label9.setText("Семестр");
         objectList.setAll(Lists.getSubjectsList());
         curriculumList.setAll(Lists.getCurriculumList());
         courseList.setAll(Lists.getCourseList());
+        semestrList.setAll(Lists.getSemesterList());
+
 
         box1.setEditable(false);
         box2.setEditable(false);
         box3.setEditable(false);
+        box4.setEditable(false);
         box0.getItems().setAll(curriculumList);
         box1.getItems().setAll(courseList);
         box2.getItems().setAll(objectList);
         box3.getItems().setAll(ExamType.values());
+        box4.getItems().setAll(semestrList);
 
         if(bool){
             button1.textProperty().set("Зберегти дисципліну");
@@ -125,6 +138,7 @@ public class editRemoveSubjectController {
                 box0.setDisable(true);
                 box1.setDisable(true);
                 box3.setDisable(true);
+                box4.setDisable(true);
             }
             else{
                 box3.setDisable(false);
@@ -145,6 +159,20 @@ public class editRemoveSubjectController {
         }
     }
 
+
+    @FXML public void semesterOnClick(){
+        if(enterBool) {
+            semester = semesters.get(box4.getSelectionModel().getSelectedIndex());
+            if (editBool) {
+                subject.setSemester(semester);
+            } else {
+                objectList.setAll(subjectService.getSubjectOnSemester(semester));
+                subjects = subjectService.getSubjectOnSemesterList(semester);
+                box2.getItems().setAll(objectList);
+            }
+        }
+    }
+
     @FXML public void curriculumChooseOnClick(){
         if(enterBool) {
             curriculum = Lists.getCurriculumService().getCurriculums().get(box0.getSelectionModel().getSelectedIndex());
@@ -156,13 +184,9 @@ public class editRemoveSubjectController {
     @FXML public void courseChooseOnClick(){
         if(enterBool) {
             course = courses.get(box1.getSelectionModel().getSelectedIndex());
-            if (editBool) {
-                subject.setCourse(course);
-            } else {
-                objectList.setAll(subjectService.getSubjectOnCourse(course));
-                subjects = subjectService.getSubjectOnCourseList(course);
-                box2.getItems().setAll(objectList);
-            }
+            semestrList.setAll(semesterService.getSemestersOnCourseInString(course));
+            semesters = semesterService.getSemesterOnCourseList(course);
+            box4.getItems().setAll(semestrList);
         }
     }
     @FXML public void controlTypeChooseOnClick(){

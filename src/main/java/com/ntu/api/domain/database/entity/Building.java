@@ -41,9 +41,6 @@ public class Building extends BaseObject {
     public Long getBuildingId() {
         return buildingId;
     }
-    public void setBuildingId(Long buildingId) {
-        this.buildingId = buildingId;
-    }
     public String getBuildingName() {
         return buildingName;
     }

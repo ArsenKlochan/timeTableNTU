@@ -8,6 +8,7 @@ import com.ntu.api.domain.database.entity.ClassRoom;
 import com.ntu.api.domain.database.entity.Department;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
 import com.ntu.api.domain.database.service.serviceInterface.ClassRoomServiceInt;
+import com.ntu.api.domain.timeTable.TimeTableObject;
 import com.ntu.api.model.BoxCleaner;
 import com.ntu.api.model.Message;
 import javafx.collections.FXCollections;
@@ -79,7 +80,7 @@ public class addClassRoomController {
             classRoomService.addClassRoom(new ClassRoom(text1.getText(), Integer.parseInt(text2.getText()),
                     ClassRoomTypes.valueOf(box1.getSelectionModel().getSelectedItem()),
                     buildings.get(box2.getSelectionModel().getSelectedIndex()),
-                    departments.get(box3.getSelectionModel().getSelectedIndex())));
+                    departments.get(box3.getSelectionModel().getSelectedIndex()).getDepartmentName(), new TimeTableObject()));
             clear();
             Message.questionOnClick(addClassRoom, "Додавання аудиторії", "Додати ще одну аудиторію?");
         }

@@ -14,5 +14,4 @@ public interface CourseServiceInt {
     List<String> getParametersInString(Course course);
     List<String> getCourseOnCurriculuminString(Curriculum curriculum);
     List<Course> getCourseOnCurriculumList(Curriculum curriculum);
-    void addCourseFromFile(File file);
 }

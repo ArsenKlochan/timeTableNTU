@@ -25,11 +25,9 @@
                           <items>
                               <MenuItem mnemonicParsing="false" onAction="#buildingFromFile" text="Building" />
                               <MenuItem mnemonicParsing="false" onAction="#classRoomFromFile" text="ClassRoom" />
-                              <MenuItem mnemonicParsing="false" onAction="#courseFromFile" text="Course" />
                               <MenuItem mnemonicParsing="false" onAction="#curriculumFromFile" text="Curriculum" />
                             <MenuItem mnemonicParsing="false" onAction="#departmentFromFile" text="Department" />
                               <MenuItem mnemonicParsing="false" onAction="#groupFromFile" text="Group" />
-                              <MenuItem mnemonicParsing="false" onAction="#lessonFromFile" text="Lesson" />
                               <MenuItem mnemonicParsing="false" onAction="#teacherFromFile" text="Teacher" />
                               <MenuItem mnemonicParsing="false" onAction="#spesialityFromFile" text="Spesiality" />
                               <MenuItem mnemonicParsing="false" onAction="#subjectFromFile" text="Subject" />

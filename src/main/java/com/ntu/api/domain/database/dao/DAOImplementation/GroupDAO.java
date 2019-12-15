@@ -37,6 +37,6 @@ public class GroupDAO implements GroupDAOInt {
 
     @Override
     public List<Group> findAll() {
-        return factory.getCurrentSession().createQuery("from Groupe").list();
+        return factory.getCurrentSession().createQuery("from Group").list();
     }
 }

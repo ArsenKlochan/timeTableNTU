@@ -56,13 +56,16 @@ public class CurriculumService implements CurriculumServiceInt {
 
     @Override
     public void addCurriculumsFromFile(File file) {
-        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
-            String name = list.get(0);
-            addCurriculum(new Curriculum(name,
-            Lists.getSpecialityService().getSpecialities().get(Lists.getSpecialityNameList().indexOf(list.get(2))),
-            Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(3))),
-                    list.get(1)));
-        }
+        System.out.println(Lists.getSpecialityNameList());
+            for (ArrayList<String> list : ExcelReader.excelRead(file.getAbsolutePath())) {
+                    String name = list.get(0);
+                    String shortName = list.get(4);
+                    addCurriculum(new Curriculum(name, shortName,
+                            Lists.getSpecialityService().getSpecialities().get(Lists.getSpecialityNameList().indexOf(list.get(2))),
+                            Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(3))),
+                            list.get(1)));
+            }
+
     }
 
     @Override

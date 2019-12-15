@@ -170,7 +170,7 @@ public class editRemoveClassRoomController {
     @FXML public void box3OnChoose(){
         if(enterBool) {
             if (editBool) {
-                classRoom.setDepartment(Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()));
+                classRoom.setDepartment(Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()).getDepartmentName());
             } else {
                 buildingList.clear();
                 BoxCleaner.boxTwoClear(box, box2);

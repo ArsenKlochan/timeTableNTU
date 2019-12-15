@@ -19,6 +19,9 @@ public class Curriculum extends BaseObject {
     @Column(name = "curriculum_name")
     private String curriculumName;
 
+    @Column(name = "short_name")
+    private String shortName;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Speciality.class)
     @JoinColumn(name = "speciality_id", nullable = false)
     private Speciality speciality;
@@ -35,15 +38,17 @@ public class Curriculum extends BaseObject {
 
     public Curriculum(){}
 
-    public Curriculum(String curriculumName, Speciality speciality, Department department, String qualification) {
+    public Curriculum(String curriculumName, String shortName, Speciality speciality, Department department, String qualification) {
         this.curriculumName = curriculumName;
+        this.shortName = shortName;
         this.speciality = speciality;
         this.department = department;
         this.qualification = qualification;
     }
 
-    public Curriculum(String curriculumName, Speciality speciality, Department department, String qualification, List<Course> courses) {
+    public Curriculum(String curriculumName, String shortName, Speciality speciality, Department department, String qualification, List<Course> courses) {
         this.curriculumName = curriculumName;
+        this.shortName = shortName;
         this.speciality = speciality;
         this.department = department;
         this.qualification = qualification;
@@ -52,9 +57,6 @@ public class Curriculum extends BaseObject {
 
     public Long getCurriculumId() {
         return curriculumId;
-    }
-    public void setCurriculumId(Long curriculumId) {
-        this.curriculumId = curriculumId;
     }
     public String getCurriculumName() {
         return curriculumName;
@@ -86,6 +88,12 @@ public class Curriculum extends BaseObject {
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
+    public String getShortName() {
+        return shortName;
+    }
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
 
     private String courseToString(){
         StringBuilder sb = new StringBuilder();
@@ -100,8 +108,9 @@ public class Curriculum extends BaseObject {
         final StringBuilder sb = new StringBuilder("Curriculum{");
         sb.append("specialityId=").append(curriculumId);
         sb.append(", specialityName='").append(curriculumName).append('\'');
-        sb.append(", speciality=").append(speciality);
-        sb.append(", department=").append(department);
+        sb.append(", shortName='").append(shortName).append('\'');
+        sb.append(", speciality=").append(speciality.getSpecialityName());
+        sb.append(", department=").append(department.getDepartmentName());
         sb.append(", courses=").append(courseToString());
         sb.append('}');
         return sb.toString();

@@ -32,9 +32,6 @@ public class Department extends BaseObject {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = Teacher.class)
     private List<Teacher> teachers = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", targetEntity = ClassRoom.class)
-    private List<ClassRoom> classRooms = new ArrayList<>();
-
     public Department(){}
 
     public Department(String departmentCode, String departmentName, Faculty faculty) {
@@ -44,20 +41,16 @@ public class Department extends BaseObject {
     }
 
     public Department(String departmentCode, String departmentName, Faculty faculty,
-                      List<Curriculum> curriculums, List<Teacher> teachers, List<ClassRoom> classRooms) {
+                      List<Curriculum> curriculums, List<Teacher> teachers) {
         this.departmentCode = departmentCode;
         this.departmentName = departmentName;
         this.faculty = faculty;
         this.curriculums = curriculums;
         this.teachers = teachers;
-        this.classRooms = classRooms;
     }
 
     public Long getDepartmentId() {
         return departmentId;
-    }
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
     }
     public String getDepartmentCode() {
         return departmentCode;
@@ -86,17 +79,8 @@ public class Department extends BaseObject {
     public List<Teacher> getTeachers() {
         return teachers;
     }
-    public void setTeachetrs(List<Teacher> teachetrs) {
-        this.teachers = teachetrs;
-    }
     public void setTeachers(List<Teacher> teachers) {
         this.teachers = teachers;
-    }
-    public List<ClassRoom> getClassRooms() {
-        return classRooms;
-    }
-    public void setClassRooms(List<ClassRoom> classRooms) {
-        this.classRooms = classRooms;
     }
 
     private String curriculumsToString(){
@@ -115,14 +99,6 @@ public class Department extends BaseObject {
         return sb.toString();
     }
 
-    private String classRoomsToString(){
-        StringBuilder sb = new StringBuilder();
-        for(ClassRoom classRoom: classRooms){
-            sb.append(classRoom.getClassRoomName() + " " + classRoom.getType() + "/n");
-        }
-        return sb.toString();
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Department{");
@@ -132,7 +108,6 @@ public class Department extends BaseObject {
         sb.append(", faculty=").append(getFaculty().getFacultyName());
         sb.append(", curriculums=").append(curriculumsToString());
         sb.append(", teachers=").append(teacherToString());
-        sb.append(", classRooms=").append(classRoomsToString());
         sb.append('}');
         return sb.toString();
     }

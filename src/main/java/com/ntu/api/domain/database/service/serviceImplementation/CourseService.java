@@ -19,31 +19,38 @@ import java.util.List;
 @Service
 @Transactional
 public class CourseService implements CourseServiceInt {
-    @Autowired private CourseDAOInt courseDAO;
-    @Autowired private CurriculumDAOInt curriculumDAO;
+    @Autowired
+    private CourseDAOInt courseDAO;
+    @Autowired
+    private CurriculumDAOInt curriculumDAO;
 
     @Override
     public Long addCourse(Course course) {
         return courseDAO.create(course);
     }
+
     @Override
     public Course getCourse(Long id) {
         return courseDAO.get(id);
     }
+
     @Override
     public void updateCourse(Course course) {
         courseDAO.update(course);
     }
+
     @Override
     public void deleteCourse(Course course) {
         courseDAO.delete(course);
     }
+
     @Override
     public List<Course> getCourses() {
         return courseDAO.findAll();
     }
+
     @Override
-    public List<String> getParametersInString(Course course){
+    public List<String> getParametersInString(Course course) {
         List<String> parameters = new ArrayList<>();
         Curriculum curriculum = curriculumDAO.get(course.getCurriculum().getCurriculumId());
         parameters.add(course.getCourseName());
@@ -54,7 +61,7 @@ public class CourseService implements CourseServiceInt {
     @Override
     public List<String> getCourseOnCurriculuminString(Curriculum curriculum) {
         List<String> courseOnCurriculum = new ArrayList<>();
-        for(Course course:curriculumDAO.get(curriculum.getCurriculumId()).getCourses()){
+        for (Course course : curriculumDAO.get(curriculum.getCurriculumId()).getCourses()) {
             courseOnCurriculum.add(course.getCourseName());
         }
         return courseOnCurriculum;
@@ -63,19 +70,9 @@ public class CourseService implements CourseServiceInt {
     @Override
     public List<Course> getCourseOnCurriculumList(Curriculum curriculum) {
         ArrayList<Course> courses = new ArrayList<>();
-        for(Course course: curriculumDAO.get(curriculum.getCurriculumId()).getCourses()){
+        for (Course course : curriculumDAO.get(curriculum.getCurriculumId()).getCourses()) {
             courses.add(course);
         }
         return courses;
-    }
-
-    @Override
-    public void addCourseFromFile(File file) {
-        for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
-            String name = list.get(0);
-            addCourse(new Course(name,
-                    Lists.getCurriculumService().getCurriculums().get(Lists.getCurriculumList().indexOf(list.get(1)))));
-        }
-
     }
 }

@@ -53,20 +53,21 @@ public class ClassRoomService implements ClassRoomServiceInt {
     public List<String> getParametersInString(ClassRoom classRoom){
         List<String> parameters = new ArrayList<>();
         Building building = buildingDAO.get(classRoom.getBuilding().getBuildingId());
-        Department department = departmentDAO.get(classRoom.getDepartment().getDepartmentId());
         parameters.add(classRoom.getClassRoomName());
         parameters.add(classRoom.getClassRoomSize().toString());
         parameters.add(classRoom.getType().name());
         parameters.add(building.getBuildingName());
-        parameters.add(department.getDepartmentCode() + " " + department.getDepartmentName());
+        parameters.add(classRoom.getDepartment());
         return parameters;
     }
 
     @Override
     public List<String> getClassRoomsOnDepartments(Department department) {
         List<String> classRoomsList = new ArrayList<>();
-        for (ClassRoom classRoom: departmentDAO.get(department.getDepartmentId()).getClassRooms()){
-            classRoomsList.add(classRoom.getClassRoomName());
+        for (ClassRoom classRoom: classRoomDAO.findAll()){
+            if (classRoom.getDepartment().equals(department.getDepartmentName())) {
+                classRoomsList.add(classRoom.getClassRoomName());
+            }
         }
         return classRoomsList;
     }
@@ -105,8 +106,10 @@ public class ClassRoomService implements ClassRoomServiceInt {
     @Override
     public List<ClassRoom> getClassRoomsOnDepartmentsList(Department department) {
         List<ClassRoom> classRoomList = new ArrayList<>();
-        for (ClassRoom classRoom: departmentDAO.get(department.getDepartmentId()).getClassRooms()){
-            classRoomList.add(classRoom);
+        for (ClassRoom classRoom: classRoomDAO.findAll()){
+            if(classRoom.getDepartment().equals(department.getDepartmentName())) {
+                classRoomList.add(classRoom);
+            }
         }
         return classRoomList;
     }
@@ -123,10 +126,17 @@ public class ClassRoomService implements ClassRoomServiceInt {
     public void addClassRoomFromFile(File file) {
         for(ArrayList<String> list: ExcelReader.excelRead(file.getAbsolutePath())){
             String name = list.get(0);
-            int size = Integer.parseInt(list.get(1));
-            addClassRoom(new ClassRoom(name, size, ClassRoomTypes.valueOf(list.get(2)),
-               Lists.getBuildingService().getBuildingList().get(Lists.getBuildingList().indexOf(list.get(3))),
-               Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(4)))));
+            int size = (int) Double.parseDouble(list.get(1));
+            if(list.get(4).equals("-")){
+                addClassRoom(new ClassRoom(name, size, ClassRoomTypes.valueOf(list.get(2)),
+                        Lists.getBuildingService().getBuildingList().get(Lists.getBuildingList().indexOf(list.get(3)))));
+            }
+            else {
+                addClassRoom(new ClassRoom(name, size, ClassRoomTypes.valueOf(list.get(2)),
+                        Lists.getBuildingService().getBuildingList().get(Lists.getBuildingList().indexOf(list.get(3))),
+                        list.get(4)));
+            }
+
         }
     }
 }

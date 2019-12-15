@@ -25,7 +25,9 @@ public class addCurriculumController {
     @FXML private Label label2;
     @FXML private Label label3;
     @FXML private Label label4;
+    @FXML private Label label5;
     @FXML private TextField text1;
+    @FXML private TextField text2;
     @FXML private ComboBox<String> box1;
     @FXML private ComboBox<String> box2;
     @FXML private ComboBox<String> box3;
@@ -44,6 +46,7 @@ public class addCurriculumController {
         label2.setText("Кваліфікація");
         label3.setText("Спеціальність");
         label4.setText("Кафедра");
+        label5.setText("Коротка назва ОП");
         button1.textProperty().set("Додати освітню програму");
 
         specialityList = FXCollections.observableArrayList();
@@ -64,7 +67,7 @@ public class addCurriculumController {
     }
 
     @FXML public void okOnClick(){
-        curriculumService.addCurriculum(new Curriculum(text1.getText(),
+        curriculumService.addCurriculum(new Curriculum(text1.getText(), text2.getText(),
                 Lists.getSpecialityService().getSpecialities().get(box2.getSelectionModel().getSelectedIndex()),
                 Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()),
                 Lists.getQualificationList().get(box1.getSelectionModel().getSelectedIndex())));
@@ -79,6 +82,7 @@ public class addCurriculumController {
 
     private void clear(){
         text1.clear();
+        text2.clear();
         BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
         BoxCleaner.boxClear(box3);

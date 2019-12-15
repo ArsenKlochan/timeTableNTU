@@ -1,13 +1,15 @@
 package com.ntu.api.domain.database.entity;
 
 import com.ntu.api.domain.BaseObject;
+import com.ntu.api.domain.ObjectWithTimeTable;
 import com.ntu.api.domain.database.entity.enums.ClassRoomTypes;
+import com.ntu.api.domain.timeTable.TimeTableObject;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "classRooms", schema = "ntu")
-public class ClassRoom extends BaseObject {
+public class ClassRoom extends BaseObject implements ObjectWithTimeTable {
 
     @Id
     @Column(name = "classrooms_id")
@@ -29,13 +31,26 @@ public class ClassRoom extends BaseObject {
     @JoinColumn(name = "building", nullable = false)
     private Building building;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Department.class)
-    @JoinColumn(name = "department", nullable = false)
-    private Department department;
+//    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Department.class)
+//    @JoinColumn(name = "department", nullable = false)
+    @Column
+    private String department;
+
+    @Transient
+    private TimeTableObject timeTable;
 
     public ClassRoom(){}
 
-    public ClassRoom(String classRoomName, Integer classRoomSize, ClassRoomTypes type, Building building, Department department) {
+    public ClassRoom(String classRoomName, Integer classRoomSize, ClassRoomTypes type, Building building, String department, TimeTableObject timeTable) {
+        this.classRoomName = classRoomName;
+        this.classRoomSize = classRoomSize;
+        this.type = type;
+        this.building = building;
+        this.department = department;
+        this.timeTable = timeTable;
+    }
+
+    public ClassRoom(String classRoomName, Integer classRoomSize, ClassRoomTypes type, Building building, String department) {
         this.classRoomName = classRoomName;
         this.classRoomSize = classRoomSize;
         this.type = type;
@@ -43,11 +58,15 @@ public class ClassRoom extends BaseObject {
         this.department = department;
     }
 
+    public ClassRoom(String classRoomName, Integer classRoomSize, ClassRoomTypes type, Building building) {
+        this.classRoomName = classRoomName;
+        this.classRoomSize = classRoomSize;
+        this.type = type;
+        this.building = building;
+    }
+
     public Long getClassRoomsId() {
         return classRoomsId;
-    }
-    public void setClassRoomsId(Long classRoomsId) {
-        this.classRoomsId = classRoomsId;
     }
     public String getClassRoomName() {
         return classRoomName;
@@ -73,11 +92,17 @@ public class ClassRoom extends BaseObject {
     public void setBuilding(Building building) {
         this.building = building;
     }
-    public Department getDepartment() {
+    public String getDepartment() {
         return department;
     }
-    public void setDepartment(Department department) {
+    public void setDepartment(String department) {
         this.department = department;
+    }
+    public TimeTableObject getTimeTable() {
+        return timeTable;
+    }
+    public void setTimeTable(TimeTableObject timeTable) {
+        this.timeTable = timeTable;
     }
 
     @Override
@@ -87,7 +112,7 @@ public class ClassRoom extends BaseObject {
         sb.append(", classRoomsName='").append(classRoomName).append('\'');
         sb.append(", classRoomDescription='").append(classRoomSize).append('\'');
         sb.append(", type ").append(type);
-        sb.append(", building ").append(building);
+        sb.append(", building ").append(building.getBuildingName());
         sb.append(", department ").append(department);
         sb.append('}');
         return sb.toString();

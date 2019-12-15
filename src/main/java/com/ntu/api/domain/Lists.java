@@ -24,6 +24,7 @@ public class Lists {
     private static SpecialityServiceInt specialityService = context.getBean(SpecialityServiceInt.class);
     private static SubjectServiceInt subjectService = context.getBean(SubjectServiceInt.class);
     private static TeacherServiceInt teacherService = context.getBean(TeacherServiceInt.class);
+    private static SemesterServiceInt semesterService = context.getBean(SemesterServiceInt.class);
 
     public static BuildingServiceInt getBuildingService() {
         return buildingService;
@@ -57,6 +58,9 @@ public class Lists {
     }
     public static TeacherServiceInt getTeacherService() {
         return teacherService;
+    }
+    public static SemesterServiceInt getSemesterService() {
+        return semesterService;
     }
 
     public static ArrayList<String> getBuildingList() {
@@ -112,8 +116,6 @@ public class Lists {
     }
     public static ArrayList<String> getGroupeList() {
         ArrayList<String> tempList = new ArrayList<>();
-        System.out.println(lessonService.getLessons().size());
-        System.out.println(groupService.getGroups().size());
         for(Group group:groupService.getGroups()){
             tempList.add(group.getGroupName());
         }
@@ -203,6 +205,14 @@ public class Lists {
         ArrayList<String> tempList = new ArrayList<>();
         for(Qualification qualification:Qualification.values()){
             tempList.add(qualification.toString());
+        }
+        return tempList;
+    }
+
+    public static ArrayList<String> getSemesterList(){
+        ArrayList<String> tempList = new ArrayList<>();
+        for(Semester semester:semesterService.getSemesters()){
+            tempList.add(semester.getSemesterName());
         }
         return tempList;
     }
