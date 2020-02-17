@@ -7,10 +7,14 @@ import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Semester;
 import com.ntu.api.domain.database.service.serviceInterface.SemesterServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Transactional
 public class SemesterService implements SemesterServiceInt {
     @Autowired private CourseDAOInt courseDAO;
     @Autowired private SemesterDAOInt semesterDAO;

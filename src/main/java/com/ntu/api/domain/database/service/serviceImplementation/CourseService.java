@@ -6,6 +6,7 @@ import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
 import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
 import com.ntu.api.domain.database.entity.Course;
 import com.ntu.api.domain.database.entity.Curriculum;
+import com.ntu.api.domain.database.entity.enums.Qualification;
 import com.ntu.api.domain.database.service.serviceInterface.CourseServiceInt;
 import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,9 @@ public class CourseService implements CourseServiceInt {
             courses.add(course);
         }
         return courses;
+    }
+
+    public void addCourseByCurriculum(Curriculum curriculum){
+
     }
 }

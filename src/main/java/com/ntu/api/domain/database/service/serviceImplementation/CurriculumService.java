@@ -1,11 +1,9 @@
 package com.ntu.api.domain.database.service.serviceImplementation;
 
 import com.ntu.api.domain.Lists;
-import com.ntu.api.domain.database.dao.DAOinterface.CurriculumDAOInt;
-import com.ntu.api.domain.database.dao.DAOinterface.DepartmentDAOInt;
-import com.ntu.api.domain.database.dao.DAOinterface.FacultyDAOInt;
-import com.ntu.api.domain.database.dao.DAOinterface.SpecialityDAOInt;
+import com.ntu.api.domain.database.dao.DAOinterface.*;
 import com.ntu.api.domain.database.entity.*;
+import com.ntu.api.domain.database.entity.enums.Qualification;
 import com.ntu.api.domain.database.service.serviceInterface.CurriculumServiceInt;
 import com.ntu.api.model.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,8 @@ public class CurriculumService implements CurriculumServiceInt {
     @Autowired private CurriculumDAOInt curriculumDAO;
     @Autowired private DepartmentDAOInt departmentDAO;
     @Autowired private SpecialityDAOInt specialityDAO;
+    @Autowired private CourseDAOInt courseDAO;
+    @Autowired private SemesterDAOInt semesterDAO;
 
     @Override
     public Long addCurriculum(Curriculum curriculum) {
@@ -56,14 +56,14 @@ public class CurriculumService implements CurriculumServiceInt {
 
     @Override
     public void addCurriculumsFromFile(File file) {
-        System.out.println(Lists.getSpecialityNameList());
             for (ArrayList<String> list : ExcelReader.excelRead(file.getAbsolutePath())) {
                     String name = list.get(0);
                     String shortName = list.get(4);
-                    addCurriculum(new Curriculum(name, shortName,
+                    addCurriculumCourseSemester(new Curriculum(name, shortName,
                             Lists.getSpecialityService().getSpecialities().get(Lists.getSpecialityNameList().indexOf(list.get(2))),
                             Lists.getDepartmentService().getDepartments().get(Lists.getDepartmentNameList().indexOf(list.get(3))),
                             list.get(1)));
+
             }
 
     }
@@ -103,5 +103,28 @@ public class CurriculumService implements CurriculumServiceInt {
         }
         return curriculumsList;
     }
+    @Override
+    public void addCurriculumCourseSemester(Curriculum curriculum){
+        addCurriculum(curriculum);
+        Course course;
+        if(curriculum.getQualification().equals("Бакалавр")){
+            for(int i = 1; i <= 4; i++){
+                course = new Course(curriculum.getShortName() + " - " + i, curriculum);
+                courseDAO.create(course);
+                semesterCreater(course);
+            }
+        }
+        else if (curriculum.getQualification().equals("Магістр")){
+            course = new Course(curriculum.getShortName() + " - 1м", curriculum);
+            courseDAO.create(course);
+            semesterCreater(course);
+        }
+    }
+
+    private void semesterCreater(Course course){
+        semesterDAO.create(new Semester("I", course));
+        semesterDAO.create(new Semester("II", course));
+    }
+
 
 }

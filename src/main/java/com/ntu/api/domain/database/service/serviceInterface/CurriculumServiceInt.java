@@ -3,7 +3,6 @@ package com.ntu.api.domain.database.service.serviceInterface;
 import com.ntu.api.domain.database.entity.*;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface CurriculumServiceInt {
@@ -18,5 +17,5 @@ public interface CurriculumServiceInt {
     List<String> getCurriculumsByDepartmentNames(Department department);
     List<Curriculum> getCurriculumsBySpeciality(Speciality speciality);
     List<String> getCurriculumsBySpecialityNames(Speciality speciality);
-
+    public void addCurriculumCourseSemester(Curriculum curriculum);
 }
