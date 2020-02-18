@@ -15,10 +15,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sun.security.timestamp.TimestampToken;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,8 @@ public class TimeTableCreateController {
     @FXML private ComboBox<String> speciality;
     @FXML private ComboBox<String> course;
     @FXML private ComboBox<String> group;
-
+    private UniversityTimeTable universityTimeTable = new UniversityTimeTable();
+    private TimeTableObject timeTableObject;
     private String str;
 
     private static ObservableList<String> facultyList;
@@ -196,11 +199,13 @@ public class TimeTableCreateController {
             groupBool = true;
             groupObj.setTimeTable(new TimeTableObject());
             insertLesonsOnWindows(groupObj);
+            timeTableObject = new TimeTableObject();
+            timeTableObject.setName(groupObj.getGroupName() + " ");
         }
     }
 
     @FXML public void saveOnClick(){
-
+        universityTimeTable.add(timeTableObject);
     }
 
     @FXML public void cancelOnClick(){

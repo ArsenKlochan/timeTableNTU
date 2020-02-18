@@ -6,7 +6,13 @@ public class UniversityTimeTable {
     private ArrayList<TimeTableObject> timeTables = new ArrayList<>();
 
     public void add(TimeTableObject timeTable){
-        timeTables.add(timeTable);
+        for (int i = 0; i < timeTables.size(); i++){
+            if(timeTables.get(i).getName().equals(timeTable.getName())){
+                change(i, timeTable);
+                return;
+            }
+        }
+            timeTables.add(timeTable);
     }
     public void remove(TimeTableObject timeTable){
         timeTables.remove(timeTable);

@@ -86,7 +86,7 @@ public class addSubjectController {
     @FXML public void courseChooseOnClick(){
         box4.setEditable(false);
         course = Lists.getCourseService().getCourses().get(box2.getSelectionModel().getSelectedIndex());
-        box3.getItems().setAll(Lists.getSemesterService().getSemestersOnCourseInString(course));
+        box4.getItems().setAll(Lists.getSemesterService().getSemestersOnCourseInString(course));
     }
     @FXML public void okOnClick(){
         try {

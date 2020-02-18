@@ -1,7 +1,15 @@
 package com.ntu.api.domain.timeTable;
 
 public class TimeTableObject {
+    private String name;
     private Week[] weeks;
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public TimeTableObject(){
         Week[] weeks = new Week[2];

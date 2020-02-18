@@ -44,8 +44,8 @@ public class addClassRoomController {
     private static ObservableList<String> typeList;
     private static ObservableList<String> buildingList;
     private static ObservableList<String> departmentList;
-    private static ArrayList<Department> departments;
-    private static ArrayList<Building> buildings;
+    private static List<Department> departments;
+    private static List<Building> buildings;
 
     @FXML public void initialize(){
         button1.textProperty().set("Додати аудиторію");
@@ -64,23 +64,32 @@ public class addClassRoomController {
         departmentList.addAll(Lists.getDepartmentList());
 
         box1.setEditable(false);
+        box2.setEditable(false);
+        box3.setEditable(false);
 
         box1.getItems().setAll(typeList);
         box2.getItems().setAll(buildingList);
         box3.getItems().setAll(departmentList);
-        buildings = Filter.filtere(buildingList,box2, Lists.getBuildingService().getBuildingList());
-        departments = Filter.filtere(departmentList,box3, Lists.getDepartmentService().getDepartments());
+        buildings =
+//                Lists.getBuildingService().getBuildingList();
+                Filter.filtere(buildingList,box2, Lists.getBuildingService().getBuildingList());
+        departments =
+//                Lists.getDepartmentService().getDepartments();
+                Filter.filtere(departmentList,box3, Lists.getDepartmentService().getDepartments());
     }
 
     @FXML public void okOnClick(){
         try {
+            System.out.println(box1.getSelectionModel().getSelectedItem());
+            System.out.println(box2.getSelectionModel().getSelectedIndex());
+            System.out.println(box3.getSelectionModel().getSelectedIndex());
             ApplicationContext context = new ClassPathXmlApplicationContext(
                     "com/ntu/api/spring/database/config.xml");
             ClassRoomServiceInt classRoomService = context.getBean(ClassRoomServiceInt.class);
             classRoomService.addClassRoom(new ClassRoom(text1.getText(), Integer.parseInt(text2.getText()),
                     ClassRoomTypes.valueOf(box1.getSelectionModel().getSelectedItem()),
-                    buildings.get(box2.getSelectionModel().getSelectedIndex()),
-                    departments.get(box3.getSelectionModel().getSelectedIndex()).getDepartmentName(), new TimeTableObject()));
+                    buildings.get(0),
+                    box3.getSelectionModel().getSelectedItem(), new TimeTableObject()));
             clear();
             Message.questionOnClick(addClassRoom, "Додавання аудиторії", "Додати ще одну аудиторію?");
         }
@@ -100,6 +109,16 @@ public class addClassRoomController {
         BoxCleaner.boxClear(box1);
         BoxCleaner.boxClear(box2);
         BoxCleaner.boxClear(box3);
+    }
+
+    @FXML public void box1OnClick(){
+
+    }
+    @FXML public void box2OnClick(){
+//        box2.getItems().setAll(Filter.filtere(buildingList,box2, Lists.getBuildingService().getBuildingList()));
+    }
+    @FXML public void box3OnClick(){
+//        departments = Filter.filtere(departmentList,box3, Lists.getDepartmentService().getDepartments());
     }
 }
 

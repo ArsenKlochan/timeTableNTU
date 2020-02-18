@@ -67,7 +67,7 @@ public class addCurriculumController {
     }
 
     @FXML public void okOnClick(){
-        curriculumService.addCurriculum(new Curriculum(text1.getText(), text2.getText(),
+        curriculumService.addCurriculumCourseSemester(new Curriculum(text1.getText(), text2.getText(),
                 Lists.getSpecialityService().getSpecialities().get(box2.getSelectionModel().getSelectedIndex()),
                 Lists.getDepartmentService().getDepartments().get(box3.getSelectionModel().getSelectedIndex()),
                 Lists.getQualificationList().get(box1.getSelectionModel().getSelectedIndex())));

@@ -11,7 +11,7 @@
    <children>
       <ImageView fx:id="scheme" fitHeight="517.0" fitWidth="842.0" layoutX="210.0" layoutY="81.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
          <image>
-            <Image url="@../../../picture/NTUTimeTable1Schem.jpg" />
+            <Image url="@../../../picture/schem.jpg" />
          </image>
       </ImageView>
    </children>
