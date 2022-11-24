@@ -13,7 +13,7 @@
     <properties>
         <junit.version>4.12</junit.version>
         <mysql.connector.version>5.1.40</mysql.connector.version>
-        <org.hibernate.core>5.2.17.Final</org.hibernate.core>
+        <org.hibernate.core>5.3.20.Final</org.hibernate.core>
         <org.hibernate.annotations>5.0.3.Final</org.hibernate.annotations>
         <org.springframework.version>5.2.0.RELEASE</org.springframework.version>
     </properties>
